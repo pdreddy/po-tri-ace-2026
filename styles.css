@@ -117,6 +117,7 @@ nav.nav{
   box-shadow:0 4px 12px rgba(0,0,0,.1);
   border:1px solid var(--ring);
   transition:.25s;
+  color:#1a202c;
 }
 .card:hover{
   transform:translateY(-2px);
@@ -126,7 +127,7 @@ nav.nav{
 
 .link-card {
   text-decoration: none;
-  color: var(--ink);
+  color: #1a202c;
   display: block;
 }
 
@@ -135,7 +136,7 @@ nav.nav{
   padding-bottom:.5rem;border-bottom:2px solid var(--ring);
 }
 .card-emoji{font-size:1.4rem;}
-.card-title{font-size:1.05rem;font-weight:900;color:var(--ink);}
+.card-title{font-size:1.05rem;font-weight:900;color:#1a202c;}
 
 .item{
   display:flex;gap:.6rem;background:#f8fafc;
@@ -145,8 +146,8 @@ nav.nav{
 }
 .item .i { font-size:1.1rem; flex-shrink:0; }
 .item span { flex-shrink: 0; }
-.lbl{font-weight:900;color:#2d3748;margin-bottom:.2rem;}
-.val{color:#4a5568;line-height:1.5;}
+.lbl{font-weight:900;color:#1a202c;margin-bottom:.2rem;}
+.val{color:#1a202c;line-height:1.5;}
 
 /* TIER STYLES */
 .tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:1rem;margin-top:1rem;}
@@ -172,8 +173,8 @@ nav.nav{
 .rising .tier-badge{
   background:linear-gradient(135deg,var(--groupA),#059669);
 }
-.tier-content{font-size:.95rem;line-height:1.7;color:#4a5568;}
-.tier-content strong { color:var(--ink); font-weight:900; }
+.tier-content{font-size:.95rem;line-height:1.7;color:#1a202c !important;}
+.tier-content strong { color:#1a202c !important; font-weight:900; }
 
 /* TWIST RULE STYLES */
 .twist-flash {
@@ -190,7 +191,7 @@ nav.nav{
   font-size:1.05rem;
   line-height:1.7;
   font-weight:700;
-  color:var(--ink);
+  color:#1a202c;
 }
 
 .twist-highlight {
@@ -243,7 +244,7 @@ nav.nav{
 .twist-content {
   font-size:.95rem;
   line-height:1.7;
-  color:#4a5568;
+  color:#1a202c;
 }
 
 .twist-win {
@@ -262,7 +263,7 @@ nav.nav{
   text-align:center;
   font-weight:700;
   margin:.8rem 0;
-  color:var(--ink);
+  color:#1a202c;
 }
 
 .alert-box {
