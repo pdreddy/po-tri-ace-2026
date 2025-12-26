@@ -345,6 +345,11 @@ nav.nav{
   gap: 1rem;
 }
 
+/* UTILITY CLASSES */
+.hidden {
+  display: none !important;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .groups-container {
