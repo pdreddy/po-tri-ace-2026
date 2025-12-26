@@ -435,28 +435,8 @@
 
 <main class="score-container">
 
-    <!-- DEFAULT: Password Entry -->
-    <div id="accessSection">
-        <div class="access-box">
-            <div class="access-title">
-                <span>🔒</span>
-                <span>Score Entry Access</span>
-            </div>
-            
-            <div class="access-form">
-                <input type="password" id="passwordInput" class="password-input" placeholder="Enter team password" />
-                <button class="unlock-btn" id="unlockBtn">Unlock Scoring</button>
-            </div>
-            
-            <div class="access-hint">
-                <strong>Team captains:</strong> enter your team's unique password.<br>
-                <strong>Password format:</strong> TEAM# (e.g., A1#, B5#) | <strong>Admin:</strong> ADMIN#2025
-            </div>
-        </div>
-    </div>
-
-    <!-- UNLOCKED: Score Entry Form -->
-    <div id="entrySection" class="hidden entry-section">
+    <!-- Score Entry Form (No Initial Password Required) -->
+    <div id="entrySection" class="entry-section">
         
         <!-- Header -->
         <div class="entry-header">
@@ -464,10 +444,9 @@
                 <span style="font-size:1.75rem;">📝</span>
                 <div>
                     <h2>Quick Score Entry</h2>
-                    <span class="team-badge" id="teamBadge"></span>
+                    <p style="margin:0;font-size:0.9rem;color:#64748b;font-weight:normal;">Enter match results and authenticate when saving</p>
                 </div>
             </div>
-            <button class="lock-btn" id="lockBtn">🔒 Lock</button>
         </div>
 
         <!-- Undo Last Result -->
@@ -585,33 +564,8 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
 
     auth.signInAnonymously();
 
-    document.getElementById('unlockBtn').addEventListener('click', () => {
-        const pwd = document.getElementById('passwordInput').value.trim().toUpperCase();
-        const t = PASSWORDS[pwd];
-        
-        if (t) {
-            team = t === 'ADMIN' ? null : t;
-            admin = t === 'ADMIN';
-            
-            document.getElementById('accessSection').classList.add('hidden');
-            document.getElementById('entrySection').classList.remove('hidden');
-            document.getElementById('teamBadge').textContent = admin ? 'ADMIN' : t;
-            
-            loadLast();
-        } else {
-            alert('❌ Invalid password');
-        }
-    });
-
-    document.getElementById('lockBtn').addEventListener('click', () => {
-        team = null;
-        admin = false;
-        document.getElementById('accessSection').classList.remove('hidden');
-        document.getElementById('entrySection').classList.add('hidden');
-        document.getElementById('passwordInput').value = '';
-        document.getElementById('scoreText').value = '';
-        updatePreview();
-    });
+    // Load undo info on page load
+    loadLast();
 
     function parse(txt) {
         const res = [], errs = [];
@@ -764,25 +718,44 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
 
     document.getElementById('saveBtn').addEventListener('click', () => {
         const { res, errs, t1, t2 } = parse(scoreText.value);
-        
+
         if (errs.length) {
             alert('❌ Errors:\n\n' + errs.join('\n'));
             return;
         }
-        
+
         if (!res.length) {
             alert('❌ No matches');
             return;
         }
-        
-        if (!admin && team !== t1.abbreviation && team !== t2.abbreviation) {
-            alert(`❌ Only for your team (${team})`);
+
+        // Prompt for password before saving
+        const pwd = prompt('🔒 Enter your team password to save:\n\nFormat: TEAM# (e.g., A1#, B5#) or ADMIN#2025');
+
+        if (!pwd) {
+            return; // User cancelled
+        }
+
+        const t = PASSWORDS[pwd.trim().toUpperCase()];
+
+        if (!t) {
+            alert('❌ Invalid password. Entry not saved.');
             return;
         }
-        
+
+        // Set team and admin based on password
+        team = t === 'ADMIN' ? null : t;
+        admin = t === 'ADMIN';
+
+        // Verify team authorization
+        if (!admin && team !== t1.abbreviation && team !== t2.abbreviation) {
+            alert(`❌ Password is for team ${team}, but this match is ${t1.abbreviation} vs ${t2.abbreviation}.\n\nYou can only submit scores for matches involving your team.`);
+            return;
+        }
+
         let s1 = 0, s2 = 0;
         res.forEach(r => { s1 += r.sets1; s2 += r.sets2; });
-        
+
         const data = {
             team1: t1.abbreviation,
             team2: t2.abbreviation,
@@ -793,22 +766,22 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
             timestamp: firebase.database.ServerValue.TIMESTAMP,
             submittedBy: admin ? 'Admin' : team
         };
-        
+
         const ref = db.ref('RoundRobinTournament').push();
         ref.set(data).then(() => {
             lastKey = ref.key;
             localStorage.setItem('lastKey', lastKey);
             localStorage.setItem('lastData', JSON.stringify(data));
-            
-            alert('✅ Match saved!');
+
+            alert('✅ Match saved successfully!');
             scoreText.value = '';
             updatePreview();
-            
+
             document.getElementById('undoCard').style.display = 'block';
-            document.getElementById('undoInfo').textContent = 
+            document.getElementById('undoInfo').textContent =
                 `${data.team1} vs ${data.team2} - Winner: ${data.winner} (${data.team1Sets}-${data.team2Sets})`;
         }).catch(e => {
-            alert('❌ Failed: ' + e.message);
+            alert('❌ Failed to save: ' + e.message);
         });
     });
 
