@@ -194,8 +194,8 @@
                 <h2><span class="group-badge a">GROUP A</span> Standings</h2>
                 <div class="table-container">
                     <table class="standings-table responsive-table">
-                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
-                        <tbody id="standingsBodyA"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>W</th><th>L</th><th>Sets Won</th><th>Games Won</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyA"><tr><td colspan="7" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
                 <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
@@ -204,8 +204,8 @@
                 <h2><span class="group-badge b">GROUP B</span> Standings</h2>
                 <div class="table-container">
                     <table class="standings-table responsive-table">
-                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
-                        <tbody id="standingsBodyB"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>W</th><th>L</th><th>Sets Won</th><th>Games Won</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyB"><tr><td colspan="7" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
                 <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
@@ -520,12 +520,13 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
 
     function computeStandings(teamNames){
       const stats = {};
-      teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0 });
+      teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, setsWon:0, gamesFor:0, gamesAgainst:0, points:0 });
       for(const m of matches){
         if(!stats[m.t1] || !stats[m.t2]) continue;
         stats[m.t1].matches++; stats[m.t2].matches++;
         stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
         stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
+        stats[m.t1].setsWon += m.s1 || 0; stats[m.t2].setsWon += m.s2 || 0;
         if(m.win === m.t1){ stats[m.t1].wins++; stats[m.t2].losses++; stats[m.t1].points += 3; }
         else if(m.win === m.t2){ stats[m.t2].wins++; stats[m.t1].losses++; stats[m.t2].points += 3; }
       }
@@ -534,7 +535,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     }
 
     function renderStandings(){
-      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>'; return; }
+      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="7" style="text-align:center;">Loading...</td></tr>'; return; }
       [['A', TEAMS_A, standingsBodyA], ['B', TEAMS_B, standingsBodyB]].forEach(([g, teams, tbody]) => {
         const rows = computeStandings(teams);
         tbody.innerHTML = rows.map((r,i)=>{
@@ -543,9 +544,8 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           return `<tr class="${i<3?'qualified':''}">
             <td class="rank-cell" data-label="#">${i+1}</td>
             <td class="team-cell" data-label="Team">${team?.abbreviation||r.team}<br><small style="font-weight:400;color:var(--muted);font-size:.7rem;">${players}</small></td>
-            <td data-label="M">${r.matches}</td><td data-label="W">${r.wins}</td><td data-label="L">${r.losses}</td>
-            <td data-label="GF">${r.gamesFor}</td><td data-label="GA">${r.gamesAgainst}</td>
-            <td data-label="+/-">${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</td>
+            <td data-label="W">${r.wins}</td><td data-label="L">${r.losses}</td>
+            <td data-label="Sets Won">${r.setsWon}</td><td data-label="Games Won">${r.gamesFor}</td>
             <td class="points-cell" data-label="Pts">${r.points}</td></tr>`;
         }).join('');
       });
