@@ -142,7 +142,13 @@
         .tab-content{ display:none; }
         .tab-content.active{ display:block; }
         .team-badge{ display:inline-block; padding:.15rem .5rem; border-radius:4px; font-size:.7rem; font-weight:700; color:#fff; background:var(--bg1); margin-left:.5rem; }
-        
+        .btn-delete{
+          padding:.4rem .7rem; border:none; border-radius:6px; font-weight:600; color:#fff; cursor:pointer;
+          background:linear-gradient(135deg,#ef4444,#dc2626); font-size:.75rem;
+          box-shadow:0 2px 6px rgba(239,68,68,.3);
+        }
+        .btn-delete:hover{ opacity:.85; }
+
         @media (max-width:900px){ 
           .groups-container{ grid-template-columns:1fr; }
         }
@@ -258,8 +264,8 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         <section class="card">
             <h2>📜 Match History</h2>
             <div class="table-container">
-                <table class="responsive-table">
-                    <thead><tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
+                <table class="responsive-table" id="historyTable">
+                    <thead id="historyTableHead"><tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
                     <tbody id="historyBody"><tr><td colspan="6" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                 </table>
             </div>
@@ -341,7 +347,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const TEAMS_B = groupB.map(t => t.name);
     const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-    let matches = [], matchesLoaded = false, currentTeam = null;
+    let matches = [], matchesLoaded = false, currentTeam = null, isAdmin = false;
     const standingsBodyA = document.getElementById('standingsBodyA');
     const standingsBodyB = document.getElementById('standingsBodyB');
     const historyBody = document.getElementById('historyBody');
@@ -484,10 +490,24 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     document.getElementById('unlockBtn').addEventListener('click', () => {
       const code = document.getElementById('accessCode').value.trim().toUpperCase();
       const team = TEAM_PASSWORDS[code];
-      if(team){ currentTeam = team; scoringForm.classList.remove('hidden'); loggedTeamBadge.textContent = team.abbreviation; document.getElementById('accessCode').value = ''; alert(`✅ Unlocked for ${team.name}`); }
+      if(team){
+        currentTeam = team;
+        isAdmin = (team.abbreviation === 'ADMIN');
+        scoringForm.classList.remove('hidden');
+        loggedTeamBadge.textContent = team.abbreviation;
+        document.getElementById('accessCode').value = '';
+        alert(`✅ Unlocked for ${team.name}`);
+        renderAll(); // Re-render to show/hide delete buttons
+      }
       else { alert('❌ Invalid password'); }
     });
-    document.getElementById('lockBtn').addEventListener('click', () => { scoringForm.classList.add('hidden'); currentTeam = null; loggedTeamBadge.textContent = ''; });
+    document.getElementById('lockBtn').addEventListener('click', () => {
+      scoringForm.classList.add('hidden');
+      currentTeam = null;
+      isAdmin = false;
+      loggedTeamBadge.textContent = '';
+      renderAll(); // Re-render to hide delete buttons
+    });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
       if(!matchesLoaded) return alert('Please wait for data to load.');
@@ -552,8 +572,18 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     }
 
     function renderHistory(){
-      if(!matchesLoaded){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>'; return; }
-      if(matches.length === 0){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>'; return; }
+      const colSpan = isAdmin ? 7 : 6;
+      const historyTableHead = document.getElementById('historyTableHead');
+
+      // Update table header based on admin status
+      if(isAdmin){
+        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th><th>Actions</th></tr>';
+      } else {
+        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr>';
+      }
+
+      if(!matchesLoaded){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;">Loading...</td></tr>`; return; }
+      if(matches.length === 0){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>`; return; }
       historyBody.innerHTML = matches.map((m,idx)=>{
         const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
         let breakdown = '—';
@@ -565,7 +595,8 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           }).join('');
           breakdown = `<div class="history-breakdown-wrapper"><button type="button" class="history-toggle" aria-expanded="false">Details</button><div class="history-breakdown">${parts}</div></div>`;
         }
-        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td></tr>`;
+        const deleteBtn = isAdmin ? `<td data-label="Actions"><button class="btn-delete" data-match-id="${m.id}" onclick="deleteMatch('${m.id}', '${escapeHTML(t1?.abbreviation||m.t1)} vs ${escapeHTML(t2?.abbreviation||m.t2)}')">Delete</button></td>` : '';
+        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td>${deleteBtn}</tr>`;
       }).join('');
     }
     historyBody.addEventListener('click', e => {
@@ -582,6 +613,24 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       document.getElementById('teamListA').innerHTML = groupA.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
       document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
     }
+
+    async function deleteMatch(matchId, matchDesc){
+      if(!isAdmin){
+        alert('❌ Only admins can delete matches.');
+        return;
+      }
+      const confirmed = confirm(`Are you sure you want to delete this match?\n\n${matchDesc}\n\nThis action cannot be undone.`);
+      if(!confirmed) return;
+
+      try {
+        await database.ref('RoundRobinTournament/' + matchId).remove();
+        alert('✅ Match deleted successfully.');
+      } catch(err){
+        console.error('Delete error:', err);
+        alert('❌ Failed to delete match: ' + err.message);
+      }
+    }
+    window.deleteMatch = deleteMatch; // Make it globally accessible for onclick handlers
 
     function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); }
     renderAll();
