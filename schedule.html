@@ -3,8 +3,217 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TriAce 2025 – Schedule</title>
+    <title>TriAce 2025 – Match Schedule</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .filter-bar {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+        }
+        
+        .filter-group label {
+            font-weight: 700;
+            color: #1a202c;
+        }
+        
+        .filter-select {
+            padding: .5rem 1rem;
+            border: 2px solid var(--ring);
+            border-radius: 8px;
+            font-size: .95rem;
+            font-weight: 600;
+            min-width: 150px;
+        }
+        
+        .month-section {
+            margin-bottom: 2rem;
+        }
+        
+        .month-header {
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+        
+        .sunday-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            border-left: 6px solid var(--accent);
+        }
+        
+        .sunday-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: .75rem;
+            border-bottom: 2px solid var(--ring);
+        }
+        
+        .sunday-date {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #1a202c;
+        }
+        
+        .round-label {
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            color: #fff;
+            padding: .4rem .8rem;
+            border-radius: 6px;
+            font-size: .85rem;
+            font-weight: 700;
+            margin-top: .5rem;
+            display: inline-block;
+        }
+        
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+        }
+        
+        .match-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .75rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid var(--bg1);
+        }
+        
+        .match-teams {
+            flex: 1;
+            font-weight: 600;
+            color: #1a202c;
+        }
+        
+        .home-team {
+            color: var(--bg1);
+            font-weight: 900;
+        }
+        
+        .away-team {
+            color: #4a5568;
+        }
+        
+        .match-status {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+        }
+        
+        .status-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .status-label {
+            font-size: .85rem;
+            font-weight: 700;
+            padding: .3rem .6rem;
+            border-radius: 6px;
+        }
+        
+        .btn.completed {
+            background: #10b981;
+            color: #fff;
+            border: none;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        
+        .btn.completed:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+        
+        .btn.pending {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: .5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        
+        .btn.pending:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        .completed {
+            background: #10b981;
+            color: #fff;
+        }
+        
+        .pending {
+            background: #ef4444;
+            color: #fff;
+        }
+        
+        .bye-notice {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            padding: .75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            color: #92400e;
+            margin-top: .5rem;
+        }
+        
+        .buffer-week {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-left-color: #ef4444;
+        }
+        
+        .double-header {
+            background: linear-gradient(135deg, #f0fdff, #e0f2fe);
+            border-left-color: #0ea5e9;
+        }
+        
+        .admin-controls {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -33,29 +242,492 @@
 
 <main class="container">
 
-    <!-- HERO -->
     <section class="page-header">
-        <h1>📅 MATCH SCHEDULE</h1>
-        <p>Weekly Fixtures & Match Calendar</p>
+        <h1>🏟️ HOME / AWAY SUNDAY-ONLY SCHEDULE</h1>
+        <p>Complete match schedule for all Sundays</p>
     </section>
 
-    <section class="card" style="text-align:center;padding:3rem 2rem;">
-        <div class="card-emoji" style="font-size:4rem;margin-bottom:1rem;">📅</div>
-        <h2 style="color:var(--bg1);margin-bottom:1rem;">Schedule Coming Soon</h2>
-        <p style="color:var(--muted);max-width:600px;margin:0 auto;">
-            Match schedules will be published here once the tournament begins. 
-            Check back soon for weekly fixtures and match timings.
-        </p>
-    </section>
+    <!-- TEAM PASSWORD CONTROLS -->
+    <div class="admin-controls">
+        <div style="display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;">
+            <input type="password" id="teamPassword" placeholder="Enter team password (e.g., A1#)" style="min-width:200px;padding:.5rem;border:2px solid var(--ring);border-radius:8px;" />
+            <button class="btn" id="verifyPasswordBtn">✅ Verify Password</button>
+        </div>
+        <p style="margin-top:.5rem;color:var(--muted);font-size:.85rem;">Enter your team password to mark your matches as completed</p>
+    </div>
+    
+    <div class="admin-controls hidden" id="teamUnlockedControls">
+        <div style="display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;">
+            <span id="teamNameDisplay" style="font-weight:700;color:var(--bg1);"></span>
+            <button class="btn secondary" id="logoutBtn">🔒 Logout</button>
+        </div>
+    </div>
 
-    <!-- FOOTER -->
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-group">
+            <label for="monthFilter">📅 Month:</label>
+            <select id="monthFilter" class="filter-select">
+                <option value="all">All Months</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="statusFilter">✅ Status:</label>
+            <select id="statusFilter" class="filter-select">
+                <option value="all">All Matches</option>
+                <option value="completed">Completed Only</option>
+                <option value="pending">Pending Only</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="teamFilter">👥 Team:</label>
+            <select id="teamFilter" class="filter-select">
+                <option value="all">All Teams</option>
+                <option value="A1">Team A1</option>
+                <option value="A2">Team A2</option>
+                <option value="A3">Team A3</option>
+                <option value="A4">Team A4</option>
+                <option value="A5">Team A5</option>
+                <option value="A6">Team A6</option>
+                <option value="A7">Team A7</option>
+                <option value="A8">Team A8</option>
+                <option value="A9">Team A9</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SCHEDULE CONTENT -->
+    <div id="scheduleContent"></div>
+
     <footer class="footer">
         🎾 TRIACE 2025 — Presented by Prosper Open
     </footer>
 
 </main>
 
-<script src="script.js"></script>
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
+      authDomain: "koc2-20fb8.firebaseapp.com",
+      databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
+      projectId: "koc2-20fb8",
+      storageBucket: "koc2-20fb8.appspot.com",
+      messagingSenderId: "265151597444",
+      appId: "1:265151597444:web:5d10d1c2e8e9c5f5b8c6a7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const auth = firebase.auth();
+    
+    let currentTeam = null;
+    let isAdmin = false;
+    let scheduleData = {};
+    let firebaseReady = false;
+
+    // Initialize Firebase Auth
+    auth.signInAnonymously().then(() => {
+        console.log('✅ Firebase authenticated');
+        firebaseReady = true;
+        loadScheduleData();
+    }).catch(error => {
+        console.error('Firebase auth error:', error);
+        alert('⚠️ Connection error. Please refresh the page.');
+    });
+
+    // Team password mapping (same as score entry)
+    const TEAM_PASSWORDS = {
+        'A1#': 'A1', 'A2#': 'A2', 'A3#': 'A3', 'A4#': 'A4', 'A5#': 'A5',
+        'A6#': 'A6', 'A7#': 'A7', 'A8#': 'A8', 'A9#': 'A9',
+        'B1#': 'B1', 'B2#': 'B2', 'B3#': 'B3', 'B4#': 'B4', 'B5#': 'B5',
+        'B6#': 'B6', 'B7#': 'B7', 'B8#': 'B8', 'B9#': 'B9',
+        'ADMIN#2025': 'ADMIN'
+    };
+
+    // Schedule Data Structure
+    const schedule = {
+        january: {
+            name: "JANUARY (Single-Round Sundays)",
+            weeks: [
+                {
+                    date: "Sunday – Jan 5",
+                    matches: [
+                        { home: "A1", away: "A2" },
+                        { home: "A3", away: "A4" },
+                        { home: "A5", away: "A6" },
+                        { home: "A7", away: "A8" }
+                    ],
+                    bye: "A9"
+                },
+                {
+                    date: "Sunday – Jan 12",
+                    matches: [
+                        { home: "A3", away: "A1" },
+                        { home: "A4", away: "A2" },
+                        { home: "A5", away: "A7" },
+                        { home: "A6", away: "A9" }
+                    ],
+                    bye: "A8"
+                },
+                {
+                    date: "Sunday – Jan 19",
+                    matches: [
+                        { home: "A1", away: "A4" },
+                        { home: "A5", away: "A2" },
+                        { home: "A6", away: "A3" },
+                        { home: "A8", away: "A9" }
+                    ],
+                    bye: "A7"
+                },
+                {
+                    date: "Sunday – Jan 26",
+                    matches: [
+                        { home: "A5", away: "A1" },
+                        { home: "A6", away: "A2" },
+                        { home: "A7", away: "A3" },
+                        { home: "A4", away: "A8" }
+                    ],
+                    bye: "A9"
+                }
+            ]
+        },
+        february: {
+            name: "FEBRUARY",
+            weeks: [
+                {
+                    date: "Sunday – Feb 2",
+                    matches: [
+                        { home: "A1", away: "A6" },
+                        { home: "A7", away: "A2" },
+                        { home: "A8", away: "A3" },
+                        { home: "A9", away: "A4" }
+                    ],
+                    bye: "A5"
+                },
+                {
+                    date: "Sunday – Feb 9",
+                    matches: [
+                        { home: "A7", away: "A1" },
+                        { home: "A8", away: "A2" },
+                        { home: "A9", away: "A3" },
+                        { home: "A4", away: "A5" }
+                    ],
+                    bye: "A6"
+                },
+                {
+                    date: "Sunday – Feb 16",
+                    matches: [
+                        { home: "A8", away: "A1" },
+                        { home: "A9", away: "A2" },
+                        { home: "A3", away: "A5" },
+                        { home: "A6", away: "A7" }
+                    ],
+                    bye: "A4"
+                },
+                {
+                    date: "Sunday – Feb 23",
+                    buffer: true,
+                    matches: []
+                }
+            ]
+        },
+        march: {
+            name: "MARCH (Double-Header Sundays)",
+            weeks: [
+                {
+                    date: "Sunday – Mar 2",
+                    doubleHeader: true,
+                    rounds: [
+                        {
+                            round: "Round 9",
+                            matches: [
+                                { home: "A9", away: "A1" },
+                                { home: "A6", away: "A4" },
+                                { home: "A8", away: "A5" },
+                                { home: "A7", away: "A9" }
+                            ]
+                        },
+                        {
+                            round: "Round 10",
+                            matches: [
+                                { home: "A2", away: "A3" },
+                                { home: "A7", away: "A4" },
+                                { home: "A9", away: "A5" },
+                                { home: "A6", away: "A8" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    date: "Sunday – Mar 9",
+                    doubleHeader: true,
+                    rounds: [
+                        {
+                            round: "Round 11",
+                            matches: [
+                                { home: "A2", away: "A1" },
+                                { home: "A4", away: "A3" },
+                                { home: "A6", away: "A5" },
+                                { home: "A8", away: "A7" }
+                            ]
+                        },
+                        {
+                            round: "Round 12",
+                            matches: [
+                                { home: "A1", away: "A3" },
+                                { home: "A2", away: "A4" },
+                                { home: "A7", away: "A5" },
+                                { home: "A9", away: "A6" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    date: "Sunday – Mar 16",
+                    doubleHeader: true,
+                    rounds: [
+                        {
+                            round: "Round 13",
+                            matches: [
+                                { home: "A4", away: "A1" },
+                                { home: "A5", away: "A2" },
+                                { home: "A6", away: "A3" },
+                                { home: "A9", away: "A8" }
+                            ]
+                        },
+                        {
+                            round: "Round 14",
+                            matches: [
+                                { home: "A1", away: "A5" },
+                                { home: "A2", away: "A6" },
+                                { home: "A3", away: "A7" },
+                                { home: "A8", away: "A4" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    date: "Sunday – Mar 23",
+                    doubleHeader: true,
+                    rounds: [
+                        {
+                            round: "Round 15",
+                            matches: [
+                                { home: "A6", away: "A1" },
+                                { home: "A7", away: "A2" },
+                                { home: "A8", away: "A3" },
+                                { home: "A9", away: "A4" }
+                            ]
+                        },
+                        {
+                            round: "Round 16",
+                            matches: [
+                                { home: "A7", away: "A1" },
+                                { home: "A8", away: "A2" },
+                                { home: "A9", away: "A3" },
+                                { home: "A5", away: "A4" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    };
+
+    function generateMatchId(home, away, date) {
+        // Create unique ID per match including the date
+        return `${date}_${home}_vs_${away}`.replace(/[^\w]/g, '_');
+    }
+
+    function toggleMatchStatus(matchId, homeTeam, awayTeam) {
+        if (!firebaseReady) {
+            alert('⚠️ Please wait, connecting to database...');
+            return;
+        }
+        
+        if (!currentTeam && !isAdmin) {
+            alert('⚠️ Please enter your team password first');
+            return;
+        }
+        
+        // Check if current team is involved in this match or is admin
+        if (!isAdmin && currentTeam !== homeTeam && currentTeam !== awayTeam) {
+            alert('❌ You can only mark matches involving your team');
+            return;
+        }
+        
+        const currentStatus = scheduleData[matchId] || false;
+        const newStatus = !currentStatus;
+        
+        console.log('Updating match:', matchId, 'to', newStatus);
+        
+        database.ref('Schedule/' + matchId).set(newStatus).then(() => {
+            scheduleData[matchId] = newStatus;
+            console.log('✅ Match updated successfully');
+            renderSchedule();
+        }).catch(err => {
+            console.error('❌ Error updating match:', err);
+            alert('❌ Failed to update: ' + err.message);
+        });
+    }
+
+    function loadScheduleData() {
+        if (!firebaseReady) {
+            console.log('Waiting for Firebase authentication...');
+            return;
+        }
+        
+        database.ref('Schedule').on('value', snapshot => {
+            scheduleData = snapshot.val() || {};
+            console.log('📊 Loaded schedule data:', Object.keys(scheduleData).length, 'matches');
+            renderSchedule();
+        }, error => {
+            console.error('Error loading schedule:', error);
+        });
+    }
+
+    function renderSchedule() {
+        const container = document.getElementById('scheduleContent');
+        const monthFilter = document.getElementById('monthFilter').value;
+        const statusFilter = document.getElementById('statusFilter').value;
+        const teamFilter = document.getElementById('teamFilter').value;
+        
+        let html = '';
+        
+        Object.keys(schedule).forEach(monthKey => {
+            if (monthFilter !== 'all' && monthFilter !== monthKey) return;
+            
+            const month = schedule[monthKey];
+            html += `<div class="month-section" data-month="${monthKey}">`;
+            html += `<div class="month-header">🟦 ${month.name.toUpperCase()}</div>`;
+            
+            month.weeks.forEach(week => {
+                if (week.buffer) {
+                    html += `<div class="sunday-card buffer-week">
+                        <div class="sunday-header">
+                            <div class="sunday-date">${week.date} — BUFFER (No Matches) 🛑</div>
+                        </div>
+                    </div>`;
+                    return;
+                }
+                
+                const cardClass = week.doubleHeader ? 'sunday-card double-header' : 'sunday-card';
+                html += `<div class="${cardClass}">`;
+                html += `<div class="sunday-header"><div class="sunday-date">${week.date}</div></div>`;
+                
+                if (week.doubleHeader) {
+                    week.rounds.forEach(round => {
+                        html += `<div class="round-label">${round.round}</div>`;
+                        html += `<div class="match-list">`;
+                        html += renderMatches(round.matches, week.date, teamFilter, statusFilter);
+                        html += `</div>`;
+                    });
+                } else {
+                    html += `<div class="match-list">`;
+                    html += renderMatches(week.matches, week.date, teamFilter, statusFilter);
+                    html += `</div>`;
+                    
+                    if (week.bye) {
+                        html += `<div class="bye-notice">🔔 Bye: Team ${week.bye}</div>`;
+                    }
+                }
+                
+                html += `</div>`;
+            });
+            
+            html += `</div>`;
+        });
+        
+        container.innerHTML = html;
+    }
+
+    function renderMatches(matches, date, teamFilter, statusFilter) {
+        let html = '';
+        
+        matches.forEach(match => {
+            const matchId = generateMatchId(match.home, match.away, date);
+            const isCompleted = scheduleData[matchId] === true;
+            
+            // Apply filters
+            if (teamFilter !== 'all' && match.home !== teamFilter && match.away !== teamFilter) return;
+            if (statusFilter === 'completed' && !isCompleted) return;
+            if (statusFilter === 'pending' && isCompleted) return;
+            
+            // Check if current team can edit this match
+            const canEdit = isAdmin || currentTeam === match.home || currentTeam === match.away;
+            
+            html += `<div class="match-item">
+                <div class="match-teams">
+                    <span class="home-team">Team ${match.home} (Home)</span> vs 
+                    <span class="away-team">Team ${match.away} (Away)</span>
+                </div>
+                <div class="match-status">`;
+            
+            if (canEdit) {
+                const buttonClass = isCompleted ? 'btn completed' : 'btn pending';
+                const buttonText = isCompleted ? '✅ COMPLETED' : '⏳ PENDING';
+                html += `<button class="${buttonClass}" style="min-width:140px;font-size:.9rem;" onclick="toggleMatchStatus('${matchId}', '${match.home}', '${match.away}')">${buttonText}</button>`;
+            } else {
+                const labelClass = isCompleted ? 'status-label completed' : 'status-label pending';
+                const labelText = isCompleted ? '✅ COMPLETED' : '⏳ PENDING';
+                html += `<span class="${labelClass}" style="min-width:140px;display:inline-block;text-align:center;">${labelText}</span>`;
+            }
+            
+            html += `</div>
+            </div>`;
+        });
+        
+        return html;
+    }
+
+    // Team password verification
+    document.getElementById('verifyPasswordBtn').addEventListener('click', () => {
+        const password = document.getElementById('teamPassword').value.trim().toUpperCase();
+        const team = TEAM_PASSWORDS[password];
+        
+        if (team) {
+            currentTeam = team === 'ADMIN' ? null : team;
+            isAdmin = team === 'ADMIN';
+            
+            document.querySelector('.admin-controls').classList.add('hidden');
+            document.getElementById('teamUnlockedControls').classList.remove('hidden');
+            document.getElementById('teamNameDisplay').textContent = isAdmin ? '✅ Admin Access' : `✅ Team ${currentTeam} - Logged In`;
+            
+            renderSchedule();
+            alert(isAdmin ? '✅ Admin access granted' : `✅ Logged in as Team ${currentTeam}`);
+        } else {
+            alert('❌ Invalid password');
+        }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        currentTeam = null;
+        isAdmin = false;
+        document.querySelector('.admin-controls').classList.remove('hidden');
+        document.getElementById('teamUnlockedControls').classList.add('hidden');
+        document.getElementById('teamPassword').value = '';
+        renderSchedule();
+        alert('🔒 Logged out');
+    });
+
+    // Filter listeners
+    document.getElementById('monthFilter').addEventListener('change', renderSchedule);
+    document.getElementById('statusFilter').addEventListener('change', renderSchedule);
+    document.getElementById('teamFilter').addEventListener('change', renderSchedule);
+
+    // Mobile menu
+    document.getElementById('menuBtn').addEventListener('click', () => {
+        document.getElementById('siteNav').classList.toggle('open');
+    });
+
+    // Note: loadScheduleData() is called automatically after Firebase auth in the init section above
+</script>
 
 </body>
 </html>
