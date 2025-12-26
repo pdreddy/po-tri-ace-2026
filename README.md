@@ -1,103 +1,174 @@
 # TriAce 2025 Tournament Website
 
-A complete tournament management website for TriAce 2025 tennis tournament featuring 18 teams across 2 groups.
+Complete tournament management system with live scoring, standings, and Firebase integration.
 
-## Features
+## 🚀 Quick Deploy to Netlify with Auto-Updates
 
-- 🏠 **Home Page**: Tournament overview and quick links
-- 📋 **Rules Page**: Complete tournament rules, format, and competition structure
-- 👥 **Teams Page**: All 18 teams with player rosters
-- 📅 **Schedule Page**: Match schedules (placeholder ready)
-- 📊 **Scorecard Page**: Live standings with Firebase integration
+### **Option 1: Auto-Deploy via GitHub (RECOMMENDED)**
 
-## Technology Stack
+This enables **automatic deployment** - every time you update your code and push to GitHub, Netlify automatically deploys the changes!
 
-- Pure HTML/CSS/JavaScript
-- Firebase Realtime Database for score tracking
-- Responsive design for mobile and desktop
-- Modern gradient UI with navy/ice blue theme
+#### Step 1: Create GitHub Repository
+1. Go to [GitHub](https://github.com) and sign in
+2. Click the **"+"** button → **"New repository"**
+3. Name it `triace-2025` (or any name)
+4. Choose **Public** or **Private**
+5. **Don't** check "Initialize with README"
+6. Click **"Create repository"**
 
-## Deployment to Netlify
+#### Step 2: Push Your Code to GitHub
+Open terminal/command prompt in your `triace-2025` folder and run:
 
-### Option 1: Drag & Drop
-1. Zip all files in this folder
-2. Go to [Netlify Drop](https://app.netlify.com/drop)
-3. Drag and drop the zip file
-4. Your site will be live instantly!
-
-### Option 2: Git Deploy
-1. Push this folder to a GitHub repository
-2. Go to [Netlify](https://app.netlify.com/)
-3. Click "New site from Git"
-4. Connect your repository
-5. Build settings are already configured in `netlify.toml`
-6. Deploy!
-
-### Option 3: Netlify CLI
 ```bash
-# Install Netlify CLI
-npm install -g netlify-cli
-
-# Login to Netlify
-netlify login
-
-# Deploy
-netlify deploy --prod
+git init
+git add .
+git commit -m "Initial commit - TriAce 2025 tournament site"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/triace-2025.git
+git push -u origin main
 ```
 
-## File Structure
+*(Replace `YOUR_USERNAME` with your actual GitHub username)*
+
+#### Step 3: Connect to Netlify for Auto-Deploy
+1. Go to [Netlify](https://app.netlify.com)
+2. Sign in (or create account)
+3. Click **"Add new site"** → **"Import an existing project"**
+4. Click **"Deploy with GitHub"**
+5. Authorize Netlify (if first time)
+6. Select your **`triace-2025`** repository
+7. **Build settings:**
+   - Build command: *(leave empty)*
+   - Publish directory: `.` or `/`
+8. Click **"Deploy site"**
+
+#### Step 4: You're Live! ✅
+- Site deploys in ~1 minute
+- Live URL: `https://random-name-12345.netlify.app`
+- **Auto-deploy is ON!** Every GitHub push triggers deployment
+
+#### Future Updates (Auto-Deploy)
+```bash
+# Make your changes to files
+# Then:
+git add .
+git commit -m "Updated teams/scores/rules"
+git push
+
+# Netlify automatically deploys! No manual work needed.
+```
+
+#### Customize Your Domain
+1. Go to your Netlify site dashboard
+2. **Site settings** → **Domain management**
+3. Click **"Add custom domain"** or **"Change site name"**
+4. Set it to something like `triace-2025.netlify.app`
+
+---
+
+### **Option 2: Manual Drag & Drop (No Auto-Deploy)**
+
+**⚠️ Warning:** You'll need to manually re-upload every time you make changes.
+
+1. Go to [Netlify](https://app.netlify.com)
+2. Drag the entire `triace-2025` folder onto Netlify
+3. Site goes live immediately
+4. For updates: drag & drop again (overwrites)
+
+---
+
+## 🔥 Firebase Configuration
+
+The site uses **Firebase Realtime Database** for live scoring and data sync.
+
+**Current Config:** Uses `koc2-20fb8` project (pre-configured)
+
+### To Use Your Own Firebase:
+
+1. Go to [Firebase Console](https://console.firebase.google.com)
+2. Create new project
+3. Enable **Realtime Database**
+4. Set database rules (Database → Rules):
+```json
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null"
+  }
+}
+```
+5. Get config: Project Settings → General → Your apps → Config
+6. Update in **4 files**:
+   - `standings.html` (around line 284)
+   - `scoring.html` (around line 284)
+   - `history.html` (around line 284)
+   - `teams.html` (around line 323)
+
+---
+
+## 📁 File Structure
 
 ```
 triace-2025/
 ├── index.html          # Home page
-├── rules.html          # Tournament rules
-├── teams.html          # Team rosters
-├── schedule.html       # Match schedule
-├── scorecard.html      # Live scorecard with Firebase
-├── styles.css          # Main stylesheet
-├── script.js           # JavaScript for mobile menu
+├── rules.html          # Tournament rules & format
+├── schedule.html       # Match schedule (placeholder)
+├── standings.html      # Live Group A & B standings
+├── scoring.html        # Score entry (password protected)
+├── history.html        # Match history with details
+├── teams.html          # Team rosters (admin edit mode)
+├── styles.css          # Global stylesheet
+├── script.js           # Mobile menu JavaScript
+├── triace-logo.png     # Tournament logo (120px)
 ├── netlify.toml        # Netlify configuration
 └── README.md           # This file
 ```
 
-## Customization
+---
 
-### Update Team Rosters
-Edit `teams.html` to add actual player names for all teams.
+## 🔐 Admin Passwords
 
-### Update Firebase Config
-If you want to use your own Firebase database, update the config in `scorecard.html`:
-```javascript
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  // ... etc
-};
-```
+### **Score Entry Page:**
+- Admin: `ADMIN#2025`
+- Team passwords: `A1#`, `A2#`, `A3#`, ... `B9#`
 
-### Change Colors
-Edit CSS variables in `styles.css`:
-```css
-:root {
-  --navy: #001F3F;
-  --ice: #4DBFFF;
-  --cyan: #00E0FF;
-  /* ... etc */
-}
-```
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-## License
-
-This tournament website is created for TriAce 2025 - Presented by Prosper Open.
+### **Teams Page (Edit Mode):**
+- Admin: `ADMIN#2025`
+- Allows editing: Balls Collected & Fees Status
 
 ---
 
-**Powered by Prosper Open** 🎾
+## 📊 Features
+
+✅ **Live Standings** - Real-time Group A & B tables synced with Firebase  
+✅ **Score Entry** - Password-protected match submission with parser  
+✅ **Match History** - Complete records with expandable details  
+✅ **Team Management** - Track balls collected & fees (admin only)  
+✅ **Mobile Responsive** - Works perfectly on phones/tablets  
+✅ **Auto-Deploy** - Push to GitHub → auto-updates site  
+
+---
+
+## 🔄 Git Workflow (for Auto-Deploy)
+
+```bash
+# Make changes to your files
+
+# Check what changed
+git status
+
+# Add all changes
+git add .
+
+# Commit with message
+git commit -m "Updated team rosters and scores"
+
+# Push to GitHub (triggers auto-deploy)
+git push
+
+# Netlify deploys automatically in ~30 seconds!
+```
+
+---
+
+**🎾 TriAce 2025 — Powered by Prosper Open**
