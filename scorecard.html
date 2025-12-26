@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TriAce 2025 – Tournament Scorecard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root{
+          --bg1:#667eea; --bg2:#764ba2; --ink:#1a202c; --muted:#718096; --card:#ffffff;
+          --ring:#e2e8f0; --accent:#22d3ee; --groupA:#10b981; --groupB:#f59e0b;
+        }
+        html,body{ height:100%; }
+        body{
+          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+          background:linear-gradient(135deg,var(--bg1),var(--bg2));
+          min-height:100vh; color:var(--ink);
+        }
+        .header{ position:sticky; top:0; z-index:50; backdrop-filter:blur(10px); }
+        .header-bar{
+          display:flex; align-items:center; justify-content:space-between;
+          max-width:1400px; margin:0 auto; padding:.75rem 1rem;
+          background:rgba(255,255,255,.95); box-shadow:0 2px 8px rgba(0,0,0,.08);
+        }
+        .brand{ display:flex; align-items:center; gap:.5rem; }
+        .brand i{ font-size:1.8rem; }
+        .brand strong{
+          font-size:1.25rem; background:linear-gradient(135deg,var(--bg1),var(--bg2));
+          -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+          font-weight:900;
+        }
+        
+        .menu-btn{display:none;border:0;background:transparent;font-size:1.5rem;padding:.25rem .5rem;cursor:pointer;}
+        
+        /* MAIN NAVIGATION */
+        nav.nav{
+          max-width:1400px;margin:.35rem auto 0;display:flex;gap:.5rem;padding:.5rem 1rem;
+          background:rgba(255,255,255,.95);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .nav a, .nav .nav-tab{
+          text-decoration:none;color:#4a5568;font-weight:600;
+          padding:.65rem 1.2rem;border-radius:8px;white-space:nowrap;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          font-size: .95rem;
+          border: 2px solid transparent;
+          display: inline-flex;
+          align-items: center;
+          gap: .4rem;
+        }
+        .nav a:hover, .nav .nav-tab:hover{
+          background:rgba(102,126,234,0.1);
+          border-color: rgba(102,126,234,0.3);
+        }
+        .nav a[aria-current="page"], .nav .nav-tab.active{
+          color:#fff;
+          background:linear-gradient(135deg,var(--bg1),var(--bg2));
+          border-color: transparent;
+        }
+        
+        .container{ max-width:1400px; margin:1rem auto 2rem; padding:0 1rem; }
+        .card{
+          background:#fff; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem;
+          box-shadow:0 4px 12px rgba(0,0,0,.1);
+        }
+        .card h2{ margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
+        .group-badge{
+          display:inline-block; padding:.25rem .75rem; border-radius:20px; font-size:.85rem;
+          font-weight:700; color:#fff;
+        }
+        .group-badge.a{ background:linear-gradient(135deg,#10b981,#059669); }
+        .group-badge.b{ background:linear-gradient(135deg,#f59e0b,#d97706); }
+        .groups-container{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .team-list{ margin-bottom:1rem; }
+        .team-item{
+          display:flex; justify-content:space-between; align-items:center;
+          padding:.75rem 1rem; border-bottom:1px solid var(--ring);
+        }
+        .team-item:last-child{ border-bottom:none; }
+        .team-item:hover{ background:#f8fafc; }
+        .team-name{ font-weight:700; }
+        .team-members{ font-size:.85rem; color:var(--muted); }
+        .table-container{ overflow-x:auto; }
+        table{ width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; }
+        thead th{
+          background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:.75rem .5rem; text-align:center; font-size:.8rem;
+        }
+        tbody td{ padding:.6rem .5rem; border-bottom:1px solid var(--ring); text-align:center; font-size:.85rem; }
+        tbody tr:hover{ background:#f8fafc; }
+        .standings-table tr.qualified{ background:linear-gradient(90deg,#d1fae5 0%, transparent 100%); }
+        .rank-cell{ font-weight:900; }
+        .team-cell{ font-weight:700; text-align:left !important; padding-left:1rem !important; }
+        .points-cell{ font-weight:900; color:#667eea; }
+        .hint{ color:var(--muted); font-size:.85rem; margin-top:.5rem; }
+        .access-card{ border:2px solid var(--accent); text-align:center; }
+        .access-controls{ display:flex; gap:.6rem; justify-content:center; align-items:center; flex-wrap:wrap; }
+        .access-input{
+          padding:.7rem 1rem; border:2px solid var(--ring); border-radius:8px; min-width:240px;
+        }
+        .access-input:focus{ outline:none; border-color:var(--accent); }
+        .btn{
+          padding:.7rem 1.2rem; border:none; border-radius:8px; font-weight:700; color:#fff; cursor:pointer;
+          background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow:0 2px 10px rgba(102,126,234,.35);
+        }
+        .btn:hover{ opacity:.9; }
+        .btn.success{ background:linear-gradient(135deg,#10b981,#059669); }
+        .btn.secondary{ background:#64748b; box-shadow:none; }
+        .btn.ghost{ background:#fff; color:#1f2937; border:2px solid var(--ring); box-shadow:none; }
+        .scoring-card{ border:2px solid var(--accent); background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%); }
+        .card-header{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; flex-wrap:wrap; }
+        .tools{ display:flex; gap:.5rem; flex-wrap:wrap; }
+        .parser-section{ margin-top:1rem; }
+        .parser-textarea{
+          width:100%; min-height:200px; padding:1rem; border:2px solid var(--ring); border-radius:8px;
+          font-family:monospace; font-size:.9rem; line-height:1.6; resize:vertical;
+        }
+        .parser-textarea:focus{ outline:none; border-color:var(--accent); }
+        .preview-section{ margin-top:1rem; padding:1rem; background:#f8fafc; border-radius:8px; border:1px solid var(--ring); }
+        .preview-section h3{ margin-bottom:.75rem; font-size:1rem; }
+        .preview-item{ padding:.5rem .75rem; margin-bottom:.5rem; background:#fff; border-radius:6px; border-left:3px solid var(--accent); font-size:.9rem; }
+        .preview-item.error{ border-left-color:#ef4444; background:#fef2f2; color:#991b1b; }
+        .preview-item.valid{ border-left-color:#10b981; }
+        .preview-item.total{ border-left-color:#667eea; background:#d1fae5; font-weight:700; }
+        .preview-empty{ color:var(--muted); font-style:italic; }
+        .format-help{ margin-top:1rem; padding:1rem; background:#ecfeff; border-radius:8px; border:1px solid #a5f3fc; }
+        .format-help h4{ margin-bottom:.5rem; color:#0e7490; font-size:.9rem; }
+        .format-help pre{ font-size:.8rem; color:#155e75; white-space:pre-wrap; line-height:1.5; }
+        .form-actions{ display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
+        .hidden{ display:none; }
+        .history-breakdown-wrapper{ display:flex; flex-direction:column; gap:.4rem; }
+        .history-toggle{
+          display:inline-flex; align-items:center; gap:.35rem; font-weight:700; color:#2563eb;
+          background:transparent; border:0; cursor:pointer; padding:0; font-size:.9rem;
+        }
+        .history-toggle::before{ content:'▸'; transition:transform .2s ease; }
+        .history-toggle[aria-expanded="true"]::before{ transform:rotate(90deg); }
+        .history-breakdown{ display:none; background:rgba(148,163,184,.15); border-radius:10px; padding:.65rem .8rem; color:#475569; }
+        .history-breakdown.open{ display:block; }
+        .history-line{ margin-bottom:.5rem; }
+        .tab-content{ display:none; }
+        .tab-content.active{ display:block; }
+        .team-badge{ display:inline-block; padding:.15rem .5rem; border-radius:4px; font-size:.7rem; font-weight:700; color:#fff; background:var(--bg1); margin-left:.5rem; }
+        
+        @media (max-width:900px){ 
+          .groups-container{ grid-template-columns:1fr; }
+        }
+        @media (max-width:768px){
+          .menu-btn { display: block; }
+          nav.nav { 
+            display: none; 
+            flex-direction: column;
+          }
+          nav.nav.open { display: flex; }
+          .container{ padding:0 .75rem; }
+          .form-actions .btn, .access-controls .btn{ width:100%; }
+          .card{ padding:1rem; }
+          .access-controls{ flex-direction:column; align-items:stretch; }
+          .access-input{ width:100%; min-width:0; }
+          .brand strong { font-size: 1.1rem; }
+        }
+        @media (max-width:640px){
+          .responsive-table thead{ display:none; }
+          .responsive-table tbody{ display:block; }
+          .responsive-table tbody tr{ display:block; border:1px solid var(--ring); border-radius:12px; margin-bottom:1rem; background:#fff; }
+          .responsive-table tbody td{ display:flex; flex-direction:column; align-items:flex-start; gap:.35rem; padding:.75rem 1rem; border-bottom:1px solid var(--ring); }
+          .responsive-table tbody td:last-child{ border-bottom:none; }
+          .responsive-table tbody td::before{ content:attr(data-label); font-weight:700; font-size:.75rem; text-transform:uppercase; color:var(--muted); }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="header-bar">
+        <div class="brand"><i>🎾</i><strong>TRIACE 2025</strong></div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+    </div>
+    <nav id="siteNav" class="nav">
+        <a href="index.html">🏠 Home</a>
+        <a href="rules.html">📋 Rules</a>
+        <a href="schedule.html">📅 Schedule</a>
+        <span class="nav-tab active" data-tab="standings">📊 Standings</span>
+        <span class="nav-tab" data-tab="scoring">📝 Score Entry</span>
+        <span class="nav-tab" data-tab="history">📜 History</span>
+        <span class="nav-tab" data-tab="teams">👥 Teams</span>
+    </nav>
+</header>
+
+<main class="container">
+    <div id="standings" class="tab-content active">
+        <div class="groups-container">
+            <section class="card" style="border-top:4px solid var(--groupA);">
+                <h2><span class="group-badge a">GROUP A</span> Standings</h2>
+                <div class="table-container">
+                    <table class="standings-table responsive-table">
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyA"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+            </section>
+            <section class="card" style="border-top:4px solid var(--groupB);">
+                <h2><span class="group-badge b">GROUP B</span> Standings</h2>
+                <div class="table-container">
+                    <table class="standings-table responsive-table">
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyB"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+            </section>
+        </div>
+    </div>
+    <div id="scoring" class="tab-content">
+        <section class="card access-card">
+            <h2>🔒 Score Entry Access</h2>
+            <div class="access-controls" style="margin:.5rem 0;">
+                <input type="password" id="accessCode" placeholder="Enter team password" class="access-input" />
+                <button class="btn" id="unlockBtn">Unlock Scoring</button>
+            </div>
+            <p class="hint">Team captains: enter your team's unique password.</p>
+            <p class="hint" style="margin-top:.25rem;font-size:.75rem;">Password format: TEAM# (e.g., A1#, B5#) | Admin: ADMIN#2025</p>
+        </section>
+        <section id="scoringForm" class="card scoring-card hidden">
+            <div class="card-header">
+                <h2>📝 Quick Score Entry <span class="team-badge" id="loggedTeamBadge"></span></h2>
+                <div class="tools"><button class="btn secondary" id="lockBtn">🔒 Lock</button></div>
+            </div>
+            <div class="parser-section">
+        <textarea id="scoreInput" class="parser-textarea" placeholder="Paste match results here...
+
+Example:
+A1 vs A2
+D1: Yogesh/Dinkar vs Prashant/Vinoth 4-2, 4-1, 4-3(10-8) (won) A1
+D2: Sudarshan/Yogesh vs Vamsi/Prashant 4-0, 4-2, 4-1 (won) A1"></textarea>
+                <div class="preview-section">
+                    <h3>📋 Preview</h3>
+                    <div id="previewContent" class="preview-empty">Enter scores above to see preview</div>
+                </div>
+                <div class="format-help">
+                    <h4>📖 Format Guide</h4>
+                    <pre>Line 1: TEAM1 vs TEAM2 (e.g., A1 vs A2)
+Then each court:
+D1: Player1/Player2 vs Player3/Player4 4-2, 4-1, 4-0 (won) WINNER
+D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
+
+• Tiebreaks: 4-3(10-8) means score 4-3 with tiebreak 10-8
+• Teams: A1-A9 (Group A), B1-B9 (Group B)</pre>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn success" id="submitBtn">💾 Save Match</button>
+                <button class="btn ghost" id="clearInputBtn">🗑️ Clear</button>
+            </div>
+        </section>
+    </div>
+    <div id="history" class="tab-content">
+        <section class="card">
+            <h2>📜 Match History</h2>
+            <div class="table-container">
+                <table class="responsive-table">
+                    <thead><tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
+                    <tbody id="historyBody"><tr><td colspan="6" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div id="teams" class="tab-content">
+        <div class="groups-container">
+            <section class="card" style="border-top:4px solid var(--groupA);">
+                <h2><span class="group-badge a">GROUP A</span> Teams</h2>
+                <div class="team-list" id="teamListA"></div>
+            </section>
+            <section class="card" style="border-top:4px solid var(--groupB);">
+                <h2><span class="group-badge b">GROUP B</span> Teams</h2>
+                <div class="team-list" id="teamListB"></div>
+            </section>
+        </div>
+    </div>
+</main>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
+      authDomain: "koc2-20fb8.firebaseapp.com",
+      databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
+      projectId: "koc2-20fb8",
+      storageBucket: "koc2-20fb8.firebasestorage.app",
+      messagingSenderId: "317734341461",
+      appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
+    };
+    const firebaseApp = firebase.initializeApp(firebaseConfig);
+    const auth = firebaseApp.auth();
+    const database = firebaseApp.database();
+    const matchesRef = database.ref('RoundRobinTournament');
+
+    let authReady = false;
+    function ensureAuth(){
+      if(authReady) return Promise.resolve();
+      return auth.signInAnonymously().then(() => { authReady = true; });
+    }
+    ensureAuth().catch(err => console.error('Auth failed', err));
+
+    async function guardWriteAccess(){
+      try { await ensureAuth(); return true; }
+      catch(err){ alert('❌ Auth failed.'); return false; }
+    }
+
+    const groupA = [
+      { name: 'Team A1', abbreviation: 'A1', players: ['Yogesh', 'Dinkar', 'Sudarshan'] },
+      { name: 'Team A2', abbreviation: 'A2', players: ['Prashant', 'Vinoth', 'Vamsi'] },
+      { name: 'Team A3', abbreviation: 'A3', players: ['Sudhakar', 'Dinesh', 'Uma'] },
+      { name: 'Team A4', abbreviation: 'A4', players: ['Sandeep G', 'Damu', 'Vidhya Sagar'] },
+      { name: 'Team A5', abbreviation: 'A5', players: ['Hari', 'Ram', 'Satish'] },
+      { name: 'Team A6', abbreviation: 'A6', players: ['Nagarjuna', 'Mohan', 'Ganesh'] },
+      { name: 'Team A7', abbreviation: 'A7', players: ['Sreekanth B', 'Uday P', 'Sashi R'] },
+      { name: 'Team A8', abbreviation: 'A8', players: ['Mayur Patel', 'Chandrakant', 'Pardeep K'] },
+      { name: 'Team A9', abbreviation: 'A9', players: ['Harsha S', 'Vijay V', 'Kartha V'] },
+    ];
+    const groupB = [
+      { name: 'Team B1', abbreviation: 'B1', players: ['Manish', 'Biju', 'Ritesh'] },
+      { name: 'Team B2', abbreviation: 'B2', players: ['Kalyan', 'Sandeep', 'Uday'] },
+      { name: 'Team B3', abbreviation: 'B3', players: ['Talha', 'Tariq', 'Kalam'] },
+      { name: 'Team B4', abbreviation: 'B4', players: ['Kanak', 'Lloyd', 'Vasu'] },
+      { name: 'Team B5', abbreviation: 'B5', players: ['Narayan P', 'Ratnesh', 'Jay S'] },
+      { name: 'Team B6', abbreviation: 'B6', players: ['Vinod A', 'Raj K', 'Krishna'] },
+      { name: 'Team B7', abbreviation: 'B7', players: ['Srikanth', 'Bharat', 'Sridhar'] },
+      { name: 'Team B8', abbreviation: 'B8', players: ['Mahi', 'Shivaji', 'Vikas'] },
+      { name: 'Team B9', abbreviation: 'B9', players: ['Chandu M', 'Dinesh K', 'Malla'] },
+    ];
+    const allTeams = [...groupA, ...groupB];
+    const TEAM_PASSWORDS = {};
+    allTeams.forEach(t => { TEAM_PASSWORDS[`${t.abbreviation}#`] = t; });
+    TEAM_PASSWORDS['ADMIN#2025'] = { name: 'Admin', abbreviation: 'ADMIN', players: [] };
+
+    const TEAM_LOOKUP = new Map(allTeams.map(t => [t.name, t]));
+    const ABBR_LOOKUP = new Map(allTeams.map(t => [t.abbreviation.toUpperCase(), t]));
+    const TEAMS_A = groupA.map(t => t.name);
+    const TEAMS_B = groupB.map(t => t.name);
+    const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    let matches = [], matchesLoaded = false, currentTeam = null;
+    const standingsBodyA = document.getElementById('standingsBodyA');
+    const standingsBodyB = document.getElementById('standingsBodyB');
+    const historyBody = document.getElementById('historyBody');
+    const scoringForm = document.getElementById('scoringForm');
+    const scoreInput = document.getElementById('scoreInput');
+    const previewContent = document.getElementById('previewContent');
+    const loggedTeamBadge = document.getElementById('loggedTeamBadge');
+
+    function parseScoreText(text) {
+      const results = [], errors = [];
+      const rawLines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
+      if (rawLines.length === 0) return { results: [], errors: [], team1: null, team2: null };
+      let team1 = null, team2 = null, startLine = 0;
+      const teamsMatch = rawLines[0].match(/^(\w+)\s+vs\.?\s+(\w+)$/i);
+      if (teamsMatch) {
+        team1 = ABBR_LOOKUP.get(teamsMatch[1].toUpperCase());
+        team2 = ABBR_LOOKUP.get(teamsMatch[2].toUpperCase());
+        if (!team1) errors.push(`Unknown team: ${teamsMatch[1]}`);
+        if (!team2) errors.push(`Unknown team: ${teamsMatch[2]}`);
+        if (team1 && team2 && team1.name === team2.name) errors.push('Teams must be different');
+        startLine = 1;
+      } else {
+        errors.push('First line should be: TEAM1 vs TEAM2 (e.g., A1 vs A2)');
+        return { results: [], errors, team1: null, team2: null };
+      }
+      if (!team1 || !team2) return { results: [], errors, team1: null, team2: null };
+      const team1Abbr = team1.abbreviation.toUpperCase();
+      const team2Abbr = team2.abbreviation.toUpperCase();
+      const mergedLines = [];
+      for (let i = startLine; i < rawLines.length; i++) {
+        const line = rawLines[i];
+        if (/^[\d\-\(\),\s]+\(won\)/i.test(line) && mergedLines.length > 0) {
+          mergedLines[mergedLines.length - 1] += ' ' + line;
+        } else if (/^(D\d?)[\s:]/i.test(line) || line.match(/vs/i)) {
+          mergedLines.push(line);
+        }
+      }
+      let doublesCount = 0;
+      for (let i = 0; i < mergedLines.length; i++) {
+        try {
+          const parsed = parseLine(mergedLines[i], team1, team2, team1Abbr, team2Abbr);
+          if (parsed) { doublesCount++; if (!parsed.labelNum) parsed.label = `Doubles ${doublesCount}`; results.push(parsed); }
+        } catch (err) { errors.push(`Line ${i + 1 + startLine}: ${err.message}`); }
+      }
+      return { results, errors, team1, team2 };
+    }
+
+    function parseLine(line, team1, team2, team1Abbr, team2Abbr) {
+      const typeMatch = line.match(/^(D(?:oubles)?\s*(\d)?)[\s:]+/i);
+      let remainder = line, courtNum = null, labelNum = false;
+      if (typeMatch) {
+        const numMatch = typeMatch[1].toUpperCase().match(/\d/);
+        if (numMatch) { courtNum = numMatch[0]; labelNum = true; }
+        remainder = line.slice(typeMatch[0].length).trim();
+      }
+      const wonMatch = remainder.match(/\(won\)\s*(\w+)\s*\.?\s*$/i);
+      if (!wonMatch) throw new Error('Must include (won) followed by winner');
+      const winnerAbbr = wonMatch[1].toUpperCase();
+      remainder = remainder.slice(0, wonMatch.index).trim();
+      let winnerTeamNum = null;
+      if (winnerAbbr === team1Abbr) winnerTeamNum = 1;
+      else if (winnerAbbr === team2Abbr) winnerTeamNum = 2;
+      else throw new Error(`Winner "${winnerAbbr}" doesn't match ${team1Abbr} or ${team2Abbr}`);
+      const vsMatch = remainder.match(/\s+vs\.?\s+/i);
+      if (!vsMatch) throw new Error('Must include "vs" between players');
+      const leftSide = remainder.slice(0, vsMatch.index).trim();
+      const rightSide = remainder.slice(vsMatch.index + vsMatch[0].length).trim();
+      const leftPlayers = leftSide.split('/').map(p => p.trim()).filter(Boolean);
+      const scoreStartMatch = rightSide.match(/\s+(\d+-\d+)/);
+      if (!scoreStartMatch) throw new Error('Could not find scores');
+      const rightPlayersStr = rightSide.slice(0, scoreStartMatch.index).trim();
+      const scoresStr = rightSide.slice(scoreStartMatch.index).trim();
+      const rightPlayers = rightPlayersStr.split('/').map(p => p.trim()).filter(Boolean);
+      const sets = parseScores(scoresStr);
+      let g1 = 0, g2 = 0, sets1 = 0, sets2 = 0;
+      const setsData = [];
+      for (let i = 0; i < sets.length; i++) {
+        const set = sets[i];
+        g1 += set.left; g2 += set.right;
+        if (set.left > set.right) sets1++;
+        else if (set.right > set.left) sets2++;
+        else if (set.tiebreak) { if (set.tiebreak.left > set.tiebreak.right) { sets1++; g1++; } else { sets2++; g2++; } }
+        const setData = { set: i + 1, team1: set.left, team2: set.right };
+        if (set.tiebreak) setData.tieBreak = { team1: set.tiebreak.left, team2: set.tiebreak.right };
+        setsData.push(setData);
+      }
+      return { label: `Doubles ${courtNum || ''}`.trim(), labelNum, type: 'doubles', players: { team1: leftPlayers, team2: rightPlayers }, sets: setsData, g1, g2, sets1, sets2, winnerTeamNum };
+    }
+
+    function parseScores(scoresStr) {
+      const sets = [], scorePattern = /(\d+)-(\d+)(?:\((\d+)-(\d+)\))?/g;
+      let match;
+      while ((match = scorePattern.exec(scoresStr)) !== null) {
+        const set = { left: parseInt(match[1]), right: parseInt(match[2]) };
+        if (match[3] && match[4]) set.tiebreak = { left: parseInt(match[3]), right: parseInt(match[4]) };
+        sets.push(set);
+      }
+      return sets;
+    }
+
+    function updatePreview() {
+      const text = scoreInput.value;
+      if (!text.trim()) { previewContent.innerHTML = '<div class="preview-empty">Enter scores above to see preview</div>'; return; }
+      const { results, errors, team1, team2 } = parseScoreText(text);
+      let html = '';
+      if (errors.length > 0) html += errors.map(err => `<div class="preview-item error">❌ ${escapeHTML(err)}</div>`).join('');
+      if (team1 && team2 && results.length > 0) {
+        let totalG1 = 0, totalG2 = 0, courtsWon1 = 0, courtsWon2 = 0;
+        results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
+        const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : 'TIE');
+        html += `<div class="preview-item total">📊 ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation} | Courts: ${courtsWon1}-${courtsWon2} | Winner: ${winner}</div>`;
+        results.forEach(r => {
+          const winnerName = r.winnerTeamNum === 1 ? team1.abbreviation : team2.abbreviation;
+          const setsDisplay = r.sets.map(s => { let str = `${s.team1}-${s.team2}`; if (s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
+          html += `<div class="preview-item valid">✅ ${r.label}: ${r.players.team1.join('/')} vs ${r.players.team2.join('/')} → ${setsDisplay} (won ${winnerName})</div>`;
+        });
+      }
+      previewContent.innerHTML = html || '<div class="preview-empty">No valid data</div>';
+    }
+    scoreInput.addEventListener('input', updatePreview);
+
+    function upgradeMatch(m){
+      if(!m || !m.t1 || !m.t2) return null;
+      const g1 = Number(m.g1), g2 = Number(m.g2);
+      if(!Number.isFinite(g1) || !Number.isFinite(g2)) return null;
+      const upgraded = { t1:m.t1, t2:m.t2, g1, g2, win:m.win, ts:Number(m.ts)||Date.now(), s1:Number(m.s1)||0, s2:Number(m.s2)||0 };
+      if(Array.isArray(m.lines)) upgraded.lines = m.lines;
+      return upgraded;
+    }
+
+    function handleSnapshot(snapshot){
+      const data = snapshot.val(), list = [];
+      if(data){ for(const [id, entry] of Object.entries(data)){ const u = upgradeMatch(entry); if(u){ u.id = id; list.push(u); } } }
+      matches = list.sort((a,b)=>b.ts - a.ts);
+      matchesLoaded = true;
+      renderAll();
+    }
+    matchesRef.on('value', handleSnapshot, err => { console.error('Firebase error', err); matches = []; matchesLoaded = true; renderAll(); });
+
+    document.getElementById('unlockBtn').addEventListener('click', () => {
+      const code = document.getElementById('accessCode').value.trim().toUpperCase();
+      const team = TEAM_PASSWORDS[code];
+      if(team){ currentTeam = team; scoringForm.classList.remove('hidden'); loggedTeamBadge.textContent = team.abbreviation; document.getElementById('accessCode').value = ''; alert(`✅ Unlocked for ${team.name}`); }
+      else { alert('❌ Invalid password'); }
+    });
+    document.getElementById('lockBtn').addEventListener('click', () => { scoringForm.classList.add('hidden'); currentTeam = null; loggedTeamBadge.textContent = ''; });
+
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      if(!matchesLoaded) return alert('Please wait for data to load.');
+      if(!currentTeam) return alert('Please unlock scoring first.');
+      const { results, errors, team1, team2 } = parseScoreText(scoreInput.value);
+      if(errors.length > 0) return alert('⚠️ Fix errors:\n' + errors.join('\n'));
+      if(!team1 || !team2) return alert('⚠️ Could not detect teams.');
+      if(results.length === 0) return alert('⚠️ No valid scores found.');
+      if(currentTeam.abbreviation !== 'ADMIN' && currentTeam.name !== team1.name && currentTeam.name !== team2.name) return alert(`⚠️ You can only submit scores for ${currentTeam.name}.`);
+      let totalG1 = 0, totalG2 = 0, totalSets1 = 0, totalSets2 = 0, courtsWon1 = 0, courtsWon2 = 0;
+      results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; totalSets1 += r.sets1; totalSets2 += r.sets2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
+      const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : null);
+      if(!winner) return alert('⚠️ Match is tied.');
+      const lines = results.map(r => ({ label: r.label, type: r.type, g1: r.g1, g2: r.g2, sets: r.sets, setWins: { team1: r.sets1, team2: r.sets2 }, players: { team1: r.players.team1.map(p => p.toUpperCase()), team2: r.players.team2.map(p => p.toUpperCase()) } }));
+      const record = { t1: team1.name, t2: team2.name, g1: totalG1, g2: totalG2, s1: totalSets1, s2: totalSets2, win: winner, ts: Date.now(), lines, submittedBy: currentTeam.abbreviation };
+      if(!(await guardWriteAccess())) return;
+      try { await matchesRef.push(record); scoreInput.value = ''; updatePreview(); alert(`✅ Saved: ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation}\nWinner: ${winner}`); }
+      catch(err){ alert('❌ Save failed: ' + err.message); }
+    });
+    document.getElementById('clearInputBtn').addEventListener('click', () => { scoreInput.value = ''; updatePreview(); });
+
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    function computeStandings(teamNames){
+      const stats = {};
+      teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0 });
+      for(const m of matches){
+        if(!stats[m.t1] || !stats[m.t2]) continue;
+        stats[m.t1].matches++; stats[m.t2].matches++;
+        stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
+        stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
+        if(m.win === m.t1){ stats[m.t1].wins++; stats[m.t2].losses++; stats[m.t1].points += 3; }
+        else if(m.win === m.t2){ stats[m.t2].wins++; stats[m.t1].losses++; stats[m.t2].points += 3; }
+      }
+      Object.values(stats).forEach(s => { s.gameDiff = s.gamesFor - s.gamesAgainst; });
+      return Object.values(stats).sort((a,b)=> (b.points-a.points)||(b.gameDiff-a.gameDiff)||(b.gamesFor-a.gamesFor)||a.team.localeCompare(b.team));
+    }
+
+    function renderStandings(){
+      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>'; return; }
+      [['A', TEAMS_A, standingsBodyA], ['B', TEAMS_B, standingsBodyB]].forEach(([g, teams, tbody]) => {
+        const rows = computeStandings(teams);
+        tbody.innerHTML = rows.map((r,i)=>{
+          const team = TEAM_LOOKUP.get(r.team);
+          const players = team ? team.players.join('/') : '';
+          return `<tr class="${i<3?'qualified':''}">
+            <td class="rank-cell" data-label="#">${i+1}</td>
+            <td class="team-cell" data-label="Team">${team?.abbreviation||r.team}<br><small style="font-weight:400;color:var(--muted);font-size:.7rem;">${players}</small></td>
+            <td data-label="M">${r.matches}</td><td data-label="W">${r.wins}</td><td data-label="L">${r.losses}</td>
+            <td data-label="GF">${r.gamesFor}</td><td data-label="GA">${r.gamesAgainst}</td>
+            <td data-label="+/-">${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</td>
+            <td class="points-cell" data-label="Pts">${r.points}</td></tr>`;
+        }).join('');
+      });
+    }
+
+    function renderHistory(){
+      if(!matchesLoaded){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>'; return; }
+      if(matches.length === 0){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>'; return; }
+      historyBody.innerHTML = matches.map((m,idx)=>{
+        const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
+        let breakdown = '—';
+        if(Array.isArray(m.lines) && m.lines.length){
+          const parts = m.lines.map(l => {
+            const scores = (l.sets||[]).map(s => { let str = `${s.team1}-${s.team2}`; if(s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
+            const players = l.players ? `<div style="font-size:.7rem;color:#64748b;">${(l.players.team1||[]).join('/')} vs ${(l.players.team2||[]).join('/')}</div>` : '';
+            return `<div class="history-line"><strong>${l.label}:</strong> ${l.g1}-${l.g2} (${scores})${players}</div>`;
+          }).join('');
+          breakdown = `<div class="history-breakdown-wrapper"><button type="button" class="history-toggle" aria-expanded="false">Details</button><div class="history-breakdown">${parts}</div></div>`;
+        }
+        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td></tr>`;
+      }).join('');
+    }
+    historyBody.addEventListener('click', e => {
+      const toggle = e.target.closest('.history-toggle');
+      if(!toggle) return;
+      const panel = toggle.nextElementSibling;
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      toggle.textContent = expanded ? 'Details' : 'Hide';
+      panel.classList.toggle('open', !expanded);
+    });
+
+    function renderTeamLists(){
+      document.getElementById('teamListA').innerHTML = groupA.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
+      document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
+    }
+
+    function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); }
+    renderAll();
+
+    // Mobile menu toggle
+    document.getElementById('menuBtn').addEventListener('click',()=>{
+      document.getElementById('siteNav').classList.toggle('open');
+    });
+</script>
+</body>
+</html>
