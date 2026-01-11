@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TriAce 2025 – Tournament Scorecard</title>
+    <title>TriAce 2026 – Tournament Scorecard</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root{
@@ -179,7 +179,7 @@
 <body>
 <header class="header">
     <div class="header-bar">
-        <div class="brand"><img src="triace-logo.png" alt="TriAce Tennis" style="height:120px;"><strong>TRIACE 2025</strong></div>
+        <div class="brand"><img src="triace-logo.png" alt="TriAce Tennis" style="height:120px;"><strong>TRIACE 2026</strong></div>
         <button id="menuBtn" class="menu-btn">☰</button>
     </div>
     <nav id="siteNav" class="nav">
@@ -340,7 +340,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const allTeams = [...groupA, ...groupB];
     const TEAM_PASSWORDS = {};
     allTeams.forEach(t => { TEAM_PASSWORDS[`${t.abbreviation}#`] = t; });
-    TEAM_PASSWORDS['ADMIN#2025'] = { name: 'Admin', abbreviation: 'ADMIN', players: [] };
+    TEAM_PASSWORDS['ADMIN#2026'] = { name: 'Admin', abbreviation: 'ADMIN', players: [] };
 
     const TEAM_LOOKUP = new Map(allTeams.map(t => [t.name, t]));
     const ABBR_LOOKUP = new Map(allTeams.map(t => [t.abbreviation.toUpperCase(), t]));
