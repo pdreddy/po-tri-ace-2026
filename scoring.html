@@ -470,14 +470,14 @@
             <button class="lock-btn" id="lockBtn">🔒 Lock</button>
         </div>
 
-        <!-- Undo Last Result -->
-        <div id="undoCard" class="undo-card" style="display:none;">
+        <!-- Admin-Only Delete Last Result -->
+        <div id="deleteCard" class="undo-card" style="display:none;">
             <div class="undo-content">
                 <div class="undo-text">
-                    <div class="undo-label">⏮️ Last Submitted Match</div>
-                    <div class="undo-info" id="undoInfo"></div>
+                    <div class="undo-label">🗑️ Delete Last Submitted Match (Admin Only)</div>
+                    <div class="undo-info" id="deleteInfo"></div>
                 </div>
-                <button class="undo-btn" onclick="undoLast()">↩️ Undo Last Result</button>
+                <button class="undo-btn" onclick="deleteLast()">🗑️ Delete Last Result</button>
             </div>
         </div>
 
@@ -610,6 +610,7 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
         document.getElementById('entrySection').classList.add('hidden');
         document.getElementById('passwordInput').value = '';
         document.getElementById('scoreText').value = '';
+        document.getElementById('deleteCard').style.display = 'none';
         updatePreview();
     });
 
@@ -807,14 +808,17 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
             lastKey = ref.key;
             localStorage.setItem('lastKey', lastKey);
             localStorage.setItem('lastData', JSON.stringify(data));
-            
+
             alert('✅ Match saved!');
             scoreText.value = '';
             updatePreview();
-            
-            document.getElementById('undoCard').style.display = 'block';
-            document.getElementById('undoInfo').textContent =
-                `${data.t1} vs ${data.t2} - Winner: ${data.win} (${data.s1}-${data.s2})`;
+
+            // Only show delete option for admins
+            if (admin) {
+                document.getElementById('deleteCard').style.display = 'block';
+                document.getElementById('deleteInfo').textContent =
+                    `${data.t1} vs ${data.t2} - Winner: ${data.win} (${data.s1}-${data.s2})`;
+            }
         }).catch(e => {
             alert('❌ Failed: ' + e.message);
         });
@@ -823,31 +827,38 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
     function loadLast() {
         lastKey = localStorage.getItem('lastKey');
         const last = localStorage.getItem('lastData');
-        
-        if (lastKey && last) {
+
+        // Only show delete option for admins
+        if (admin && lastKey && last) {
             const d = JSON.parse(last);
-            document.getElementById('undoCard').style.display = 'block';
-            document.getElementById('undoInfo').textContent =
+            document.getElementById('deleteCard').style.display = 'block';
+            document.getElementById('deleteInfo').textContent =
                 `${d.t1} vs ${d.t2} - Winner: ${d.win} (${d.s1}-${d.s2})`;
         }
     }
 
-    function undoLast() {
-        if (!lastKey) {
-            alert('❌ No match to undo');
+    function deleteLast() {
+        // Admin-only protection
+        if (!admin) {
+            alert('❌ Only admins can delete matches');
             return;
         }
-        
-        if (!confirm('Delete last match?')) return;
-        
+
+        if (!lastKey) {
+            alert('❌ No match to delete');
+            return;
+        }
+
+        if (!confirm('⚠️ Delete last match? This action cannot be undone.')) return;
+
         db.ref('RoundRobinTournament/' + lastKey).remove().then(() => {
-            alert('✅ Deleted');
+            alert('✅ Match deleted successfully');
             localStorage.removeItem('lastKey');
             localStorage.removeItem('lastData');
             lastKey = null;
-            document.getElementById('undoCard').style.display = 'none';
+            document.getElementById('deleteCard').style.display = 'none';
         }).catch(e => {
-            alert('❌ Failed: ' + e.message);
+            alert('❌ Failed to delete: ' + e.message);
         });
     }
 
