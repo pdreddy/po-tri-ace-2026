@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TriAce 2025 – Match Schedule A</title>
+    <title>TriAce 2025 – Match Schedule B</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         .filter-bar {
@@ -17,18 +17,18 @@
             flex-wrap: wrap;
             align-items: center;
         }
-        
+
         .filter-group {
             display: flex;
             gap: .5rem;
             align-items: center;
         }
-        
+
         .filter-group label {
             font-weight: 700;
             color: #1a202c;
         }
-        
+
         .filter-select {
             padding: .5rem 1rem;
             border: 2px solid var(--ring);
@@ -37,11 +37,11 @@
             font-weight: 600;
             min-width: 150px;
         }
-        
+
         .month-section {
             margin-bottom: 2rem;
         }
-        
+
         .month-header {
             background: linear-gradient(135deg, var(--bg1), var(--bg2));
             color: #fff;
@@ -51,7 +51,7 @@
             font-size: 1.3rem;
             font-weight: 900;
         }
-        
+
         .sunday-card {
             background: #fff;
             border-radius: 12px;
@@ -60,7 +60,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,.1);
             border-left: 6px solid var(--accent);
         }
-        
+
         .sunday-header {
             display: flex;
             justify-content: space-between;
@@ -69,13 +69,13 @@
             padding-bottom: .75rem;
             border-bottom: 2px solid var(--ring);
         }
-        
+
         .sunday-date {
             font-size: 1.2rem;
             font-weight: 900;
             color: #1a202c;
         }
-        
+
         .round-label {
             background: linear-gradient(135deg, var(--bg1), var(--bg2));
             color: #fff;
@@ -86,13 +86,13 @@
             margin-top: .5rem;
             display: inline-block;
         }
-        
+
         .match-list {
             display: flex;
             flex-direction: column;
             gap: .75rem;
         }
-        
+
         .match-item {
             display: flex;
             justify-content: space-between;
@@ -102,41 +102,41 @@
             border-radius: 8px;
             border-left: 4px solid var(--bg1);
         }
-        
+
         .match-teams {
             flex: 1;
             font-weight: 600;
             color: #1a202c;
         }
-        
+
         .home-team {
             color: var(--bg1);
             font-weight: 900;
         }
-        
+
         .away-team {
             color: #4a5568;
         }
-        
+
         .match-status {
             display: flex;
             gap: .5rem;
             align-items: center;
         }
-        
+
         .status-checkbox {
             width: 20px;
             height: 20px;
             cursor: pointer;
         }
-        
+
         .status-label {
             font-size: .85rem;
             font-weight: 700;
             padding: .3rem .6rem;
             border-radius: 6px;
         }
-        
+
         .btn.completed {
             background: #10b981;
             color: #fff;
@@ -147,12 +147,12 @@
             cursor: pointer;
             transition: all .2s;
         }
-        
+
         .btn.completed:hover {
             background: #059669;
             transform: scale(1.05);
         }
-        
+
         .btn.pending {
             background: #ef4444;
             color: #fff;
@@ -163,22 +163,22 @@
             cursor: pointer;
             transition: all .2s;
         }
-        
+
         .btn.pending:hover {
             background: #dc2626;
             transform: scale(1.05);
         }
-        
+
         .completed {
             background: #10b981;
             color: #fff;
         }
-        
+
         .pending {
             background: #ef4444;
             color: #fff;
         }
-        
+
         .bye-notice {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
             padding: .75rem;
@@ -187,17 +187,17 @@
             color: #92400e;
             margin-top: .5rem;
         }
-        
+
         .buffer-week {
             background: linear-gradient(135deg, #fee2e2, #fecaca);
             border-left-color: #ef4444;
         }
-        
+
         .double-header {
             background: linear-gradient(135deg, #f0fdff, #e0f2fe);
             border-left-color: #0ea5e9;
         }
-        
+
         .admin-controls {
             background: linear-gradient(135deg, #f8fafc, #e2e8f0);
             border: 2px solid var(--accent);
@@ -206,7 +206,7 @@
             margin-bottom: 1.5rem;
             text-align: center;
         }
-        
+
         .hidden {
             display: none;
         }
@@ -232,8 +232,8 @@
     <nav id="siteNav" class="nav">
         <a href="index.html">🏠 Home</a>
         <a href="rules.html">📋 Rules</a>
-        <a href="schedule.html" aria-current="page">📅 Schedule A</a>
-        <a href="schedule-b.html">📅 Schedule B</a>
+        <a href="schedule.html">📅 Schedule A</a>
+        <a href="schedule-b.html" aria-current="page">📅 Schedule B</a>
         <a href="standings.html">📊 Standings</a>
         <a href="scoring.html">📝 Score Entry</a>
         <a href="history.html">📜 History</a>
@@ -244,19 +244,19 @@
 <main class="container">
 
     <section class="page-header">
-        <h1>🏟️ GROUP A - HOME / AWAY SUNDAY-ONLY SCHEDULE</h1>
-        <p>Complete match schedule for all Sundays - Group A</p>
+        <h1>🏟️ GROUP B - HOME / AWAY SUNDAY-ONLY SCHEDULE</h1>
+        <p>Complete match schedule for all Sundays - Group B</p>
     </section>
 
     <!-- TEAM PASSWORD CONTROLS -->
     <div class="admin-controls">
         <div style="display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;">
-            <input type="password" id="teamPassword" placeholder="Enter team password (e.g., A1#)" style="min-width:200px;padding:.5rem;border:2px solid var(--ring);border-radius:8px;" />
+            <input type="password" id="teamPassword" placeholder="Enter team password (e.g., B1#)" style="min-width:200px;padding:.5rem;border:2px solid var(--ring);border-radius:8px;" />
             <button class="btn" id="verifyPasswordBtn">✅ Verify Password</button>
         </div>
         <p style="margin-top:.5rem;color:var(--muted);font-size:.85rem;">Enter your team password to mark your matches as completed</p>
     </div>
-    
+
     <div class="admin-controls hidden" id="teamUnlockedControls">
         <div style="display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;">
             <span id="teamNameDisplay" style="font-weight:700;color:var(--bg1);"></span>
@@ -275,7 +275,7 @@
                 <option value="march">March</option>
             </select>
         </div>
-        
+
         <div class="filter-group">
             <label for="statusFilter">✅ Status:</label>
             <select id="statusFilter" class="filter-select">
@@ -284,20 +284,20 @@
                 <option value="pending">Pending Only</option>
             </select>
         </div>
-        
+
         <div class="filter-group">
             <label for="teamFilter">👥 Team:</label>
             <select id="teamFilter" class="filter-select">
                 <option value="all">All Teams</option>
-                <option value="A1">Team A1</option>
-                <option value="A2">Team A2</option>
-                <option value="A3">Team A3</option>
-                <option value="A4">Team A4</option>
-                <option value="A5">Team A5</option>
-                <option value="A6">Team A6</option>
-                <option value="A7">Team A7</option>
-                <option value="A8">Team A8</option>
-                <option value="A9">Team A9</option>
+                <option value="B1">Team B1</option>
+                <option value="B2">Team B2</option>
+                <option value="B3">Team B3</option>
+                <option value="B4">Team B4</option>
+                <option value="B5">Team B5</option>
+                <option value="B6">Team B6</option>
+                <option value="B7">Team B7</option>
+                <option value="B8">Team B8</option>
+                <option value="B9">Team B9</option>
             </select>
         </div>
     </div>
@@ -326,7 +326,7 @@
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
     const auth = firebase.auth();
-    
+
     let currentTeam = null;
     let isAdmin = false;
     let scheduleData = {};
@@ -351,7 +351,7 @@
         'ADMIN#2025': 'ADMIN'
     };
 
-    // Schedule Data Structure
+    // Schedule Data Structure - GROUP B (Same dates as Group A)
     const schedule = {
         january: {
             name: "JANUARY (Single-Round Sundays)",
@@ -359,42 +359,42 @@
                 {
                     date: "Sunday – Jan 5",
                     matches: [
-                        { home: "A1", away: "A2" },
-                        { home: "A3", away: "A4" },
-                        { home: "A5", away: "A6" },
-                        { home: "A7", away: "A8" }
+                        { home: "B1", away: "B2" },
+                        { home: "B3", away: "B4" },
+                        { home: "B5", away: "B6" },
+                        { home: "B7", away: "B8" }
                     ],
-                    bye: "A9"
+                    bye: "B9"
                 },
                 {
                     date: "Sunday – Jan 12",
                     matches: [
-                        { home: "A3", away: "A1" },
-                        { home: "A4", away: "A2" },
-                        { home: "A5", away: "A7" },
-                        { home: "A6", away: "A9" }
+                        { home: "B3", away: "B1" },
+                        { home: "B4", away: "B2" },
+                        { home: "B5", away: "B7" },
+                        { home: "B6", away: "B9" }
                     ],
-                    bye: "A8"
+                    bye: "B8"
                 },
                 {
                     date: "Sunday – Jan 19",
                     matches: [
-                        { home: "A1", away: "A4" },
-                        { home: "A5", away: "A2" },
-                        { home: "A6", away: "A3" },
-                        { home: "A8", away: "A9" }
+                        { home: "B1", away: "B4" },
+                        { home: "B5", away: "B2" },
+                        { home: "B6", away: "B3" },
+                        { home: "B8", away: "B9" }
                     ],
-                    bye: "A7"
+                    bye: "B7"
                 },
                 {
                     date: "Sunday – Jan 26",
                     matches: [
-                        { home: "A5", away: "A1" },
-                        { home: "A6", away: "A2" },
-                        { home: "A7", away: "A3" },
-                        { home: "A4", away: "A8" }
+                        { home: "B5", away: "B1" },
+                        { home: "B6", away: "B2" },
+                        { home: "B7", away: "B3" },
+                        { home: "B4", away: "B8" }
                     ],
-                    bye: "A9"
+                    bye: "B9"
                 }
             ]
         },
@@ -404,32 +404,32 @@
                 {
                     date: "Sunday – Feb 2",
                     matches: [
-                        { home: "A1", away: "A6" },
-                        { home: "A7", away: "A2" },
-                        { home: "A8", away: "A3" },
-                        { home: "A9", away: "A4" }
+                        { home: "B1", away: "B6" },
+                        { home: "B7", away: "B2" },
+                        { home: "B8", away: "B3" },
+                        { home: "B9", away: "B4" }
                     ],
-                    bye: "A5"
+                    bye: "B5"
                 },
                 {
                     date: "Sunday – Feb 9",
                     matches: [
-                        { home: "A7", away: "A1" },
-                        { home: "A8", away: "A2" },
-                        { home: "A9", away: "A3" },
-                        { home: "A4", away: "A5" }
+                        { home: "B7", away: "B1" },
+                        { home: "B8", away: "B2" },
+                        { home: "B9", away: "B3" },
+                        { home: "B4", away: "B5" }
                     ],
-                    bye: "A6"
+                    bye: "B6"
                 },
                 {
                     date: "Sunday – Feb 16",
                     matches: [
-                        { home: "A8", away: "A1" },
-                        { home: "A9", away: "A2" },
-                        { home: "A3", away: "A5" },
-                        { home: "A6", away: "A7" }
+                        { home: "B8", away: "B1" },
+                        { home: "B9", away: "B2" },
+                        { home: "B3", away: "B5" },
+                        { home: "B6", away: "B7" }
                     ],
-                    bye: "A4"
+                    bye: "B4"
                 },
                 {
                     date: "Sunday – Feb 23",
@@ -448,19 +448,19 @@
                         {
                             round: "Round 9",
                             matches: [
-                                { home: "A9", away: "A1" },
-                                { home: "A6", away: "A4" },
-                                { home: "A8", away: "A5" },
-                                { home: "A7", away: "A9" }
+                                { home: "B9", away: "B1" },
+                                { home: "B6", away: "B4" },
+                                { home: "B8", away: "B5" },
+                                { home: "B7", away: "B9" }
                             ]
                         },
                         {
                             round: "Round 10",
                             matches: [
-                                { home: "A2", away: "A3" },
-                                { home: "A7", away: "A4" },
-                                { home: "A9", away: "A5" },
-                                { home: "A6", away: "A8" }
+                                { home: "B2", away: "B3" },
+                                { home: "B7", away: "B4" },
+                                { home: "B9", away: "B5" },
+                                { home: "B6", away: "B8" }
                             ]
                         }
                     ]
@@ -472,19 +472,19 @@
                         {
                             round: "Round 11",
                             matches: [
-                                { home: "A2", away: "A1" },
-                                { home: "A4", away: "A3" },
-                                { home: "A6", away: "A5" },
-                                { home: "A8", away: "A7" }
+                                { home: "B2", away: "B1" },
+                                { home: "B4", away: "B3" },
+                                { home: "B6", away: "B5" },
+                                { home: "B8", away: "B7" }
                             ]
                         },
                         {
                             round: "Round 12",
                             matches: [
-                                { home: "A1", away: "A3" },
-                                { home: "A2", away: "A4" },
-                                { home: "A7", away: "A5" },
-                                { home: "A9", away: "A6" }
+                                { home: "B1", away: "B3" },
+                                { home: "B2", away: "B4" },
+                                { home: "B7", away: "B5" },
+                                { home: "B9", away: "B6" }
                             ]
                         }
                     ]
@@ -496,19 +496,19 @@
                         {
                             round: "Round 13",
                             matches: [
-                                { home: "A4", away: "A1" },
-                                { home: "A5", away: "A2" },
-                                { home: "A6", away: "A3" },
-                                { home: "A9", away: "A8" }
+                                { home: "B4", away: "B1" },
+                                { home: "B5", away: "B2" },
+                                { home: "B6", away: "B3" },
+                                { home: "B9", away: "B8" }
                             ]
                         },
                         {
                             round: "Round 14",
                             matches: [
-                                { home: "A1", away: "A5" },
-                                { home: "A2", away: "A6" },
-                                { home: "A3", away: "A7" },
-                                { home: "A8", away: "A4" }
+                                { home: "B1", away: "B5" },
+                                { home: "B2", away: "B6" },
+                                { home: "B3", away: "B7" },
+                                { home: "B8", away: "B4" }
                             ]
                         }
                     ]
@@ -520,19 +520,19 @@
                         {
                             round: "Round 15",
                             matches: [
-                                { home: "A6", away: "A1" },
-                                { home: "A7", away: "A2" },
-                                { home: "A8", away: "A3" },
-                                { home: "A9", away: "A4" }
+                                { home: "B6", away: "B1" },
+                                { home: "B7", away: "B2" },
+                                { home: "B8", away: "B3" },
+                                { home: "B9", away: "B4" }
                             ]
                         },
                         {
                             round: "Round 16",
                             matches: [
-                                { home: "A7", away: "A1" },
-                                { home: "A8", away: "A2" },
-                                { home: "A9", away: "A3" },
-                                { home: "A5", away: "A4" }
+                                { home: "B7", away: "B1" },
+                                { home: "B8", away: "B2" },
+                                { home: "B9", away: "B3" },
+                                { home: "B5", away: "B4" }
                             ]
                         }
                     ]
@@ -551,24 +551,24 @@
             alert('⚠️ Please wait, connecting to database...');
             return;
         }
-        
+
         if (!currentTeam && !isAdmin) {
             alert('⚠️ Please enter your team password first');
             return;
         }
-        
+
         // Check if current team is involved in this match or is admin
         if (!isAdmin && currentTeam !== homeTeam && currentTeam !== awayTeam) {
             alert('❌ You can only mark matches involving your team');
             return;
         }
-        
+
         const currentStatus = scheduleData[matchId] || false;
         const newStatus = !currentStatus;
-        
+
         console.log('Updating match:', matchId, 'to', newStatus);
-        
-        database.ref('Schedule/' + matchId).set(newStatus).then(() => {
+
+        database.ref('ScheduleB/' + matchId).set(newStatus).then(() => {
             scheduleData[matchId] = newStatus;
             console.log('✅ Match updated successfully');
             renderSchedule();
@@ -583,8 +583,8 @@
             console.log('Waiting for Firebase authentication...');
             return;
         }
-        
-        database.ref('Schedule').on('value', snapshot => {
+
+        database.ref('ScheduleB').on('value', snapshot => {
             scheduleData = snapshot.val() || {};
             console.log('📊 Loaded schedule data:', Object.keys(scheduleData).length, 'matches');
             renderSchedule();
@@ -598,16 +598,16 @@
         const monthFilter = document.getElementById('monthFilter').value;
         const statusFilter = document.getElementById('statusFilter').value;
         const teamFilter = document.getElementById('teamFilter').value;
-        
+
         let html = '';
-        
+
         Object.keys(schedule).forEach(monthKey => {
             if (monthFilter !== 'all' && monthFilter !== monthKey) return;
-            
+
             const month = schedule[monthKey];
             html += `<div class="month-section" data-month="${monthKey}">`;
             html += `<div class="month-header">🟦 ${month.name.toUpperCase()}</div>`;
-            
+
             month.weeks.forEach(week => {
                 if (week.buffer) {
                     html += `<div class="sunday-card buffer-week">
@@ -617,11 +617,11 @@
                     </div>`;
                     return;
                 }
-                
+
                 const cardClass = week.doubleHeader ? 'sunday-card double-header' : 'sunday-card';
                 html += `<div class="${cardClass}">`;
                 html += `<div class="sunday-header"><div class="sunday-date">${week.date}</div></div>`;
-                
+
                 if (week.doubleHeader) {
                     week.rounds.forEach(round => {
                         html += `<div class="round-label">${round.round}</div>`;
@@ -633,43 +633,43 @@
                     html += `<div class="match-list">`;
                     html += renderMatches(week.matches, week.date, teamFilter, statusFilter);
                     html += `</div>`;
-                    
+
                     if (week.bye) {
                         html += `<div class="bye-notice">🔔 Bye: Team ${week.bye}</div>`;
                     }
                 }
-                
+
                 html += `</div>`;
             });
-            
+
             html += `</div>`;
         });
-        
+
         container.innerHTML = html;
     }
 
     function renderMatches(matches, date, teamFilter, statusFilter) {
         let html = '';
-        
+
         matches.forEach(match => {
             const matchId = generateMatchId(match.home, match.away, date);
             const isCompleted = scheduleData[matchId] === true;
-            
+
             // Apply filters
             if (teamFilter !== 'all' && match.home !== teamFilter && match.away !== teamFilter) return;
             if (statusFilter === 'completed' && !isCompleted) return;
             if (statusFilter === 'pending' && isCompleted) return;
-            
+
             // Check if current team can edit this match
             const canEdit = isAdmin || currentTeam === match.home || currentTeam === match.away;
-            
+
             html += `<div class="match-item">
                 <div class="match-teams">
-                    <span class="home-team">Team ${match.home} (Home)</span> vs 
+                    <span class="home-team">Team ${match.home} (Home)</span> vs
                     <span class="away-team">Team ${match.away} (Away)</span>
                 </div>
                 <div class="match-status">`;
-            
+
             if (canEdit) {
                 const buttonClass = isCompleted ? 'btn completed' : 'btn pending';
                 const buttonText = isCompleted ? '✅ COMPLETED' : '⏳ PENDING';
@@ -679,11 +679,11 @@
                 const labelText = isCompleted ? '✅ COMPLETED' : '⏳ PENDING';
                 html += `<span class="${labelClass}" style="min-width:140px;display:inline-block;text-align:center;">${labelText}</span>`;
             }
-            
+
             html += `</div>
             </div>`;
         });
-        
+
         return html;
     }
 
@@ -691,15 +691,15 @@
     document.getElementById('verifyPasswordBtn').addEventListener('click', () => {
         const password = document.getElementById('teamPassword').value.trim().toUpperCase();
         const team = TEAM_PASSWORDS[password];
-        
+
         if (team) {
             currentTeam = team === 'ADMIN' ? null : team;
             isAdmin = team === 'ADMIN';
-            
+
             document.querySelector('.admin-controls').classList.add('hidden');
             document.getElementById('teamUnlockedControls').classList.remove('hidden');
             document.getElementById('teamNameDisplay').textContent = isAdmin ? '✅ Admin Access' : `✅ Team ${currentTeam} - Logged In`;
-            
+
             renderSchedule();
             alert(isAdmin ? '✅ Admin access granted' : `✅ Logged in as Team ${currentTeam}`);
         } else {
