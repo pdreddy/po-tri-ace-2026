@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TriAce 2025 – Score Entry</title>
+    <title>TriAce 2026 – Score Entry</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -415,7 +415,7 @@
         <div class="brand">
             <img src="triace-logo.png" alt="TriAce Tennis" style="height:120px;">
             <div>
-                <strong>TRIACE 2025</strong>
+                <strong>TRIACE 2026</strong>
                 <div class="tagline">18 Teams · 2 Groups · Infinite Drama</div>
             </div>
         </div>
@@ -425,7 +425,8 @@
     <nav id="siteNav" class="nav">
         <a href="index.html">🏠 Home</a>
         <a href="rules.html">📋 Rules</a>
-        <a href="schedule.html">📅 Schedule</a>
+        <a href="schedule.html">📅 Schedule A</a>
+        <a href="schedule-b.html">📅 Schedule B</a>
         <a href="standings.html">📊 Standings</a>
         <a href="scoring.html" aria-current="page">📝 Score Entry</a>
         <a href="history.html">📜 History</a>
@@ -450,7 +451,7 @@
             
             <div class="access-hint">
                 <strong>Team captains:</strong> enter your team's unique password.<br>
-                <strong>Password format:</strong> TEAM# (e.g., A1#, B5#) | <strong>Admin:</strong> ADMIN#2025
+                <strong>Password format:</strong> TEAM# (e.g., A1#, B5#) | <strong>Admin:</strong> ADMIN#2026
             </div>
         </div>
     </div>
@@ -554,7 +555,7 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
         'A6#': 'A6', 'A7#': 'A7', 'A8#': 'A8', 'A9#': 'A9',
         'B1#': 'B1', 'B2#': 'B2', 'B3#': 'B3', 'B4#': 'B4', 'B5#': 'B5',
         'B6#': 'B6', 'B7#': 'B7', 'B8#': 'B8', 'B9#': 'B9',
-        'ADMIN#2025': 'ADMIN'
+        'ADMIN#2026': 'ADMIN'
     };
 
     const groupA = [
@@ -780,20 +781,28 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
             return;
         }
         
-        let s1 = 0, s2 = 0;
-        res.forEach(r => { s1 += r.sets1; s2 += r.sets2; });
-        
+        let s1 = 0, s2 = 0, g1 = 0, g2 = 0;
+        res.forEach(r => {
+            s1 += r.sets1;
+            s2 += r.sets2;
+            g1 += r.g1;
+            g2 += r.g2;
+        });
+
+        // Format data to match what standings.html and history.html expect
         const data = {
-            team1: t1.abbreviation,
-            team2: t2.abbreviation,
-            winner: s1 > s2 ? t1.abbreviation : t2.abbreviation,
-            team1Sets: s1,
-            team2Sets: s2,
-            details: res,
-            timestamp: firebase.database.ServerValue.TIMESTAMP,
+            t1: t1.name,  // Full team name (e.g., 'Team A1')
+            t2: t2.name,  // Full team name
+            win: s1 > s2 ? t1.name : t2.name,  // Winner's full team name
+            s1: s1,  // Sets won by team 1
+            s2: s2,  // Sets won by team 2
+            g1: g1,  // Total games won by team 1
+            g2: g2,  // Total games won by team 2
+            ts: firebase.database.ServerValue.TIMESTAMP,
+            lines: res,  // Match details
             submittedBy: admin ? 'Admin' : team
         };
-        
+
         const ref = db.ref('RoundRobinTournament').push();
         ref.set(data).then(() => {
             lastKey = ref.key;
@@ -805,8 +814,8 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
             updatePreview();
             
             document.getElementById('undoCard').style.display = 'block';
-            document.getElementById('undoInfo').textContent = 
-                `${data.team1} vs ${data.team2} - Winner: ${data.winner} (${data.team1Sets}-${data.team2Sets})`;
+            document.getElementById('undoInfo').textContent =
+                `${data.t1} vs ${data.t2} - Winner: ${data.win} (${data.s1}-${data.s2})`;
         }).catch(e => {
             alert('❌ Failed: ' + e.message);
         });
@@ -819,8 +828,8 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
         if (lastKey && last) {
             const d = JSON.parse(last);
             document.getElementById('undoCard').style.display = 'block';
-            document.getElementById('undoInfo').textContent = 
-                `${d.team1} vs ${d.team2} - Winner: ${d.winner} (${d.team1Sets}-${d.team2Sets})`;
+            document.getElementById('undoInfo').textContent =
+                `${d.t1} vs ${d.t2} - Winner: ${d.win} (${d.s1}-${d.s2})`;
         }
     }
 
