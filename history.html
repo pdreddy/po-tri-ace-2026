@@ -301,7 +301,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const firebaseApp = firebase.initializeApp(firebaseConfig);
     const auth = firebaseApp.auth();
     const database = firebaseApp.database();
-    const matchesRef = database.ref('RoundRobinTournament');
+    const matchesRef = database.ref('TriAceDB');
 
     let authReady = false;
     function ensureAuth(){
@@ -624,7 +624,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       if(!confirmed) return;
 
       try {
-        await database.ref('RoundRobinTournament/' + matchId).remove();
+        await database.ref('TriAceDB/' + matchId).remove();
         alert('✅ Match deleted successfully.');
       } catch(err){
         console.error('Delete error:', err);
