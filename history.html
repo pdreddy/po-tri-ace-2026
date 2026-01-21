@@ -283,15 +283,6 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
                 </table>
             </div>
         </section>
-        <section class="card access-card" id="adminAccessCard">
-            <h2>🔐 Admin Access</h2>
-            <div class="access-controls" style="margin:.5rem 0;">
-                <input type="password" id="adminAccessCode" placeholder="Enter admin password" class="access-input" />
-                <button class="btn" id="adminUnlockBtn">Unlock Admin</button>
-                <button class="btn secondary hidden" id="adminLockBtn">Lock Admin</button>
-            </div>
-            <p class="access-status" id="adminAccessStatus">Admin tools are locked.</p>
-        </section>
         <section id="adminPanel" class="card admin-panel hidden">
             <h2>🛠️ Admin: History Editor</h2>
             <p class="hint">Admins can load any match record, update fields, and save changes directly to the database.</p>
@@ -401,10 +392,6 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const scoreInput = document.getElementById('scoreInput');
     const previewContent = document.getElementById('previewContent');
     const loggedTeamBadge = document.getElementById('loggedTeamBadge');
-    const adminAccessCode = document.getElementById('adminAccessCode');
-    const adminUnlockBtn = document.getElementById('adminUnlockBtn');
-    const adminLockBtn = document.getElementById('adminLockBtn');
-    const adminAccessStatus = document.getElementById('adminAccessStatus');
     const adminPanel = document.getElementById('adminPanel');
     const adminMatchSelect = document.getElementById('adminMatchSelect');
     const adminJson = document.getElementById('adminJson');
