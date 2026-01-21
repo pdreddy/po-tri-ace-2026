@@ -100,6 +100,7 @@
           padding:.7rem 1rem; border:2px solid var(--ring); border-radius:8px; min-width:240px;
         }
         .access-input:focus{ outline:none; border-color:var(--accent); }
+        .access-status{ font-size:.85rem; color:var(--muted); margin-top:.4rem; }
         .btn{
           padding:.7rem 1.2rem; border:none; border-radius:8px; font-weight:700; color:#fff; cursor:pointer;
           background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow:0 2px 10px rgba(102,126,234,.35);
@@ -129,6 +130,17 @@
         .format-help pre{ font-size:.8rem; color:#155e75; white-space:pre-wrap; line-height:1.5; }
         .form-actions{ display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
         .hidden{ display:none; }
+        .admin-panel{ border:2px dashed #94a3b8; background:#f8fafc; }
+        .admin-panel h3{ margin-bottom:.35rem; font-size:1rem; color:#1f2937; }
+        .admin-grid{ display:grid; grid-template-columns:minmax(180px, 260px) 1fr; gap:1rem; align-items:start; }
+        .admin-grid label{ font-size:.8rem; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:.04em; }
+        .admin-select, .admin-textarea{
+          width:100%; border:2px solid var(--ring); border-radius:8px; padding:.6rem .7rem; font-size:.9rem;
+        }
+        .admin-textarea{ min-height:220px; font-family:monospace; resize:vertical; }
+        .admin-meta{ font-size:.85rem; color:var(--muted); margin-top:.25rem; }
+        .admin-actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.75rem; }
+        .admin-actions .btn{ font-size:.85rem; }
         .history-breakdown-wrapper{ display:flex; flex-direction:column; gap:.4rem; }
         .history-toggle{
           display:inline-flex; align-items:center; gap:.35rem; font-weight:700; color:#2563eb;
@@ -271,6 +283,39 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
                 </table>
             </div>
         </section>
+        <section class="card access-card" id="adminAccessCard">
+            <h2>🔐 Admin Access</h2>
+            <div class="access-controls" style="margin:.5rem 0;">
+                <input type="password" id="adminAccessCode" placeholder="Enter admin password" class="access-input" />
+                <button class="btn" id="adminUnlockBtn">Unlock Admin</button>
+                <button class="btn secondary hidden" id="adminLockBtn">Lock Admin</button>
+            </div>
+            <p class="access-status" id="adminAccessStatus">Admin tools are locked.</p>
+        </section>
+        <section id="adminPanel" class="card admin-panel hidden">
+            <h2>🛠️ Admin: History Editor</h2>
+            <p class="hint">Admins can load any match record, update fields, and save changes directly to the database.</p>
+            <div class="admin-grid">
+                <div>
+                    <label for="adminMatchSelect">Match Record</label>
+                    <select id="adminMatchSelect" class="admin-select">
+                        <option value="">Loading...</option>
+                    </select>
+                    <div class="admin-meta" id="adminMatchMeta">Select a record to view details.</div>
+                    <div class="admin-actions">
+                        <button class="btn secondary" id="adminLoadBtn">Load JSON</button>
+                        <button class="btn ghost" id="adminCopyBtn">Copy JSON</button>
+                        <button class="btn" id="adminSaveBtn">Save Changes</button>
+                        <button class="btn-delete" id="adminDeleteBtn">Delete Record</button>
+                    </div>
+                </div>
+                <div>
+                    <label for="adminJson">Editable JSON</label>
+                    <textarea id="adminJson" class="admin-textarea" placeholder="Load a match record to edit its JSON."></textarea>
+                    <div class="admin-meta">Required: t1, t2, g1, g2, win, ts, s1, s2 (lines optional).</div>
+                </div>
+            </div>
+        </section>
     </div>
     <div id="teams" class="tab-content">
         <div class="groups-container">
@@ -356,6 +401,15 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const scoreInput = document.getElementById('scoreInput');
     const previewContent = document.getElementById('previewContent');
     const loggedTeamBadge = document.getElementById('loggedTeamBadge');
+    const adminAccessCode = document.getElementById('adminAccessCode');
+    const adminUnlockBtn = document.getElementById('adminUnlockBtn');
+    const adminLockBtn = document.getElementById('adminLockBtn');
+    const adminAccessStatus = document.getElementById('adminAccessStatus');
+    const adminPanel = document.getElementById('adminPanel');
+    const adminMatchSelect = document.getElementById('adminMatchSelect');
+    const adminJson = document.getElementById('adminJson');
+    const adminMatchMeta = document.getElementById('adminMatchMeta');
+    let adminSelectedMatchId = null;
 
     function parseScoreText(text) {
       const results = [], errors = [];
@@ -498,6 +552,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         loggedTeamBadge.textContent = team.abbreviation;
         document.getElementById('accessCode').value = '';
         alert(`✅ Unlocked for ${team.name}`);
+        if(isAdmin) updateAdminAccessUI(true);
         renderAll(); // Re-render to show/hide delete buttons
       }
       else { alert('❌ Invalid password'); }
@@ -507,7 +562,34 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       currentTeam = null;
       isAdmin = false;
       loggedTeamBadge.textContent = '';
+      updateAdminAccessUI(false);
       renderAll(); // Re-render to hide delete buttons
+    });
+
+    function updateAdminAccessUI(active){
+      if(!adminAccessStatus) return;
+      adminAccessStatus.textContent = active ? 'Admin tools unlocked.' : 'Admin tools are locked.';
+      adminUnlockBtn?.classList.toggle('hidden', active);
+      adminLockBtn?.classList.toggle('hidden', !active);
+      if(!active && adminJson) adminJson.value = '';
+    }
+
+    adminUnlockBtn?.addEventListener('click', () => {
+      const code = adminAccessCode?.value.trim().toUpperCase();
+      if(code !== 'ADMIN#2026'){
+        alert('❌ Invalid admin password.');
+        return;
+      }
+      isAdmin = true;
+      adminAccessCode.value = '';
+      updateAdminAccessUI(true);
+      renderAll();
+    });
+
+    adminLockBtn?.addEventListener('click', () => {
+      isAdmin = false;
+      updateAdminAccessUI(false);
+      renderAll();
     });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
@@ -633,7 +715,125 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     }
     window.deleteMatch = deleteMatch; // Make it globally accessible for onclick handlers
 
-    function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); }
+    function getMatchById(matchId){
+      return matches.find(m => m.id === matchId);
+    }
+
+    function toEditableRecord(match){
+      if(!match) return '';
+      const { t1, t2, g1, g2, win, ts, s1, s2, lines, submittedBy } = match;
+      const record = { t1, t2, g1, g2, win, ts, s1, s2 };
+      if(Array.isArray(lines)) record.lines = lines;
+      if(submittedBy) record.submittedBy = submittedBy;
+      return JSON.stringify(record, null, 2);
+    }
+
+    function sanitizeMatchRecord(raw){
+      if(!raw || typeof raw !== 'object') throw new Error('JSON must be an object.');
+      const record = {
+        t1: String(raw.t1 || '').trim(),
+        t2: String(raw.t2 || '').trim(),
+        g1: Number(raw.g1),
+        g2: Number(raw.g2),
+        win: String(raw.win || '').trim(),
+        ts: Number(raw.ts) || Date.now(),
+        s1: Number(raw.s1) || 0,
+        s2: Number(raw.s2) || 0
+      };
+      if(!record.t1 || !record.t2 || !record.win) throw new Error('t1, t2, and win are required.');
+      if(!Number.isFinite(record.g1) || !Number.isFinite(record.g2)) throw new Error('g1 and g2 must be numbers.');
+      if(Array.isArray(raw.lines)) record.lines = raw.lines;
+      if(raw.submittedBy) record.submittedBy = String(raw.submittedBy);
+      return record;
+    }
+
+    function renderAdminPanel(){
+      if(!adminPanel) return;
+      adminPanel.classList.toggle('hidden', !isAdmin);
+      if(!isAdmin) return;
+      if(!matchesLoaded){
+        adminMatchSelect.innerHTML = '<option value="">Loading...</option>';
+        adminMatchMeta.textContent = 'Loading match records...';
+        return;
+      }
+      if(matches.length === 0){
+        adminMatchSelect.innerHTML = '<option value="">No matches available</option>';
+        adminMatchMeta.textContent = 'No match records in the database.';
+        adminJson.value = '';
+        return;
+      }
+      adminMatchSelect.innerHTML = matches.map(m => {
+        const t1 = TEAM_LOOKUP.get(m.t1)?.abbreviation || m.t1;
+        const t2 = TEAM_LOOKUP.get(m.t2)?.abbreviation || m.t2;
+        const label = `${t1} vs ${t2} • ${new Date(m.ts).toLocaleString()}`;
+        return `<option value="${m.id}">${escapeHTML(label)}</option>`;
+      }).join('');
+      if(adminSelectedMatchId && matches.some(m => m.id === adminSelectedMatchId)){
+        adminMatchSelect.value = adminSelectedMatchId;
+      } else {
+        adminSelectedMatchId = adminMatchSelect.value;
+      }
+      const selectedMatch = getMatchById(adminSelectedMatchId);
+      adminMatchMeta.textContent = selectedMatch
+        ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
+        : 'Select a record to view details.';
+    }
+
+    adminMatchSelect?.addEventListener('change', () => {
+      adminSelectedMatchId = adminMatchSelect.value;
+      const selectedMatch = getMatchById(adminSelectedMatchId);
+      adminMatchMeta.textContent = selectedMatch
+        ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
+        : 'Select a record to view details.';
+    });
+
+    document.getElementById('adminLoadBtn')?.addEventListener('click', () => {
+      if(!isAdmin) return alert('❌ Only admins can load records.');
+      const selectedMatch = getMatchById(adminMatchSelect.value);
+      if(!selectedMatch) return alert('Please select a match record.');
+      adminJson.value = toEditableRecord(selectedMatch);
+    });
+
+    document.getElementById('adminCopyBtn')?.addEventListener('click', async () => {
+      if(!adminJson.value.trim()) return alert('Nothing to copy.');
+      try {
+        await navigator.clipboard.writeText(adminJson.value);
+        alert('✅ JSON copied to clipboard.');
+      } catch(err) {
+        adminJson.select();
+        document.execCommand('copy');
+        alert('✅ JSON copied.');
+      }
+    });
+
+    document.getElementById('adminSaveBtn')?.addEventListener('click', async () => {
+      if(!isAdmin) return alert('❌ Only admins can save records.');
+      const matchId = adminMatchSelect.value;
+      if(!matchId) return alert('Please select a match record.');
+      let parsed;
+      try { parsed = JSON.parse(adminJson.value); }
+      catch(err){ return alert('⚠️ Invalid JSON format.'); }
+      let record;
+      try { record = sanitizeMatchRecord(parsed); }
+      catch(err){ return alert(`⚠️ ${err.message}`); }
+      if(!(await guardWriteAccess())) return;
+      try {
+        await database.ref('TriAceDB/' + matchId).set(record);
+        alert('✅ Match record updated.');
+      } catch(err){
+        console.error('Update error:', err);
+        alert('❌ Failed to update match: ' + err.message);
+      }
+    });
+
+    document.getElementById('adminDeleteBtn')?.addEventListener('click', () => {
+      const matchId = adminMatchSelect.value;
+      const selectedMatch = getMatchById(matchId);
+      if(!selectedMatch) return alert('Please select a match record.');
+      deleteMatch(matchId, `${selectedMatch.t1} vs ${selectedMatch.t2}`);
+    });
+
+    function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); renderAdminPanel(); }
     renderAll();
 
     // Mobile menu toggle
