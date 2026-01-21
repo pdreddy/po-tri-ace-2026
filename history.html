@@ -100,6 +100,7 @@
           padding:.7rem 1rem; border:2px solid var(--ring); border-radius:8px; min-width:240px;
         }
         .access-input:focus{ outline:none; border-color:var(--accent); }
+        .access-status{ font-size:.85rem; color:var(--muted); margin-top:.4rem; }
         .btn{
           padding:.7rem 1.2rem; border:none; border-radius:8px; font-weight:700; color:#fff; cursor:pointer;
           background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow:0 2px 10px rgba(102,126,234,.35);
@@ -538,6 +539,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         loggedTeamBadge.textContent = team.abbreviation;
         document.getElementById('accessCode').value = '';
         alert(`✅ Unlocked for ${team.name}`);
+        if(isAdmin) updateAdminAccessUI(true);
         renderAll(); // Re-render to show/hide delete buttons
       }
       else { alert('❌ Invalid password'); }
@@ -547,7 +549,34 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       currentTeam = null;
       isAdmin = false;
       loggedTeamBadge.textContent = '';
+      updateAdminAccessUI(false);
       renderAll(); // Re-render to hide delete buttons
+    });
+
+    function updateAdminAccessUI(active){
+      if(!adminAccessStatus) return;
+      adminAccessStatus.textContent = active ? 'Admin tools unlocked.' : 'Admin tools are locked.';
+      adminUnlockBtn?.classList.toggle('hidden', active);
+      adminLockBtn?.classList.toggle('hidden', !active);
+      if(!active && adminJson) adminJson.value = '';
+    }
+
+    adminUnlockBtn?.addEventListener('click', () => {
+      const code = adminAccessCode?.value.trim().toUpperCase();
+      if(code !== 'ADMIN#2026'){
+        alert('❌ Invalid admin password.');
+        return;
+      }
+      isAdmin = true;
+      adminAccessCode.value = '';
+      updateAdminAccessUI(true);
+      renderAll();
+    });
+
+    adminLockBtn?.addEventListener('click', () => {
+      isAdmin = false;
+      updateAdminAccessUI(false);
+      renderAll();
     });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
