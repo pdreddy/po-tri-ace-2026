@@ -149,81 +149,51 @@
         <button id="menuBtn" class="menu-btn">☰</button>
     </div>
     <nav class="nav" id="siteNav">
-        <div class="nav-tab active" data-tab="standingsTab">📊 Standings</div>
-        <div class="nav-tab" data-tab="historyTab">📜 History</div>
-        <div class="nav-tab" data-tab="teamsTab">👥 Teams</div>
-        <a href="scoring.html">✏️ Score Entry</a>
+        <a href="index.html">🏠 Home</a>
+        <a href="rules.html">📋 Rules</a>
+        <a href="schedule.html">📅 Schedule A</a>
+        <a href="schedule-b.html">📅 Schedule B</a>
+        <a href="standings.html" aria-current="page">📊 Standings</a>
+        <a href="scoring.html">📝 Score Entry</a>
+        <a href="history.html">📜 History</a>
+        <a href="teams.html">👥 Teams</a>
     </nav>
 </div>
 
 <div class="container">
-    <div id="standingsTab" class="tab-content active">
-        <div class="card">
-            <h2>🏆 Group Standings</h2>
-            <div class="groups-container">
-                <div>
-                    <h3 style="margin-bottom:.75rem;"><span class="group-badge a">Group A</span></h3>
-                    <div class="table-container">
-                        <table class="standings-table">
-                            <thead>
-                            <tr>
-                                <th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th>
-                                <th>GF</th><th>GA</th><th>+/-</th><th>Pts</th>
-                            </tr>
-                            </thead>
-                            <tbody id="standingsBodyA"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <h3 style="margin-bottom:.75rem;"><span class="group-badge b">Group B</span></h3>
-                    <div class="table-container">
-                        <table class="standings-table">
-                            <thead>
-                            <tr>
-                                <th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th>
-                                <th>GF</th><th>GA</th><th>+/-</th><th>Pts</th>
-                            </tr>
-                            </thead>
-                            <tbody id="standingsBodyB"></tbody>
-                        </table>
-                    </div>
+    <div class="card">
+        <h2>🏆 Group Standings</h2>
+        <div class="groups-container">
+            <div>
+                <h3 style="margin-bottom:.75rem;"><span class="group-badge a">Group A</span></h3>
+                <div class="table-container">
+                    <table class="standings-table">
+                        <thead>
+                        <tr>
+                            <th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th>
+                            <th>GF</th><th>GA</th><th>+/-</th><th>Pts</th>
+                        </tr>
+                        </thead>
+                        <tbody id="standingsBodyA"></tbody>
+                    </table>
                 </div>
             </div>
-            <p class="hint">✨ Top 3 from each group qualify | M: Matches, W: Wins, L: Losses, GF: Games For, GA: Games Against, Pts: Points (3 per win)</p>
-        </div>
-    </div>
-
-    <div id="historyTab" class="tab-content">
-        <div class="card">
-            <h2>📜 Match History</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Date</th>
-                    </tr>
-                    </thead>
-                    <tbody id="historyBody"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div id="teamsTab" class="tab-content">
-        <div class="card">
-            <h2>👥 All Teams</h2>
-            <div class="groups-container">
-                <div>
-                    <h3 style="margin-bottom:.75rem;"><span class="group-badge a">Group A</span></h3>
-                    <div id="teamListA" class="team-list"></div>
-                </div>
-                <div>
-                    <h3 style="margin-bottom:.75rem;"><span class="group-badge b">Group B</span></h3>
-                    <div id="teamListB" class="team-list"></div>
+            <div>
+                <h3 style="margin-bottom:.75rem;"><span class="group-badge b">Group B</span></h3>
+                <div class="table-container">
+                    <table class="standings-table">
+                        <thead>
+                        <tr>
+                            <th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th>
+                            <th>GF</th><th>GA</th><th>+/-</th><th>Pts</th>
+                        </tr>
+                        </thead>
+                        <tbody id="standingsBodyB"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        <p class="hint">✨ Top 3 from each group qualify | M: Matches, W: Wins, L: Losses, GF: Games For, GA: Games Against, Pts: Points (3 per win)</p>
     </div>
 </div>
 
@@ -302,14 +272,6 @@
     });
     document.getElementById('lockBtn')?.addEventListener('click', () => { if(scoringForm) scoringForm.classList.add('hidden'); currentTeam = null; if(loggedTeamBadge) loggedTeamBadge.textContent = ''; });
 
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
-    });
 
     function computeStandings(teamNames){
       const stats = {};
@@ -344,28 +306,7 @@
       });
     }
 
-    function renderHistory(){
-      if(!matchesLoaded){ historyBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Loading...</td></tr>'; return; }
-      if(matches.length === 0){ historyBody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>'; return; }
-      historyBody.innerHTML = matches.map((m,idx)=>{
-        const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
-        return `<tr>
-          <td class="rank-cell" data-label="#">${matches.length-idx}</td>
-          <td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td>
-          <td data-label="Score">${m.g1}-${m.g2}</td>
-          <td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td>
-          <td data-label="Date">${new Date(m.ts).toLocaleString()}</td>
-        </tr>`;
-      }).join('');
-    }
-
-    function renderTeamLists(){
-      document.getElementById('teamListA').innerHTML = groupA.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
-      document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
-    }
-
-    function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); }
-    renderAll();
+    renderStandings();
 
     // Mobile menu toggle
     document.getElementById('menuBtn').addEventListener('click',()=>{
