@@ -197,23 +197,32 @@
     </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
     const firebaseConfig = {
-        apiKey: "AIzaSyATMPfNvUwlCNM6Z7j0RY8IY5IEi2YHkI0",
-        authDomain: "triace-c9ab6.firebaseapp.com",
-        databaseURL: "https://triace-c9ab6-default-rtdb.firebaseio.com",
-        projectId: "triace-c9ab6",
-        storageBucket: "triace-c9ab6.firebasestorage.app",
-        messagingSenderId: "637438001464",
-        appId: "1:637438001464:web:3e40bef99f1ea1d57cd9cf"
+        apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
+        authDomain: "koc2-20fb8.firebaseapp.com",
+        databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
+        projectId: "koc2-20fb8",
+        storageBucket: "koc2-20fb8.firebasestorage.app",
+        messagingSenderId: "317734341461",
+        appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
     };
-    
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+
+    const firebaseApp = firebase.initializeApp(firebaseConfig);
+    const auth = firebaseApp.auth();
+    const database = firebaseApp.database();
     const matchesRef = database.ref('TriAceDB');
-    
+
+    let authReady = false;
+    function ensureAuth(){
+      if(authReady) return Promise.resolve();
+      return auth.signInAnonymously().then(() => { authReady = true; });
+    }
+    ensureAuth().catch(err => console.error('Auth failed', err));
+
     let matches = [];
     let matchesLoaded = false;
     let currentTeam = null;
@@ -240,7 +249,10 @@
     const groupA = Array.from(TEAM_MAP.values()).filter(t => t.group === 'A');
     const groupB = Array.from(TEAM_MAP.values()).filter(t => t.group === 'B');
 
-    async function guardWriteAccess(){ return true; }
+    async function guardWriteAccess(){
+      try { await ensureAuth(); return true; }
+      catch(err){ alert('❌ Auth failed.'); return false; }
+    }
 
     function upgradeMatch(m){
       if(!m || !m.t1 || !m.t2 || !m.win) return null;
