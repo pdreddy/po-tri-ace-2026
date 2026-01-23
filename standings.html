@@ -29,9 +29,9 @@
           -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
           font-weight:900;
         }
-        
+
         .menu-btn{display:none;border:0;background:transparent;font-size:1.5rem;padding:.25rem .5rem;cursor:pointer;}
-        
+
         /* MAIN NAVIGATION */
         nav.nav{
           max-width:1400px;margin:.35rem auto 0;display:flex;gap:.5rem;padding:.5rem 1rem;
@@ -59,7 +59,7 @@
           background:linear-gradient(135deg,var(--bg1),var(--bg2));
           border-color: transparent;
         }
-        
+
         .container{ max-width:1400px; margin:1rem auto 2rem; padding:0 1rem; }
         .card{
           background:#fff; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem;
@@ -142,7 +142,7 @@
         .tab-content{ display:none; }
         .tab-content.active{ display:block; }
         .team-badge{ display:inline-block; padding:.15rem .5rem; border-radius:4px; font-size:.7rem; font-weight:700; color:#fff; background:var(--bg1); margin-left:.5rem; }
-        
+
         @media (max-width:900px){
           .groups-container{ grid-template-columns:1fr; }
         }
@@ -195,21 +195,21 @@
                 <h2><span class="group-badge a">GROUP A</span> Standings</h2>
                 <div class="table-container">
                     <table class="standings-table responsive-table">
-                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
-                        <tbody id="standingsBodyA"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>Matches</th><th>Singles</th><th>Doubles</th><th>Sets</th><th>Games</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyA"><tr><td colspan="8" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
-                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+                <p class="hint">Top 3 teams (highlighted) advance. 1 point per match won (S1, S2, D1).</p>
             </section>
             <section class="card" style="border-top:4px solid var(--groupB);">
                 <h2><span class="group-badge b">GROUP B</span> Standings</h2>
                 <div class="table-container">
                     <table class="standings-table responsive-table">
-                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
-                        <tbody id="standingsBodyB"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>Matches</th><th>Singles</th><th>Doubles</th><th>Sets</th><th>Games</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyB"><tr><td colspan="8" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
-                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+                <p class="hint">Top 3 teams (highlighted) advance. 1 point per match won (S1, S2, D1).</p>
             </section>
         </div>
     </div>
@@ -521,21 +521,31 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
 
     function computeStandings(teamNames){
       const stats = {};
-      teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0 });
+      teamNames.forEach(n => stats[n] = { team:n, matches:0, singlesWon:0, doublesWon:0, totalSets:0, gamesFor:0, points:0 });
       for(const m of matches){
         if(!stats[m.t1] || !stats[m.t2]) continue;
         stats[m.t1].matches++; stats[m.t2].matches++;
-        stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
-        stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
-        
+        stats[m.t1].gamesFor += m.g1;
+        stats[m.t2].gamesFor += m.g2;
+        stats[m.t1].totalSets += m.s1 || 0;
+        stats[m.t2].totalSets += m.s2 || 0;
+
         // Award points per individual match (S1, S2, D1) - 1 point per match won
+        // Track singles and doubles wins separately
         let points1 = 0, points2 = 0;
+        let singles1 = 0, singles2 = 0;
+        let doubles1 = 0, doubles2 = 0;
+
         if(Array.isArray(m.lines) && m.lines.length > 0){
           m.lines.forEach(line => {
             if(line.winnerTeamNum === 1){
               points1 += 1;
+              if(line.type === 'singles') singles1++;
+              else if(line.type === 'doubles') doubles1++;
             } else if(line.winnerTeamNum === 2){
               points2 += 1;
+              if(line.type === 'singles') singles2++;
+              else if(line.type === 'doubles') doubles2++;
             }
           });
         } else {
@@ -543,20 +553,19 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           if(m.win === m.t1){ points1 = 3; }
           else if(m.win === m.t2){ points2 = 3; }
         }
-        
+
         stats[m.t1].points += points1;
         stats[m.t2].points += points2;
-        
-        // Update wins/losses based on overall match winner (for display purposes)
-        if(m.win === m.t1){ stats[m.t1].wins++; stats[m.t2].losses++; }
-        else if(m.win === m.t2){ stats[m.t2].wins++; stats[m.t1].losses++; }
+        stats[m.t1].singlesWon += singles1;
+        stats[m.t2].singlesWon += singles2;
+        stats[m.t1].doublesWon += doubles1;
+        stats[m.t2].doublesWon += doubles2;
       }
-      Object.values(stats).forEach(s => { s.gameDiff = s.gamesFor - s.gamesAgainst; });
-      return Object.values(stats).sort((a,b)=> (b.points-a.points)||(b.gameDiff-a.gameDiff)||(b.gamesFor-a.gamesFor)||a.team.localeCompare(b.team));
+      return Object.values(stats).sort((a,b)=> (b.points-a.points)||(b.totalSets-a.totalSets)||(b.gamesFor-a.gamesFor)||a.team.localeCompare(b.team));
     }
 
     function renderStandings(){
-      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>'; return; }
+      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>'; return; }
       [['A', TEAMS_A, standingsBodyA], ['B', TEAMS_B, standingsBodyB]].forEach(([g, teams, tbody]) => {
         const rows = computeStandings(teams);
         tbody.innerHTML = rows.map((r,i)=>{
@@ -565,10 +574,12 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           return `<tr class="${i<3?'qualified':''}">
             <td class="rank-cell" data-label="#">${i+1}</td>
             <td class="team-cell" data-label="Team">${team?.abbreviation||r.team}<br><small style="font-weight:400;color:var(--muted);font-size:.7rem;">${players}</small></td>
-            <td data-label="M">${r.matches}</td><td data-label="W">${r.wins}</td><td data-label="L">${r.losses}</td>
-            <td data-label="GF">${r.gamesFor}</td><td data-label="GA">${r.gamesAgainst}</td>
-            <td data-label="+/-">${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</td>
-            <td class="points-cell" data-label="Pts">${r.points}</td></tr>`;
+            <td data-label="Matches">${r.matches}</td>
+            <td data-label="Singles Won">${r.singlesWon}</td>
+            <td data-label="Doubles Won">${r.doublesWon}</td>
+            <td data-label="Total Sets">${r.totalSets}</td>
+            <td data-label="Total Games">${r.gamesFor}</td>
+            <td class="points-cell" data-label="Points">${r.points}</td></tr>`;
         }).join('');
       });
     }
