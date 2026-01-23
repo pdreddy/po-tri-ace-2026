@@ -301,7 +301,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const firebaseApp = firebase.initializeApp(firebaseConfig);
     const auth = firebaseApp.auth();
     const database = firebaseApp.database();
-    const matchesRef = database.ref('TriAceDB');
+    const matchesRef = database.ref('TriAceDBNEW');
 
     let authReady = false;
     function ensureAuth(){
@@ -624,7 +624,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       if(!confirmed) return;
 
       try {
-        await database.ref('TriAceDB/' + matchId).remove();
+        await database.ref('TriAceDBNEW/' + matchId).remove();
         alert('✅ Match deleted successfully.');
       } catch(err){
         console.error('Delete error:', err);

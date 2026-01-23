@@ -29,9 +29,9 @@
           -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
           font-weight:900;
         }
-        
+
         .menu-btn{display:none;border:0;background:transparent;font-size:1.5rem;padding:.25rem .5rem;cursor:pointer;}
-        
+
         /* MAIN NAVIGATION */
         nav.nav{
           max-width:1400px;margin:.35rem auto 0;display:flex;gap:.5rem;padding:.5rem 1rem;
@@ -59,7 +59,7 @@
           background:linear-gradient(135deg,var(--bg1),var(--bg2));
           border-color: transparent;
         }
-        
+
         .container{ max-width:1400px; margin:1rem auto 2rem; padding:0 1rem; }
         .card{
           background:#fff; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem;
@@ -142,7 +142,13 @@
         .tab-content{ display:none; }
         .tab-content.active{ display:block; }
         .team-badge{ display:inline-block; padding:.15rem .5rem; border-radius:4px; font-size:.7rem; font-weight:700; color:#fff; background:var(--bg1); margin-left:.5rem; }
-        
+        .btn-delete{
+          padding:.4rem .7rem; border:none; border-radius:6px; font-weight:600; color:#fff; cursor:pointer;
+          background:linear-gradient(135deg,#ef4444,#dc2626); font-size:.75rem;
+          box-shadow:0 2px 6px rgba(239,68,68,.3);
+        }
+        .btn-delete:hover{ opacity:.85; }
+
         @media (max-width:900px){
           .groups-container{ grid-template-columns:1fr; }
         }
@@ -173,7 +179,7 @@
 <body>
 <header class="header">
     <div class="header-bar">
-        <div class="brand"><img src="triace-logo.png" alt="TriAce Tennis" style="height:120px;"><strong>TRIACE 2026</strong></div>
+        <div class="brand"><i>🎾</i><strong>TRIACE 2026</strong></div>
         <button id="menuBtn" class="menu-btn">☰</button>
     </div>
     <nav id="siteNav" class="nav">
@@ -199,7 +205,7 @@
                         <tbody id="standingsBodyA"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
-                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+                <p class="hint">Top 3 teams (highlighted) advance. Each match won (S1, S2, D1) = 1 point.</p>
             </section>
             <section class="card" style="border-top:4px solid var(--groupB);">
                 <h2><span class="group-badge b">GROUP B</span> Standings</h2>
@@ -209,7 +215,7 @@
                         <tbody id="standingsBodyB"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
-                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+                <p class="hint">Top 3 teams (highlighted) advance. Each match won (S1, S2, D1) = 1 point.</p>
             </section>
         </div>
     </div>
@@ -231,22 +237,32 @@
         <textarea id="scoreInput" class="parser-textarea" placeholder="Paste match results here...
 
 Example:
-A1 vs A2
-D1: Yogesh/Dinkar vs Prashant/Vinoth 4-2, 4-1, 4-3(10-8) (won) A1
-D2: Sudarshan/Yogesh vs Vamsi/Prashant 4-0, 4-2, 4-1 (won) A1"></textarea>
+B5 vs B1
+S1: Ratnesh vs Manish 1-0(8-2) (won) B5
+S2: Narayan vs Biju 1-0(8-1) (won) B5
+D1: Ratnesh/Narayan vs Biju/Manish 3-4,4-3,4-0 (won) B1"></textarea>
                 <div class="preview-section">
                     <h3>📋 Preview</h3>
                     <div id="previewContent" class="preview-empty">Enter scores above to see preview</div>
                 </div>
                 <div class="format-help">
                     <h4>📖 Format Guide</h4>
-                    <pre>Line 1: TEAM1 vs TEAM2 (e.g., A1 vs A2)
-Then each court:
-D1: Player1/Player2 vs Player3/Player4 4-2, 4-1, 4-0 (won) WINNER
-D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
+                    <pre>Line 1: TEAM1 vs TEAM2 (e.g., B5 vs B1)
 
-• Tiebreaks: 4-3(10-8) means score 4-3 with tiebreak 10-8
-• Teams: A1-A9 (Group A), B1-B9 (Group B)</pre>
+Singles Format:
+S1: Player1 vs Player2 1-0(8-2) (won) WINNER
+S2: Player3 vs Player4 1-0(8-1) (won) WINNER
+• 1-0 means winner won 1 set (8-2 is the score)
+
+Doubles Format:
+D1: Player1/Player2 vs Player3/Player4 3-4,4-3,4-0 (won) WINNER
+• Three sets shown (best of 3)
+• Tiebreaks: 4-3(10-8) means 4-3 with tiebreak 10-8
+
+Scoring:
+• Each match won = 1 point (S1, S2, D1)
+• Winner: Team that wins 2+ matches
+• Standings: Each match won adds 1 point</pre>
                 </div>
             </div>
             <div class="form-actions">
@@ -259,11 +275,12 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         <section class="card">
             <h2>📜 Match History</h2>
             <div class="table-container">
-                <table class="responsive-table">
-                    <thead><tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
-                    <tbody id="historyBody"><tr><td colspan="6" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                <table class="responsive-table" id="historyTable">
+                    <thead id="historyTableHead"><tr><th>#</th><th>Teams</th><th>Match Score</th><th>Games</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
+                    <tbody id="historyBody"><tr><td colspan="7" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                 </table>
             </div>
+            <p class="hint">Match Score shows wins (S1, S2, D1). Games shows total game points.</p>
         </section>
     </div>
     <div id="teams" class="tab-content">
@@ -295,7 +312,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const firebaseApp = firebase.initializeApp(firebaseConfig);
     const auth = firebaseApp.auth();
     const database = firebaseApp.database();
-    const matchesRef = database.ref('TriAceDB');
+    const matchesRef = database.ref('TriAceDBNEW');
 
     let authReady = false;
     function ensureAuth(){
@@ -323,7 +340,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const groupB = [
       { name: 'Team B1', abbreviation: 'B1', players: ['Manish', 'Biju', 'Ritesh'] },
       { name: 'Team B2', abbreviation: 'B2', players: ['Kalyan', 'Sandeep', 'Uday'] },
-      { name: 'Team B3', abbreviation: 'B3', players: ['Kails', 'Veeresh', 'Vivek Reddy'] },
+      { name: 'Team B3', abbreviation: 'B3', players: ['Talha', 'Tariq', 'Kalam'] },
       { name: 'Team B4', abbreviation: 'B4', players: ['Venky DH', 'Kalam', 'Vasu'] },
       { name: 'Team B5', abbreviation: 'B5', players: ['Narayan P', 'Ratnesh', 'Jay S'] },
       { name: 'Team B6', abbreviation: 'B6', players: ['Vinod A', 'Raj K', 'Krishna'] },
@@ -342,7 +359,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const TEAMS_B = groupB.map(t => t.name);
     const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-    let matches = [], matchesLoaded = false, currentTeam = null;
+    let matches = [], matchesLoaded = false, currentTeam = null, isAdmin = false;
     const standingsBodyA = document.getElementById('standingsBodyA');
     const standingsBodyB = document.getElementById('standingsBodyB');
     const historyBody = document.getElementById('historyBody');
@@ -365,7 +382,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         if (team1 && team2 && team1.name === team2.name) errors.push('Teams must be different');
         startLine = 1;
       } else {
-        errors.push('First line should be: TEAM1 vs TEAM2 (e.g., A1 vs A2)');
+        errors.push('First line should be: TEAM1 vs TEAM2 (e.g., B5 vs B1)');
         return { results: [], errors, team1: null, team2: null };
       }
       if (!team1 || !team2) return { results: [], errors, team1: null, team2: null };
@@ -376,60 +393,105 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         const line = rawLines[i];
         if (/^[\d\-\(\),\s]+\(won\)/i.test(line) && mergedLines.length > 0) {
           mergedLines[mergedLines.length - 1] += ' ' + line;
-        } else if (/^(D\d?)[\s:]/i.test(line) || line.match(/vs/i)) {
+        } else if (/^(S\d?|D\d?)[\s:]/i.test(line) || line.match(/vs/i)) {
           mergedLines.push(line);
         }
       }
-      let doublesCount = 0;
       for (let i = 0; i < mergedLines.length; i++) {
         try {
           const parsed = parseLine(mergedLines[i], team1, team2, team1Abbr, team2Abbr);
-          if (parsed) { doublesCount++; if (!parsed.labelNum) parsed.label = `Doubles ${doublesCount}`; results.push(parsed); }
+          if (parsed) results.push(parsed);
         } catch (err) { errors.push(`Line ${i + 1 + startLine}: ${err.message}`); }
       }
       return { results, errors, team1, team2 };
     }
 
     function parseLine(line, team1, team2, team1Abbr, team2Abbr) {
-      const typeMatch = line.match(/^(D(?:oubles)?\s*(\d)?)[\s:]+/i);
-      let remainder = line, courtNum = null, labelNum = false;
-      if (typeMatch) {
-        const numMatch = typeMatch[1].toUpperCase().match(/\d/);
-        if (numMatch) { courtNum = numMatch[0]; labelNum = true; }
-        remainder = line.slice(typeMatch[0].length).trim();
-      }
+      const typeMatch = line.match(/^(S|D)(\d+)[\s:]+/i);
+      if (!typeMatch) throw new Error('Line must start with S1:, S2:, D1:, etc.');
+
+      const matchType = typeMatch[1].toUpperCase();
+      const matchNum = typeMatch[2];
+      let remainder = line.slice(typeMatch[0].length).trim();
+
       const wonMatch = remainder.match(/\(won\)\s*(\w+)\s*\.?\s*$/i);
       if (!wonMatch) throw new Error('Must include (won) followed by winner');
       const winnerAbbr = wonMatch[1].toUpperCase();
       remainder = remainder.slice(0, wonMatch.index).trim();
+
       let winnerTeamNum = null;
       if (winnerAbbr === team1Abbr) winnerTeamNum = 1;
       else if (winnerAbbr === team2Abbr) winnerTeamNum = 2;
       else throw new Error(`Winner "${winnerAbbr}" doesn't match ${team1Abbr} or ${team2Abbr}`);
+
       const vsMatch = remainder.match(/\s+vs\.?\s+/i);
       if (!vsMatch) throw new Error('Must include "vs" between players');
+
       const leftSide = remainder.slice(0, vsMatch.index).trim();
       const rightSide = remainder.slice(vsMatch.index + vsMatch[0].length).trim();
       const leftPlayers = leftSide.split('/').map(p => p.trim()).filter(Boolean);
+
       const scoreStartMatch = rightSide.match(/\s+(\d+-\d+)/);
       if (!scoreStartMatch) throw new Error('Could not find scores');
+
       const rightPlayersStr = rightSide.slice(0, scoreStartMatch.index).trim();
       const scoresStr = rightSide.slice(scoreStartMatch.index).trim();
       const rightPlayers = rightPlayersStr.split('/').map(p => p.trim()).filter(Boolean);
-      const sets = parseScores(scoresStr);
-      let g1 = 0, g2 = 0, sets1 = 0, sets2 = 0;
-      const setsData = [];
-      for (let i = 0; i < sets.length; i++) {
-        const set = sets[i];
-        g1 += set.left; g2 += set.right;
-        if (set.left > set.right) sets1++;
-        else if (set.right > set.left) sets2++;
-        else if (set.tiebreak) { if (set.tiebreak.left > set.tiebreak.right) { sets1++; g1++; } else { sets2++; g2++; } }
-        const setData = { set: i + 1, team1: set.left, team2: set.right };
-        if (set.tiebreak) setData.tieBreak = { team1: set.tiebreak.left, team2: set.tiebreak.right };
-        setsData.push(setData);
+
+      if (matchType === 'S') {
+        const singlesMatch = scoresStr.match(/^(\d+)-(\d+)\((\d+)-(\d+)\)$/);
+        if (!singlesMatch) throw new Error('Singles format: 1-0(8-2)');
+
+        const sets1 = parseInt(singlesMatch[1]);
+        const sets2 = parseInt(singlesMatch[2]);
+        const points1 = parseInt(singlesMatch[3]);
+        const points2 = parseInt(singlesMatch[4]);
+
+        if (sets1 + sets2 !== 1) throw new Error('Singles should be 1-0 or 0-1');
+
+        return {
+          label: `S${matchNum}`,
+          type: 'singles',
+          players: { team1: leftPlayers, team2: rightPlayers },
+          sets: [{ set: 1, team1: points1, team2: points2 }],
+          g1: points1,
+          g2: points2,
+          sets1: sets1,
+          sets2: sets2,
+          winnerTeamNum: winnerTeamNum
+        };
+      } else {
+        const sets = parseScores(scoresStr);
+        let g1 = 0, g2 = 0, sets1 = 0, sets2 = 0;
+        const setsData = [];
+
+        for (let i = 0; i < sets.length; i++) {
+          const set = sets[i];
+          g1 += set.left;
+          g2 += set.right;
+          if (set.left > set.right) sets1++;
+          else if (set.right > set.left) sets2++;
+          else if (set.tiebreak) {
+            if (set.tiebreak.left > set.tiebreak.right) { sets1++; g1++; }
+            else { sets2++; g2++; }
+          }
+          const setData = { set: i + 1, team1: set.left, team2: set.right };
+          if (set.tiebreak) setData.tieBreak = { team1: set.tiebreak.left, team2: set.tiebreak.right };
+          setsData.push(setData);
+        }
+
+        return {
+          label: `D${matchNum}`,
+          type: 'doubles',
+          players: { team1: leftPlayers, team2: rightPlayers },
+          sets: setsData,
+          g1: g1,
+          g2: g2,
+          sets1: sets1,
+          sets2: sets2,
+          winnerTeamNum: winnerTeamNum
+        };
       }
-      return { label: `Doubles ${courtNum || ''}`.trim(), labelNum, type: 'doubles', players: { team1: leftPlayers, team2: rightPlayers }, sets: setsData, g1, g2, sets1, sets2, winnerTeamNum };
     }
 
     function parseScores(scoresStr) {
@@ -450,10 +512,15 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       let html = '';
       if (errors.length > 0) html += errors.map(err => `<div class="preview-item error">❌ ${escapeHTML(err)}</div>`).join('');
       if (team1 && team2 && results.length > 0) {
-        let totalG1 = 0, totalG2 = 0, courtsWon1 = 0, courtsWon2 = 0;
-        results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
-        const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : 'TIE');
-        html += `<div class="preview-item total">📊 ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation} | Courts: ${courtsWon1}-${courtsWon2} | Winner: ${winner}</div>`;
+        let totalG1 = 0, totalG2 = 0, matchesWon1 = 0, matchesWon2 = 0;
+        results.forEach(r => {
+          totalG1 += r.g1;
+          totalG2 += r.g2;
+          if (r.winnerTeamNum === 1) matchesWon1++;
+          else matchesWon2++;
+        });
+        const winner = matchesWon1 > matchesWon2 ? team1.abbreviation : (matchesWon2 > matchesWon1 ? team2.abbreviation : 'TIE');
+        html += `<div class="preview-item total">📊 ${team1.abbreviation} ${matchesWon1}-${matchesWon2} ${team2.abbreviation} | Games: ${totalG1}-${totalG2} | Day Winner: ${winner}</div>`;
         results.forEach(r => {
           const winnerName = r.winnerTeamNum === 1 ? team1.abbreviation : team2.abbreviation;
           const setsDisplay = r.sets.map(s => { let str = `${s.team1}-${s.team2}`; if (s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
@@ -485,10 +552,24 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     document.getElementById('unlockBtn').addEventListener('click', () => {
       const code = document.getElementById('accessCode').value.trim().toUpperCase();
       const team = TEAM_PASSWORDS[code];
-      if(team){ currentTeam = team; scoringForm.classList.remove('hidden'); loggedTeamBadge.textContent = team.abbreviation; document.getElementById('accessCode').value = ''; alert(`✅ Unlocked for ${team.name}`); }
+      if(team){
+        currentTeam = team;
+        isAdmin = (team.abbreviation === 'ADMIN');
+        scoringForm.classList.remove('hidden');
+        loggedTeamBadge.textContent = team.abbreviation;
+        document.getElementById('accessCode').value = '';
+        alert(`✅ Unlocked for ${team.name}`);
+        renderAll();
+      }
       else { alert('❌ Invalid password'); }
     });
-    document.getElementById('lockBtn').addEventListener('click', () => { scoringForm.classList.add('hidden'); currentTeam = null; loggedTeamBadge.textContent = ''; });
+    document.getElementById('lockBtn').addEventListener('click', () => {
+      scoringForm.classList.add('hidden');
+      currentTeam = null;
+      isAdmin = false;
+      loggedTeamBadge.textContent = '';
+      renderAll();
+    });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
       if(!matchesLoaded) return alert('Please wait for data to load.');
@@ -498,14 +579,53 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       if(!team1 || !team2) return alert('⚠️ Could not detect teams.');
       if(results.length === 0) return alert('⚠️ No valid scores found.');
       if(currentTeam.abbreviation !== 'ADMIN' && currentTeam.name !== team1.name && currentTeam.name !== team2.name) return alert(`⚠️ You can only submit scores for ${currentTeam.name}.`);
-      let totalG1 = 0, totalG2 = 0, totalSets1 = 0, totalSets2 = 0, courtsWon1 = 0, courtsWon2 = 0;
-      results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; totalSets1 += r.sets1; totalSets2 += r.sets2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
-      const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : null);
+
+      let totalG1 = 0, totalG2 = 0, totalSets1 = 0, totalSets2 = 0, matchesWon1 = 0, matchesWon2 = 0;
+      results.forEach(r => {
+        totalG1 += r.g1;
+        totalG2 += r.g2;
+        totalSets1 += r.sets1;
+        totalSets2 += r.sets2;
+        if (r.winnerTeamNum === 1) matchesWon1++;
+        else matchesWon2++;
+      });
+
+      const winner = matchesWon1 > matchesWon2 ? team1.name : (matchesWon2 > matchesWon1 ? team2.name : null);
       if(!winner) return alert('⚠️ Match is tied.');
-      const lines = results.map(r => ({ label: r.label, type: r.type, g1: r.g1, g2: r.g2, sets: r.sets, setWins: { team1: r.sets1, team2: r.sets2 }, players: { team1: r.players.team1.map(p => p.toUpperCase()), team2: r.players.team2.map(p => p.toUpperCase()) } }));
-      const record = { t1: team1.name, t2: team2.name, g1: totalG1, g2: totalG2, s1: totalSets1, s2: totalSets2, win: winner, ts: Date.now(), lines, submittedBy: currentTeam.abbreviation };
+
+      const lines = results.map(r => ({
+        label: r.label,
+        type: r.type,
+        g1: r.g1,
+        g2: r.g2,
+        sets: r.sets,
+        setWins: { team1: r.sets1, team2: r.sets2 },
+        players: {
+          team1: r.players.team1.map(p => p.toUpperCase()),
+          team2: r.players.team2.map(p => p.toUpperCase())
+        }
+      }));
+
+      const record = {
+        t1: team1.name,
+        t2: team2.name,
+        g1: totalG1,
+        g2: totalG2,
+        s1: matchesWon1,
+        s2: matchesWon2,
+        win: winner,
+        ts: Date.now(),
+        lines,
+        submittedBy: currentTeam.abbreviation
+      };
+
       if(!(await guardWriteAccess())) return;
-      try { await matchesRef.push(record); scoreInput.value = ''; updatePreview(); alert(`✅ Saved: ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation}\nWinner: ${winner}`); }
+      try {
+        await matchesRef.push(record);
+        scoreInput.value = '';
+        updatePreview();
+        alert(`✅ Saved: ${team1.abbreviation} vs ${team2.abbreviation}\nMatches Won: ${matchesWon1}-${matchesWon2}\nDay Winner: ${winner}`);
+      }
       catch(err){ alert('❌ Save failed: ' + err.message); }
     });
     document.getElementById('clearInputBtn').addEventListener('click', () => { scoreInput.value = ''; updatePreview(); });
@@ -519,16 +639,28 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       });
     });
 
+    // FIXED: Award 1 point per match won instead of 3 points per day won
     function computeStandings(teamNames){
       const stats = {};
       teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0 });
       for(const m of matches){
         if(!stats[m.t1] || !stats[m.t2]) continue;
-        stats[m.t1].matches++; stats[m.t2].matches++;
-        stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
-        stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
-        if(m.win === m.t1){ stats[m.t1].wins++; stats[m.t2].losses++; stats[m.t1].points += 3; }
-        else if(m.win === m.t2){ stats[m.t2].wins++; stats[m.t1].losses++; stats[m.t2].points += 3; }
+        stats[m.t1].matches++;
+        stats[m.t2].matches++;
+        stats[m.t1].gamesFor += m.g1;
+        stats[m.t1].gamesAgainst += m.g2;
+        stats[m.t2].gamesFor += m.g2;
+        stats[m.t2].gamesAgainst += m.g1;
+
+        // CRITICAL FIX: Add the actual match wins (s1, s2) as points
+        // s1 = number of matches team 1 won (S1, S2, D1)
+        // s2 = number of matches team 2 won
+        stats[m.t1].points += m.s1;  // Add match wins for team 1
+        stats[m.t2].points += m.s2;  // Add match wins for team 2
+
+        // Track day wins/losses
+        if(m.win === m.t1){ stats[m.t1].wins++; stats[m.t2].losses++; }
+        else if(m.win === m.t2){ stats[m.t2].wins++; stats[m.t1].losses++; }
       }
       Object.values(stats).forEach(s => { s.gameDiff = s.gamesFor - s.gamesAgainst; });
       return Object.values(stats).sort((a,b)=> (b.points-a.points)||(b.gameDiff-a.gameDiff)||(b.gamesFor-a.gamesFor)||a.team.localeCompare(b.team));
@@ -553,8 +685,17 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     }
 
     function renderHistory(){
-      if(!matchesLoaded){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>'; return; }
-      if(matches.length === 0){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>'; return; }
+      const colSpan = isAdmin ? 8 : 7;
+      const historyTableHead = document.getElementById('historyTableHead');
+
+      if(isAdmin){
+        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Match Score</th><th>Games</th><th>Winner</th><th>Details</th><th>Date</th><th>Actions</th></tr>';
+      } else {
+        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Match Score</th><th>Games</th><th>Winner</th><th>Details</th><th>Date</th></tr>';
+      }
+
+      if(!matchesLoaded){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;">Loading...</td></tr>`; return; }
+      if(matches.length === 0){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>`; return; }
       historyBody.innerHTML = matches.map((m,idx)=>{
         const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
         let breakdown = '—';
@@ -566,7 +707,19 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           }).join('');
           breakdown = `<div class="history-breakdown-wrapper"><button type="button" class="history-toggle" aria-expanded="false">Details</button><div class="history-breakdown">${parts}</div></div>`;
         }
-        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td></tr>`;
+        const deleteBtn = isAdmin ? `<td data-label="Actions"><button class="btn-delete" data-match-id="${m.id}" onclick="deleteMatch('${m.id}', '${escapeHTML(t1?.abbreviation||m.t1)} vs ${escapeHTML(t2?.abbreviation||m.t2)}')">Delete</button></td>` : '';
+
+        // Show match score (s1-s2) and game score (g1-g2)
+        return `<tr>
+          <td class="rank-cell" data-label="#">${matches.length-idx}</td>
+          <td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td>
+          <td data-label="Match Score"><strong>${m.s1}-${m.s2}</strong></td>
+          <td data-label="Games">${m.g1}-${m.g2}</td>
+          <td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td>
+          <td data-label="Details">${breakdown}</td>
+          <td data-label="Date">${new Date(m.ts).toLocaleString()}</td>
+          ${deleteBtn}
+        </tr>`;
       }).join('');
     }
     historyBody.addEventListener('click', e => {
@@ -584,10 +737,27 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
     }
 
+    async function deleteMatch(matchId, matchDesc){
+      if(!isAdmin){
+        alert('❌ Only admins can delete matches.');
+        return;
+      }
+      const confirmed = confirm(`Are you sure you want to delete this match?\n\n${matchDesc}\n\nThis action cannot be undone.`);
+      if(!confirmed) return;
+
+      try {
+        await database.ref('TriAceDBNEW/' + matchId).remove();
+        alert('✅ Match deleted successfully.');
+      } catch(err){
+        console.error('Delete error:', err);
+        alert('❌ Failed to delete match: ' + err.message);
+      }
+    }
+    window.deleteMatch = deleteMatch;
+
     function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); }
     renderAll();
 
-    // Mobile menu toggle
     document.getElementById('menuBtn').addEventListener('click',()=>{
       document.getElementById('siteNav').classList.toggle('open');
     });

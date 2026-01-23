@@ -812,7 +812,7 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
             submittedBy: admin ? 'Admin' : team
         };
 
-        const ref = db.ref('TriAceDB').push();
+        const ref = db.ref('TriAceDBNEW').push();
         ref.set(data).then(() => {
             lastKey = ref.key;
             localStorage.setItem('lastKey', lastKey);
@@ -860,7 +860,7 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
 
         if (!confirm('⚠️ Delete last match? This action cannot be undone.')) return;
 
-        db.ref('TriAceDB/' + lastKey).remove().then(() => {
+        db.ref('TriAceDBNEW/' + lastKey).remove().then(() => {
             alert('✅ Match deleted successfully');
             localStorage.removeItem('lastKey');
             localStorage.removeItem('lastData');
