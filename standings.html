@@ -220,10 +220,6 @@
     
     const standingsBodyA = document.getElementById('standingsBodyA');
     const standingsBodyB = document.getElementById('standingsBodyB');
-    const historyBody = document.getElementById('historyBody');
-    const scoreInput = document.getElementById('scoreInput');
-    const scoringForm = document.getElementById('scoringForm');
-    const loggedTeamBadge = document.getElementById('loggedTeamBadge');
     
     const TEAM_MAP = new Map([
         ['Team A1', { name: 'Team A1', abbreviation: 'A1', players: ['Ratnesh', 'Narayan'], group: 'A' }],
@@ -255,6 +251,10 @@
       return upgraded;
     }
 
+    function renderAll(){
+      renderStandings();
+    }
+
     function handleSnapshot(snapshot){
       const data = snapshot.val(), list = [];
       if(data){ for(const [id, entry] of Object.entries(data)){ const u = upgradeMatch(entry); if(u){ u.id = id; list.push(u); } } }
@@ -263,14 +263,6 @@
       renderAll();
     }
     matchesRef.on('value', handleSnapshot, err => { console.error('Firebase error', err); matches = []; matchesLoaded = true; renderAll(); });
-
-    document.getElementById('unlockBtn')?.addEventListener('click', () => {
-      const code = document.getElementById('accessCode')?.value.trim().toUpperCase();
-      const team = TEAM_PASSWORDS[code];
-      if(team){ currentTeam = team; scoringForm?.classList.remove('hidden'); if(loggedTeamBadge) loggedTeamBadge.textContent = team.abbreviation; document.getElementById('accessCode').value = ''; alert(`✅ Unlocked for ${team.name}`); }
-      else { alert('❌ Invalid password'); }
-    });
-    document.getElementById('lockBtn')?.addEventListener('click', () => { if(scoringForm) scoringForm.classList.add('hidden'); currentTeam = null; if(loggedTeamBadge) loggedTeamBadge.textContent = ''; });
 
 
     function computeStandings(teamNames){
