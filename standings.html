@@ -231,20 +231,29 @@
     const standingsBodyB = document.getElementById('standingsBodyB');
     
     const TEAM_MAP = new Map([
-        ['Team A1', { name: 'Team A1', abbreviation: 'A1', players: ['Ratnesh', 'Narayan'], group: 'A' }],
-        ['Team A2', { name: 'Team A2', abbreviation: 'A2', players: ['Rahul', 'Rishab'], group: 'A' }],
-        ['Team A3', { name: 'Team A3', abbreviation: 'A3', players: ['Ajay', 'Rohit'], group: 'A' }],
-        ['Team A4', { name: 'Team A4', abbreviation: 'A4', players: ['Vijay', 'Chandan'], group: 'A' }],
-        ['Team B1', { name: 'Team B1', abbreviation: 'B1', players: ['Biju', 'Manish'], group: 'B' }],
-        ['Team B2', { name: 'Team B2', abbreviation: 'B2', players: ['Karan', 'Vasu'], group: 'B' }],
-        ['Team B3', { name: 'Team B3', abbreviation: 'B3', players: ['Lokesh', 'Sunil'], group: 'B' }],
-        ['Team B4', { name: 'Team B4', abbreviation: 'B4', players: ['Ashutosh', 'Sandeep'], group: 'B' }],
-        ['Team B5', { name: 'Team B5', abbreviation: 'B5', players: ['Keshav', 'Sumit'], group: 'B' }]
+        ['Team A1', { name: 'Team A1', abbreviation: 'A1', players: ['Yogesh', 'Dinkar', 'Sudarshan'], group: 'A' }],
+        ['Team A2', { name: 'Team A2', abbreviation: 'A2', players: ['Prashant', 'Vinoth', 'Vamsi'], group: 'A' }],
+        ['Team A3', { name: 'Team A3', abbreviation: 'A3', players: ['Sudhakar', 'Dinesh', 'Uma'], group: 'A' }],
+        ['Team A4', { name: 'Team A4', abbreviation: 'A4', players: ['Sandeep G', 'Damu', 'Vidhya Sagar'], group: 'A' }],
+        ['Team A5', { name: 'Team A5', abbreviation: 'A5', players: ['Hari', 'Ram', 'Satish'], group: 'A' }],
+        ['Team A6', { name: 'Team A6', abbreviation: 'A6', players: ['Nagarjuna', 'Mohan', 'Ganesh'], group: 'A' }],
+        ['Team A7', { name: 'Team A7', abbreviation: 'A7', players: ['Sreekanth B', 'Uday P', 'Sashi R'], group: 'A' }],
+        ['Team A8', { name: 'Team A8', abbreviation: 'A8', players: ['Mayur Patel', 'Chandrakant', 'Pardeep K'], group: 'A' }],
+        ['Team A9', { name: 'Team A9', abbreviation: 'A9', players: ['Harsha S', 'Vijay V', 'Kartha V'], group: 'A' }],
+        ['Team B1', { name: 'Team B1', abbreviation: 'B1', players: ['Manish', 'Biju', 'Ritesh'], group: 'B' }],
+        ['Team B2', { name: 'Team B2', abbreviation: 'B2', players: ['Kalyan', 'Sandeep', 'Uday'], group: 'B' }],
+        ['Team B3', { name: 'Team B3', abbreviation: 'B3', players: ['Kails', 'Veeresh', 'Vivek Reddy'], group: 'B' }],
+        ['Team B4', { name: 'Team B4', abbreviation: 'B4', players: ['Venky DH', 'Kalam', 'Vasu'], group: 'B' }],
+        ['Team B5', { name: 'Team B5', abbreviation: 'B5', players: ['Narayan P', 'Ratnesh', 'Jay S'], group: 'B' }],
+        ['Team B6', { name: 'Team B6', abbreviation: 'B6', players: ['Vinod A', 'Raj K', 'Krishna'], group: 'B' }],
+        ['Team B7', { name: 'Team B7', abbreviation: 'B7', players: ['Srikanth', 'Bharat', 'Sridhar'], group: 'B' }],
+        ['Team B8', { name: 'Team B8', abbreviation: 'B8', players: ['Mahi', 'Shivaji', 'Vikas'], group: 'B' }],
+        ['Team B9', { name: 'Team B9', abbreviation: 'B9', players: ['Chandu M', 'Dinesh K', 'Malla'], group: 'B' }]
     ]);
-    
+
     const TEAM_LOOKUP = TEAM_MAP;
-    const TEAMS_A = ['Team A1', 'Team A2', 'Team A3', 'Team A4'];
-    const TEAMS_B = ['Team B1', 'Team B2', 'Team B3', 'Team B4', 'Team B5'];
+    const TEAMS_A = ['Team A1', 'Team A2', 'Team A3', 'Team A4', 'Team A5', 'Team A6', 'Team A7', 'Team A8', 'Team A9'];
+    const TEAMS_B = ['Team B1', 'Team B2', 'Team B3', 'Team B4', 'Team B5', 'Team B6', 'Team B7', 'Team B8', 'Team B9'];
     
     const groupA = Array.from(TEAM_MAP.values()).filter(t => t.group === 'A');
     const groupB = Array.from(TEAM_MAP.values()).filter(t => t.group === 'B');
