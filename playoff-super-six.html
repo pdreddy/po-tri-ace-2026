@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TriAce 2026 – Super Six Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sub-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            background: #fff;
+            padding: .9rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            margin-bottom: 1rem;
+        }
+
+        .sub-tab {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 700;
+            padding: .55rem .9rem;
+            border-radius: 8px;
+            transition: all .2s ease;
+            border: 1px solid var(--ring);
+            background: #f8fafc;
+        }
+
+        .sub-tab:hover,
+        .sub-tab.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            border-color: transparent;
+        }
+
+        .week {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            border-left: 6px solid var(--accent);
+        }
+
+        .week-header {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #1a202c;
+            margin-bottom: .9rem;
+            padding-bottom: .6rem;
+            border-bottom: 2px solid var(--ring);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
+        }
+
+        .tier-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--ring);
+        }
+
+        .tier-title {
+            font-size: 1rem;
+            font-weight: 900;
+            margin-bottom: .8rem;
+            padding-bottom: .4rem;
+            border-bottom: 2px solid var(--ring);
+        }
+
+        .rising-title { color: #f97316; }
+        .goat-title { color: #22c55e; }
+
+        .match {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            padding: .55rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: .95rem;
+            color: #1a202c;
+        }
+
+        .match:last-child { border-bottom: none; }
+
+        .team { flex: 1; }
+
+        .vs {
+            font-size: .75rem;
+            font-weight: 800;
+            color: #334155;
+            background: #facc15;
+            border-radius: 999px;
+            padding: .18rem .55rem;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-bar">
+        <div class="brand">
+            <img src="triace-logo.png" alt="TriAce Tennis" style="height:120px;">
+            <div>
+                <strong>TRIACE 2026</strong>
+                <div class="tagline">18 Teams · 2 Groups · Infinite Drama</div>
+            </div>
+        </div>
+        <button id="menuBtn" class="menu-btn">☰</button>
+    </div>
+
+    <nav id="siteNav" class="nav">
+        <a href="index.html">🏠 Home</a>
+        <a href="rules.html">📋 Rules</a>
+        <a href="schedule.html">📅 Schedule A</a>
+        <a href="schedule-b.html">📅 Schedule B</a>
+        <a href="playoff-super-six.html" aria-current="page">🏆 Super Six</a>
+        <a href="standings.html">📊 Standings</a>
+        <a href="scoring.html">📝 Score Entry</a>
+        <a href="history.html">📜 History</a>
+        <a href="teams.html">👥 Teams</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="page-header">
+        <h1>🏆 PLAYOFFS — SUPER SIX SCHEDULE</h1>
+        <p>Using the same TriAce schedule theme with a dedicated playoff sub tab.</p>
+    </section>
+
+    <div class="sub-tabs">
+        <a class="sub-tab" href="schedule.html">Group A Schedule</a>
+        <a class="sub-tab" href="schedule-b.html">Group B Schedule</a>
+        <a class="sub-tab active" href="playoff-super-six.html">Playoff: Super Six Schedule</a>
+    </div>
+
+    <section class="week">
+        <div class="week-header">📅 APRIL 10 — WEEK 1</div>
+        <div class="grid">
+            <article class="tier-card">
+                <div class="tier-title rising-title">🔥 RISING ACES</div>
+                <div class="match"><div class="team">Sreekanth B / Uday P / Sashi R</div><div class="vs">VS</div><div class="team">Vinod A / Raj K / Krishna</div></div>
+                <div class="match"><div class="team">Hari / Ram / Satish</div><div class="vs">VS</div><div class="team">Narayan P / Ratnesh / Jay S</div></div>
+                <div class="match"><div class="team">Sandeep G / Damu / Raj C</div><div class="vs">VS</div><div class="team">Avinash / Bharat / Sridhar</div></div>
+            </article>
+            <article class="tier-card">
+                <div class="tier-title goat-title">🐐 GOAT TIER</div>
+                <div class="match"><div class="team">Yogesh / Dinkar / Sudharshan</div><div class="vs">VS</div><div class="team">Manish / Biju / Ritesh</div></div>
+                <div class="match"><div class="team">Prashanth / Vinoth / Vamsi</div><div class="vs">VS</div><div class="team">Kalyan / Kalam / Uday</div></div>
+                <div class="match"><div class="team">Sudhakar / Dinesh / Uma</div><div class="vs">VS</div><div class="team">Kailas / Raja M / Vivek Reddy</div></div>
+            </article>
+        </div>
+    </section>
+
+    <section class="week">
+        <div class="week-header">📅 APRIL 17 — WEEK 2</div>
+        <div class="grid">
+            <article class="tier-card">
+                <div class="tier-title rising-title">🔥 RISING ACES</div>
+                <div class="match"><div class="team">Sreekanth B / Uday P / Sashi R</div><div class="vs">VS</div><div class="team">Narayan P / Ratnesh / Jay S</div></div>
+                <div class="match"><div class="team">Hari / Ram / Satish</div><div class="vs">VS</div><div class="team">Avinash / Bharat / Sridhar</div></div>
+                <div class="match"><div class="team">Sandeep G / Damu / Raj C</div><div class="vs">VS</div><div class="team">Vinod A / Raj K / Krishna</div></div>
+            </article>
+            <article class="tier-card">
+                <div class="tier-title goat-title">🐐 GOAT TIER</div>
+                <div class="match"><div class="team">Yogesh / Dinkar / Sudharshan</div><div class="vs">VS</div><div class="team">Kalyan / Kalam / Uday</div></div>
+                <div class="match"><div class="team">Prashanth / Vinoth / Vamsi</div><div class="vs">VS</div><div class="team">Kailas / Raja M / Vivek Reddy</div></div>
+                <div class="match"><div class="team">Sudhakar / Dinesh / Uma</div><div class="vs">VS</div><div class="team">Manish / Biju / Ritesh</div></div>
+            </article>
+        </div>
+    </section>
+
+    <section class="week">
+        <div class="week-header">📅 APRIL 24 — WEEK 3</div>
+        <div class="grid">
+            <article class="tier-card">
+                <div class="tier-title rising-title">🔥 RISING ACES</div>
+                <div class="match"><div class="team">Sreekanth B / Uday P / Sashi R</div><div class="vs">VS</div><div class="team">Avinash / Bharat / Sridhar</div></div>
+                <div class="match"><div class="team">Hari / Ram / Satish</div><div class="vs">VS</div><div class="team">Vinod A / Raj K / Krishna</div></div>
+                <div class="match"><div class="team">Sandeep G / Damu / Raj C</div><div class="vs">VS</div><div class="team">Narayan P / Ratnesh / Jay S</div></div>
+            </article>
+            <article class="tier-card">
+                <div class="tier-title goat-title">🐐 GOAT TIER</div>
+                <div class="match"><div class="team">Yogesh / Dinkar / Sudharshan</div><div class="vs">VS</div><div class="team">Kailas / Raja M / Vivek Reddy</div></div>
+                <div class="match"><div class="team">Prashanth / Vinoth / Vamsi</div><div class="vs">VS</div><div class="team">Manish / Biju / Ritesh</div></div>
+                <div class="match"><div class="team">Sudhakar / Dinesh / Uma</div><div class="vs">VS</div><div class="team">Kalyan / Kalam / Uday</div></div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer">
+        🎾 TRIACE 2026 — Presented by Prosper Open
+    </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
