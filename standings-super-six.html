@@ -29,9 +29,9 @@
           -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
           font-weight:900;
         }
-        
+
         .menu-btn{display:none;border:0;background:transparent;font-size:1.5rem;padding:.25rem .5rem;cursor:pointer;}
-        
+
         /* MAIN NAVIGATION */
         nav.nav{
           max-width:1400px;margin:.35rem auto 0;display:flex;gap:.5rem;padding:.5rem 1rem;
@@ -59,7 +59,7 @@
           background:linear-gradient(135deg,var(--bg1),var(--bg2));
           border-color: transparent;
         }
-        
+
         .container{ max-width:1400px; margin:1rem auto 2rem; padding:0 1rem; }
         .card{
           background:#fff; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem;
@@ -100,7 +100,6 @@
           padding:.7rem 1rem; border:2px solid var(--ring); border-radius:8px; min-width:240px;
         }
         .access-input:focus{ outline:none; border-color:var(--accent); }
-        .access-status{ font-size:.85rem; color:var(--muted); margin-top:.4rem; }
         .btn{
           padding:.7rem 1.2rem; border:none; border-radius:8px; font-weight:700; color:#fff; cursor:pointer;
           background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow:0 2px 10px rgba(102,126,234,.35);
@@ -130,17 +129,6 @@
         .format-help pre{ font-size:.8rem; color:#155e75; white-space:pre-wrap; line-height:1.5; }
         .form-actions{ display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
         .hidden{ display:none; }
-        .admin-panel{ border:2px dashed #94a3b8; background:#f8fafc; }
-        .admin-panel h3{ margin-bottom:.35rem; font-size:1rem; color:#1f2937; }
-        .admin-grid{ display:grid; grid-template-columns:minmax(180px, 260px) 1fr; gap:1rem; align-items:start; }
-        .admin-grid label{ font-size:.8rem; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:.04em; }
-        .admin-select, .admin-textarea{
-          width:100%; border:2px solid var(--ring); border-radius:8px; padding:.6rem .7rem; font-size:.9rem;
-        }
-        .admin-textarea{ min-height:220px; font-family:monospace; resize:vertical; }
-        .admin-meta{ font-size:.85rem; color:var(--muted); margin-top:.25rem; }
-        .admin-actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:.75rem; }
-        .admin-actions .btn{ font-size:.85rem; }
         .history-breakdown-wrapper{ display:flex; flex-direction:column; gap:.4rem; }
         .history-toggle{
           display:inline-flex; align-items:center; gap:.35rem; font-weight:700; color:#2563eb;
@@ -154,20 +142,14 @@
         .tab-content{ display:none; }
         .tab-content.active{ display:block; }
         .team-badge{ display:inline-block; padding:.15rem .5rem; border-radius:4px; font-size:.7rem; font-weight:700; color:#fff; background:var(--bg1); margin-left:.5rem; }
-        .btn-delete{
-          padding:.4rem .7rem; border:none; border-radius:6px; font-weight:600; color:#fff; cursor:pointer;
-          background:linear-gradient(135deg,#ef4444,#dc2626); font-size:.75rem;
-          box-shadow:0 2px 6px rgba(239,68,68,.3);
-        }
-        .btn-delete:hover{ opacity:.85; }
 
-        @media (max-width:900px){ 
+        @media (max-width:900px){
           .groups-container{ grid-template-columns:1fr; }
         }
         @media (max-width:768px){
           .menu-btn { display: block; }
-          nav.nav { 
-            display: none; 
+          nav.nav {
+            display: none;
             flex-direction: column;
           }
           nav.nav.open { display: flex; }
@@ -201,34 +183,36 @@
         <a href="schedule-b.html">📅 Schedule B</a>
         <a href="playoff-super-six.html">🏆 Super Six</a>
         <a href="standings.html">📊 Standings</a>
+        <a href="standings-super-six.html" aria-current="page">🏆 Super Six Standings</a>
         <a href="scoring.html">📝 Score Entry</a>
-        <a href="history.html" aria-current="page">📜 History</a>
+        <a href="scoring-super-six.html">📝 Super Six Entry</a>
+        <a href="history.html">📜 History</a>
         <a href="teams.html">👥 Teams</a>
     </nav>
 </header>
 
 <main class="container">
-    <div id="standings" class="tab-content">
+    <div id="standings" class="tab-content active">
         <div class="groups-container">
             <section class="card" style="border-top:4px solid var(--groupA);">
-                <h2><span class="group-badge a">GROUP A</span> Standings</h2>
+                <h2><span class="group-badge a">RISING ACES</span> Standings</h2>
                 <div class="table-container">
                     <table class="standings-table responsive-table">
-                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
-                        <tbody id="standingsBodyA"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>Matches</th><th>Singles</th><th>Doubles</th><th>Sets</th><th>Games</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyA"><tr><td colspan="8" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
-                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+                <p class="hint">Top 3 teams (highlighted) advance. 1 point per match won (S1, S2, D1).</p>
             </section>
             <section class="card" style="border-top:4px solid var(--groupB);">
-                <h2><span class="group-badge b">GROUP B</span> Standings</h2>
+                <h2><span class="group-badge b">GOAT TIER</span> Standings</h2>
                 <div class="table-container">
                     <table class="standings-table responsive-table">
-                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>M</th><th>W</th><th>L</th><th>GF</th><th>GA</th><th>+/-</th><th>Pts</th></tr></thead>
-                        <tbody id="standingsBodyB"><tr><td colspan="9" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
+                        <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>Matches</th><th>Singles</th><th>Doubles</th><th>Sets</th><th>Games</th><th>Pts</th></tr></thead>
+                        <tbody id="standingsBodyB"><tr><td colspan="8" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                     </table>
                 </div>
-                <p class="hint">Top 3 teams (highlighted) advance. Win = 3 pts.</p>
+                <p class="hint">Top 3 teams (highlighted) advance. 1 point per match won (S1, S2, D1).</p>
             </section>
         </div>
     </div>
@@ -274,58 +258,25 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
             </div>
         </section>
     </div>
-    <div id="history" class="tab-content active">
+    <div id="history" class="tab-content">
         <section class="card">
             <h2>📜 Match History</h2>
             <div class="table-container">
-                <table class="responsive-table" id="historyTable">
-                    <thead id="historyTableHead"><tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
+                <table class="responsive-table">
+                    <thead><tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr></thead>
                     <tbody id="historyBody"><tr><td colspan="6" style="text-align:center;color:var(--muted);">Loading...</td></tr></tbody>
                 </table>
-            </div>
-        </section>
-        <section class="card access-card" id="adminAccessCard">
-            <h2>🔐 Admin Access</h2>
-            <div class="access-controls" style="margin:.5rem 0;">
-                <input type="password" id="adminAccessCode" placeholder="Enter admin password" class="access-input" />
-                <button class="btn" id="adminUnlockBtn">Unlock Admin</button>
-                <button class="btn secondary hidden" id="adminLockBtn">Lock Admin</button>
-            </div>
-            <p class="access-status" id="adminAccessStatus">Admin tools are locked.</p>
-        </section>
-        <section id="adminPanel" class="card admin-panel hidden">
-            <h2>🛠️ Admin: History Editor</h2>
-            <p class="hint">Admins can load any match record, update fields, and save changes directly to the database.</p>
-            <div class="admin-grid">
-                <div>
-                    <label for="adminMatchSelect">Match Record</label>
-                    <select id="adminMatchSelect" class="admin-select">
-                        <option value="">Loading...</option>
-                    </select>
-                    <div class="admin-meta" id="adminMatchMeta">Select a record to view details.</div>
-                    <div class="admin-actions">
-                        <button class="btn secondary" id="adminLoadBtn">Load JSON</button>
-                        <button class="btn ghost" id="adminCopyBtn">Copy JSON</button>
-                        <button class="btn" id="adminSaveBtn">Save Changes</button>
-                        <button class="btn-delete" id="adminDeleteBtn">Delete Record</button>
-                    </div>
-                </div>
-                <div>
-                    <label for="adminJson">Editable JSON</label>
-                    <textarea id="adminJson" class="admin-textarea" placeholder="Load a match record to edit its JSON."></textarea>
-                    <div class="admin-meta">Required: t1, t2, g1, g2, win, ts, s1, s2 (lines optional).</div>
-                </div>
             </div>
         </section>
     </div>
     <div id="teams" class="tab-content">
         <div class="groups-container">
             <section class="card" style="border-top:4px solid var(--groupA);">
-                <h2><span class="group-badge a">GROUP A</span> Teams</h2>
+                <h2><span class="group-badge a">RISING ACES</span> Teams</h2>
                 <div class="team-list" id="teamListA"></div>
             </section>
             <section class="card" style="border-top:4px solid var(--groupB);">
-                <h2><span class="group-badge b">GROUP B</span> Teams</h2>
+                <h2><span class="group-badge b">GOAT TIER</span> Teams</h2>
                 <div class="team-list" id="teamListB"></div>
             </section>
         </div>
@@ -347,7 +298,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const firebaseApp = firebase.initializeApp(firebaseConfig);
     const auth = firebaseApp.auth();
     const database = firebaseApp.database();
-    const matchesRef = database.ref('TriAceDBNEW');
+    const matchesRef = database.ref('TriAceDBSUPER6');
 
     let authReady = false;
     function ensureAuth(){
@@ -390,11 +341,15 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
 
     const TEAM_LOOKUP = new Map(allTeams.map(t => [t.name, t]));
     const ABBR_LOOKUP = new Map(allTeams.map(t => [t.abbreviation.toUpperCase(), t]));
-    const TEAMS_A = groupA.map(t => t.name);
-    const TEAMS_B = groupB.map(t => t.name);
+    const TEAMS_A = [
+      "Team A7", "Team B6", "Team A5", "Team B5", "Team A4", "Team B7"
+    ];
+    const TEAMS_B = [
+      "Team A1", "Team B1", "Team A2", "Team B2", "Team A3", "Team B3"
+    ];
     const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-    let matches = [], matchesLoaded = false, currentTeam = null, isAdmin = false;
+    let matches = [], matchesLoaded = false, currentTeam = null;
     const standingsBodyA = document.getElementById('standingsBodyA');
     const standingsBodyB = document.getElementById('standingsBodyB');
     const historyBody = document.getElementById('historyBody');
@@ -402,15 +357,6 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     const scoreInput = document.getElementById('scoreInput');
     const previewContent = document.getElementById('previewContent');
     const loggedTeamBadge = document.getElementById('loggedTeamBadge');
-    const adminPanel = document.getElementById('adminPanel');
-    const adminMatchSelect = document.getElementById('adminMatchSelect');
-    const adminJson = document.getElementById('adminJson');
-    const adminMatchMeta = document.getElementById('adminMatchMeta');
-    const adminAccessCode = document.getElementById('adminAccessCode');
-    const adminUnlockBtn = document.getElementById('adminUnlockBtn');
-    const adminLockBtn = document.getElementById('adminLockBtn');
-    const adminAccessStatus = document.getElementById('adminAccessStatus');
-    let adminSelectedMatchId = null;
 
     function parseScoreText(text) {
       const results = [], errors = [];
@@ -546,52 +492,10 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     document.getElementById('unlockBtn').addEventListener('click', () => {
       const code = document.getElementById('accessCode').value.trim().toUpperCase();
       const team = TEAM_PASSWORDS[code];
-      if(team){
-        currentTeam = team;
-        isAdmin = (team.abbreviation === 'ADMIN');
-        scoringForm.classList.remove('hidden');
-        loggedTeamBadge.textContent = team.abbreviation;
-        document.getElementById('accessCode').value = '';
-        alert(`✅ Unlocked for ${team.name}`);
-        if(isAdmin) updateAdminAccessUI(true);
-        renderAll(); // Re-render to show/hide delete buttons
-      }
+      if(team){ currentTeam = team; scoringForm.classList.remove('hidden'); loggedTeamBadge.textContent = team.abbreviation; document.getElementById('accessCode').value = ''; alert(`✅ Unlocked for ${team.name}`); }
       else { alert('❌ Invalid password'); }
     });
-    document.getElementById('lockBtn').addEventListener('click', () => {
-      scoringForm.classList.add('hidden');
-      currentTeam = null;
-      isAdmin = false;
-      loggedTeamBadge.textContent = '';
-      updateAdminAccessUI(false);
-      renderAll(); // Re-render to hide delete buttons
-    });
-
-    function updateAdminAccessUI(active){
-      if(!adminAccessStatus) return;
-      adminAccessStatus.textContent = active ? 'Admin tools unlocked.' : 'Admin tools are locked.';
-      adminUnlockBtn?.classList.toggle('hidden', active);
-      adminLockBtn?.classList.toggle('hidden', !active);
-      if(!active && adminJson) adminJson.value = '';
-    }
-
-    adminUnlockBtn?.addEventListener('click', () => {
-      const code = adminAccessCode?.value.trim().toUpperCase();
-      if(code !== 'ADMIN#2026'){
-        alert('❌ Invalid admin password.');
-        return;
-      }
-      isAdmin = true;
-      adminAccessCode.value = '';
-      updateAdminAccessUI(true);
-      renderAll();
-    });
-
-    adminLockBtn?.addEventListener('click', () => {
-      isAdmin = false;
-      updateAdminAccessUI(false);
-      renderAll();
-    });
+    document.getElementById('lockBtn').addEventListener('click', () => { scoringForm.classList.add('hidden'); currentTeam = null; loggedTeamBadge.textContent = ''; });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
       if(!matchesLoaded) return alert('Please wait for data to load.');
@@ -605,7 +509,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; totalSets1 += r.sets1; totalSets2 += r.sets2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
       const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : null);
       if(!winner) return alert('⚠️ Match is tied.');
-      const lines = results.map(r => ({ label: r.label, type: r.type, g1: r.g1, g2: r.g2, sets: r.sets, setWins: { team1: r.sets1, team2: r.sets2 }, players: { team1: r.players.team1.map(p => p.toUpperCase()), team2: r.players.team2.map(p => p.toUpperCase()) } }));
+      const lines = results.map(r => ({ label: r.label, type: r.type, g1: r.g1, g2: r.g2, sets: r.sets, setWins: { team1: r.sets1, team2: r.sets2 }, players: { team1: r.players.team1.map(p => p.toUpperCase()), team2: r.players.team2.map(p => p.toUpperCase()) }, winnerTeamNum: r.winnerTeamNum }));
       const record = { t1: team1.name, t2: team2.name, g1: totalG1, g2: totalG2, s1: totalSets1, s2: totalSets2, win: winner, ts: Date.now(), lines, submittedBy: currentTeam.abbreviation };
       if(!(await guardWriteAccess())) return;
       try { await matchesRef.push(record); scoreInput.value = ''; updatePreview(); alert(`✅ Saved: ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation}\nWinner: ${winner}`); }
@@ -624,21 +528,31 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
 
     function computeStandings(teamNames){
       const stats = {};
-      teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0 });
+      teamNames.forEach(n => stats[n] = { team:n, matches:0, singlesWon:0, doublesWon:0, totalSets:0, gamesFor:0, points:0 });
       for(const m of matches){
         if(!stats[m.t1] || !stats[m.t2]) continue;
         stats[m.t1].matches++; stats[m.t2].matches++;
-        stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
-        stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
-        
+        stats[m.t1].gamesFor += m.g1;
+        stats[m.t2].gamesFor += m.g2;
+        stats[m.t1].totalSets += m.s1 || 0;
+        stats[m.t2].totalSets += m.s2 || 0;
+
         // Award points per individual match (S1, S2, D1) - 1 point per match won
+        // Track singles and doubles wins separately
         let points1 = 0, points2 = 0;
+        let singles1 = 0, singles2 = 0;
+        let doubles1 = 0, doubles2 = 0;
+
         if(Array.isArray(m.lines) && m.lines.length > 0){
           m.lines.forEach(line => {
             if(line.winnerTeamNum === 1){
               points1 += 1;
+              if(line.type === 'singles') singles1++;
+              else if(line.type === 'doubles') doubles1++;
             } else if(line.winnerTeamNum === 2){
               points2 += 1;
+              if(line.type === 'singles') singles2++;
+              else if(line.type === 'doubles') doubles2++;
             }
           });
         } else {
@@ -646,20 +560,19 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           if(m.win === m.t1){ points1 = 3; }
           else if(m.win === m.t2){ points2 = 3; }
         }
-        
+
         stats[m.t1].points += points1;
         stats[m.t2].points += points2;
-        
-        // Update wins/losses based on overall match winner (for display purposes)
-        if(m.win === m.t1){ stats[m.t1].wins++; stats[m.t2].losses++; }
-        else if(m.win === m.t2){ stats[m.t2].wins++; stats[m.t1].losses++; }
+        stats[m.t1].singlesWon += singles1;
+        stats[m.t2].singlesWon += singles2;
+        stats[m.t1].doublesWon += doubles1;
+        stats[m.t2].doublesWon += doubles2;
       }
-      Object.values(stats).forEach(s => { s.gameDiff = s.gamesFor - s.gamesAgainst; });
-      return Object.values(stats).sort((a,b)=> (b.points-a.points)||(b.gameDiff-a.gameDiff)||(b.gamesFor-a.gamesFor)||a.team.localeCompare(b.team));
+      return Object.values(stats).sort((a,b)=> (b.points-a.points)||(b.totalSets-a.totalSets)||(b.gamesFor-a.gamesFor)||a.team.localeCompare(b.team));
     }
 
     function renderStandings(){
-      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>'; return; }
+      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="8" style="text-align:center;">Loading...</td></tr>'; return; }
       [['A', TEAMS_A, standingsBodyA], ['B', TEAMS_B, standingsBodyB]].forEach(([g, teams, tbody]) => {
         const rows = computeStandings(teams);
         tbody.innerHTML = rows.map((r,i)=>{
@@ -668,27 +581,19 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           return `<tr class="${i<3?'qualified':''}">
             <td class="rank-cell" data-label="#">${i+1}</td>
             <td class="team-cell" data-label="Team">${team?.abbreviation||r.team}<br><small style="font-weight:400;color:var(--muted);font-size:.7rem;">${players}</small></td>
-            <td data-label="M">${r.matches}</td><td data-label="W">${r.wins}</td><td data-label="L">${r.losses}</td>
-            <td data-label="GF">${r.gamesFor}</td><td data-label="GA">${r.gamesAgainst}</td>
-            <td data-label="+/-">${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</td>
-            <td class="points-cell" data-label="Pts">${r.points}</td></tr>`;
+            <td data-label="Matches">${r.matches}</td>
+            <td data-label="Singles Won">${r.singlesWon}</td>
+            <td data-label="Doubles Won">${r.doublesWon}</td>
+            <td data-label="Total Sets">${r.totalSets}</td>
+            <td data-label="Total Games">${r.gamesFor}</td>
+            <td class="points-cell" data-label="Points">${r.points}</td></tr>`;
         }).join('');
       });
     }
 
     function renderHistory(){
-      const colSpan = isAdmin ? 7 : 6;
-      const historyTableHead = document.getElementById('historyTableHead');
-
-      // Update table header based on admin status
-      if(isAdmin){
-        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th><th>Actions</th></tr>';
-      } else {
-        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr>';
-      }
-
-      if(!matchesLoaded){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;">Loading...</td></tr>`; return; }
-      if(matches.length === 0){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>`; return; }
+      if(!matchesLoaded){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Loading...</td></tr>'; return; }
+      if(matches.length === 0){ historyBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>'; return; }
       historyBody.innerHTML = matches.map((m,idx)=>{
         const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
         let breakdown = '—';
@@ -700,15 +605,13 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
           }).join('');
           breakdown = `<div class="history-breakdown-wrapper"><button type="button" class="history-toggle" aria-expanded="false">Details</button><div class="history-breakdown">${parts}</div></div>`;
         }
-        const deleteBtn = isAdmin ? `<td data-label="Actions"><button class="btn-delete" data-match-id="${m.id}" onclick="deleteMatch('${m.id}', '${escapeHTML(t1?.abbreviation||m.t1)} vs ${escapeHTML(t2?.abbreviation||m.t2)}')">Delete</button></td>` : '';
-        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td>${deleteBtn}</tr>`;
+        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td></tr>`;
       }).join('');
     }
     historyBody.addEventListener('click', e => {
       const toggle = e.target.closest('.history-toggle');
       if(!toggle) return;
       const panel = toggle.nextElementSibling;
-      if(!panel) return; // Prevent error if panel doesn't exist
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
       toggle.textContent = expanded ? 'Details' : 'Hide';
@@ -720,143 +623,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
       document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
     }
 
-    async function deleteMatch(matchId, matchDesc){
-      if(!isAdmin){
-        alert('❌ Only admins can delete matches.');
-        return;
-      }
-      const confirmed = confirm(`Are you sure you want to delete this match?\n\n${matchDesc}\n\nThis action cannot be undone.`);
-      if(!confirmed) return;
-
-      try {
-        await database.ref('TriAceDBNEW/' + matchId).remove();
-        alert('✅ Match deleted successfully.');
-      } catch(err){
-        console.error('Delete error:', err);
-        alert('❌ Failed to delete match: ' + err.message);
-      }
-    }
-    window.deleteMatch = deleteMatch; // Make it globally accessible for onclick handlers
-
-    function getMatchById(matchId){
-      return matches.find(m => m.id === matchId);
-    }
-
-    function toEditableRecord(match){
-      if(!match) return '';
-      const { t1, t2, g1, g2, win, ts, s1, s2, lines, submittedBy } = match;
-      const record = { t1, t2, g1, g2, win, ts, s1, s2 };
-      if(Array.isArray(lines)) record.lines = lines;
-      if(submittedBy) record.submittedBy = submittedBy;
-      return JSON.stringify(record, null, 2);
-    }
-
-    function sanitizeMatchRecord(raw){
-      if(!raw || typeof raw !== 'object') throw new Error('JSON must be an object.');
-      const record = {
-        t1: String(raw.t1 || '').trim(),
-        t2: String(raw.t2 || '').trim(),
-        g1: Number(raw.g1),
-        g2: Number(raw.g2),
-        win: String(raw.win || '').trim(),
-        ts: Number(raw.ts) || Date.now(),
-        s1: Number(raw.s1) || 0,
-        s2: Number(raw.s2) || 0
-      };
-      if(!record.t1 || !record.t2 || !record.win) throw new Error('t1, t2, and win are required.');
-      if(!Number.isFinite(record.g1) || !Number.isFinite(record.g2)) throw new Error('g1 and g2 must be numbers.');
-      if(Array.isArray(raw.lines)) record.lines = raw.lines;
-      if(raw.submittedBy) record.submittedBy = String(raw.submittedBy);
-      return record;
-    }
-
-    function renderAdminPanel(){
-      if(!adminPanel) return;
-      adminPanel.classList.toggle('hidden', !isAdmin);
-      if(!isAdmin) return;
-      if(!matchesLoaded){
-        adminMatchSelect.innerHTML = '<option value="">Loading...</option>';
-        adminMatchMeta.textContent = 'Loading match records...';
-        return;
-      }
-      if(matches.length === 0){
-        adminMatchSelect.innerHTML = '<option value="">No matches available</option>';
-        adminMatchMeta.textContent = 'No match records in the database.';
-        adminJson.value = '';
-        return;
-      }
-      adminMatchSelect.innerHTML = matches.map(m => {
-        const t1 = TEAM_LOOKUP.get(m.t1)?.abbreviation || m.t1;
-        const t2 = TEAM_LOOKUP.get(m.t2)?.abbreviation || m.t2;
-        const label = `${t1} vs ${t2} • ${new Date(m.ts).toLocaleString()}`;
-        return `<option value="${m.id}">${escapeHTML(label)}</option>`;
-      }).join('');
-      if(adminSelectedMatchId && matches.some(m => m.id === adminSelectedMatchId)){
-        adminMatchSelect.value = adminSelectedMatchId;
-      } else {
-        adminSelectedMatchId = adminMatchSelect.value;
-      }
-      const selectedMatch = getMatchById(adminSelectedMatchId);
-      adminMatchMeta.textContent = selectedMatch
-        ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
-        : 'Select a record to view details.';
-    }
-
-    adminMatchSelect?.addEventListener('change', () => {
-      adminSelectedMatchId = adminMatchSelect.value;
-      const selectedMatch = getMatchById(adminSelectedMatchId);
-      adminMatchMeta.textContent = selectedMatch
-        ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
-        : 'Select a record to view details.';
-    });
-
-    document.getElementById('adminLoadBtn')?.addEventListener('click', () => {
-      if(!isAdmin) return alert('❌ Only admins can load records.');
-      const selectedMatch = getMatchById(adminMatchSelect.value);
-      if(!selectedMatch) return alert('Please select a match record.');
-      adminJson.value = toEditableRecord(selectedMatch);
-    });
-
-    document.getElementById('adminCopyBtn')?.addEventListener('click', async () => {
-      if(!adminJson.value.trim()) return alert('Nothing to copy.');
-      try {
-        await navigator.clipboard.writeText(adminJson.value);
-        alert('✅ JSON copied to clipboard.');
-      } catch(err) {
-        adminJson.select();
-        document.execCommand('copy');
-        alert('✅ JSON copied.');
-      }
-    });
-
-    document.getElementById('adminSaveBtn')?.addEventListener('click', async () => {
-      if(!isAdmin) return alert('❌ Only admins can save records.');
-      const matchId = adminMatchSelect.value;
-      if(!matchId) return alert('Please select a match record.');
-      let parsed;
-      try { parsed = JSON.parse(adminJson.value); }
-      catch(err){ return alert('⚠️ Invalid JSON format.'); }
-      let record;
-      try { record = sanitizeMatchRecord(parsed); }
-      catch(err){ return alert(`⚠️ ${err.message}`); }
-      if(!(await guardWriteAccess())) return;
-      try {
-        await database.ref('TriAceDBNEW/' + matchId).set(record);
-        alert('✅ Match record updated.');
-      } catch(err){
-        console.error('Update error:', err);
-        alert('❌ Failed to update match: ' + err.message);
-      }
-    });
-
-    document.getElementById('adminDeleteBtn')?.addEventListener('click', () => {
-      const matchId = adminMatchSelect.value;
-      const selectedMatch = getMatchById(matchId);
-      if(!selectedMatch) return alert('Please select a match record.');
-      deleteMatch(matchId, `${selectedMatch.t1} vs ${selectedMatch.t2}`);
-    });
-
-    function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); renderAdminPanel(); }
+    function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); }
     renderAll();
 
     // Mobile menu toggle
