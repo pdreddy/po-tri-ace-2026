@@ -486,11 +486,13 @@
         <div class="form-card">
             <textarea id="scoreText" class="score-textarea" placeholder="Paste match results here...
 
-Example:
+Example (6 lines total):
 A1 vs A2
 S1: A1_P1 vs A2_P1 1-0(8-5) (won) A1
 S2: A1_P2 vs A2_P2 0-1(5-8) (won) A2
-D1: A1_P1/A1_P2 vs A2_P1/A2_P2 4-3, 1-4, 0-4 (won) A2"></textarea>
+D1: A1_P1/A1_P2 vs A2_P1/A2_P2 4-3, 1-4, 0-4 (won) A2
+D2: A1_P3/A1_P4 vs A2_P3/A2_P4 4-1, 2-4, 4-2 (won) A1
+D3: A1_P5/A1_P6 vs A2_P5/A2_P6 8-6 (won) A1"></textarea>
 
             <!-- Preview -->
             <div class="section-box">
@@ -509,15 +511,26 @@ D1: A1_P1/A1_P2 vs A2_P1/A2_P2 4-3, 1-4, 0-4 (won) A2"></textarea>
                 </div>
                 <pre>Teams: TEAM1 vs TEAM2 (A1 vs A2)
 
+Use exactly 5 match lines after teams:
+  Line 1: S1
+  Line 2: S2
+  Line 3: D1
+  Line 4: D2
+  Line 5: D3 (only 1 set)
+
 Singles (S1, S2):
 S1: A1_Player vs A2_Player 1-0(8-5) (won) A1
   • 1-0 or 0-1 (winner gets 1 set)
-  • Game score in parentheses
+  • Game diff in parentheses
 
-Doubles (D1):
+Doubles (D1, D2):
 D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
-  • 3 sets with games
-  • Winner from most sets won</pre>
+  • 3 sets
+  • Winner from most sets won
+
+Doubles (D3):
+D3: P1/P2 vs P3/P4 8-6 (won) A1
+  • 1 set only</pre>
             </div>
 
             <!-- Actions -->
@@ -633,25 +646,37 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
         if (!t1) errs.push(`Unknown: ${tm[1]}`);
         if (!t2) errs.push(`Unknown: ${tm[2]}`);
         if (errs.length) return { res: [], errs, t1: null, t2: null };
+
+        const expectedOrder = ['S1', 'S2', 'D1', 'D2', 'D3'];
+        const matchLines = lines.slice(1);
+        if (matchLines.length !== expectedOrder.length) {
+            errs.push('Need exactly 5 match lines: S1, S2, D1, D2, D3');
+            return { res: [], errs, t1, t2 };
+        }
         
-        for (let i = 1; i < lines.length; i++) {
+        for (let i = 0; i < matchLines.length; i++) {
             try {
-                const p = parseLine(lines[i], t1, t2);
+                const expectedLabel = expectedOrder[i];
+                const p = parseLine(matchLines[i], t1, t2, expectedLabel);
                 if (p) res.push(p);
             } catch (e) {
-                errs.push(`Line ${i + 1}: ${e.message}`);
+                errs.push(`Line ${i + 2}: ${e.message}`);
             }
         }
         
         return { res, errs, t1, t2 };
     }
 
-    function parseLine(line, t1, t2) {
+    function parseLine(line, t1, t2, expectedLabel = null) {
         const typ = line.match(/^(S|D)(\d+):\s*/i);
-        if (!typ) throw new Error('Start with S1:, S2:, or D1:');
+        if (!typ) throw new Error('Start with S1:, S2:, D1:, D2:, or D3:');
         
         const mt = typ[1].toUpperCase();
         const num = typ[2];
+        const label = `${mt}${num}`;
+        if (expectedLabel && label !== expectedLabel) {
+            throw new Error(`Expected ${expectedLabel}:`);
+        }
         let rem = line.slice(typ[0].length).trim();
         
         const won = rem.match(/\(won\)\s*(\w+)\s*\.?\s*$/i);
@@ -698,11 +723,12 @@ D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
             while ((m = sp.exec(scores))) {
                 sets.push({ team1: +m[1], team2: +m[2] });
             }
-            if (sets.length !== 3) throw new Error('Doubles: 3 sets');
+            const requiredSets = num === '3' ? 1 : 3;
+            if (sets.length !== requiredSets) throw new Error(`Doubles ${label}: ${requiredSets} set${requiredSets > 1 ? 's' : ''}`);
             
             let g1 = 0, g2 = 0, s1 = 0, s2 = 0;
             const sd = [];
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < sets.length; i++) {
                 const s = sets[i];
                 g1 += s.team1;
                 g2 += s.team2;
