@@ -7,76 +7,76 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root{
-          --bg1:#667eea; --bg2:#764ba2; --ink:#1a202c; --muted:#718096; --card:#ffffff;
-          --ring:#e2e8f0; --accent:#22d3ee; --groupA:#10b981; --groupB:#f59e0b;
+            --bg1:#667eea; --bg2:#764ba2; --ink:#1a202c; --muted:#718096; --card:#ffffff;
+            --ring:#e2e8f0; --accent:#22d3ee; --groupA:#10b981; --groupB:#f59e0b;
         }
         html,body{ height:100%; }
         body{
-          font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-          background:linear-gradient(135deg,var(--bg1),var(--bg2));
-          min-height:100vh; color:var(--ink);
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+            background:linear-gradient(135deg,var(--bg1),var(--bg2));
+            min-height:100vh; color:var(--ink);
         }
         .header{ position:sticky; top:0; z-index:50; backdrop-filter:blur(10px); }
         .header-bar{
-          display:flex; align-items:center; justify-content:space-between;
-          max-width:1400px; margin:0 auto; padding:.75rem 1rem;
-          background:rgba(255,255,255,.95); box-shadow:0 2px 8px rgba(0,0,0,.08);
+            display:flex; align-items:center; justify-content:space-between;
+            max-width:1400px; margin:0 auto; padding:.75rem 1rem;
+            background:rgba(255,255,255,.95); box-shadow:0 2px 8px rgba(0,0,0,.08);
         }
         .brand{ display:flex; align-items:center; gap:.5rem; }
         .brand i{ font-size:1.8rem; }
         .brand strong{
-          font-size:1.25rem; background:linear-gradient(135deg,var(--bg1),var(--bg2));
-          -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-          font-weight:900;
+            font-size:1.25rem; background:linear-gradient(135deg,var(--bg1),var(--bg2));
+            -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+            font-weight:900;
         }
-        
+
         .menu-btn{display:none;border:0;background:transparent;font-size:1.5rem;padding:.25rem .5rem;cursor:pointer;}
-        
+
         /* MAIN NAVIGATION */
         nav.nav{
-          max-width:1400px;margin:.35rem auto 0;display:flex;gap:.5rem;padding:.5rem 1rem;
-          background:rgba(255,255,255,.95);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);
-          flex-wrap: wrap;
-          justify-content: center;
+            max-width:1400px;margin:.35rem auto 0;display:flex;gap:.5rem;padding:.5rem 1rem;
+            background:rgba(255,255,255,.95);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .nav a, .nav .nav-tab{
-          text-decoration:none;color:#4a5568;font-weight:600;
-          padding:.65rem 1.2rem;border-radius:8px;white-space:nowrap;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          font-size: .95rem;
-          border: 2px solid transparent;
-          display: inline-flex;
-          align-items: center;
-          gap: .4rem;
+            text-decoration:none;color:#4a5568;font-weight:600;
+            padding:.65rem 1.2rem;border-radius:8px;white-space:nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: .95rem;
+            border: 2px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
         }
         .nav a:hover, .nav .nav-tab:hover{
-          background:rgba(102,126,234,0.1);
-          border-color: rgba(102,126,234,0.3);
+            background:rgba(102,126,234,0.1);
+            border-color: rgba(102,126,234,0.3);
         }
         .nav a[aria-current="page"], .nav .nav-tab.active{
-          color:#fff;
-          background:linear-gradient(135deg,var(--bg1),var(--bg2));
-          border-color: transparent;
+            color:#fff;
+            background:linear-gradient(135deg,var(--bg1),var(--bg2));
+            border-color: transparent;
         }
-        
+
         .container{ max-width:1400px; margin:1rem auto 2rem; padding:0 1rem; }
         .card{
-          background:#fff; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem;
-          box-shadow:0 4px 12px rgba(0,0,0,.1);
+            background:#fff; border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem;
+            box-shadow:0 4px 12px rgba(0,0,0,.1);
         }
         .card h2{ margin-bottom:1rem; display:flex; align-items:center; gap:.5rem; }
         .group-badge{
-          display:inline-block; padding:.25rem .75rem; border-radius:20px; font-size:.85rem;
-          font-weight:700; color:#fff;
+            display:inline-block; padding:.25rem .75rem; border-radius:20px; font-size:.85rem;
+            font-weight:700; color:#fff;
         }
         .group-badge.a{ background:linear-gradient(135deg,#10b981,#059669); }
         .group-badge.b{ background:linear-gradient(135deg,#f59e0b,#d97706); }
         .groups-container{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
         .team-list{ margin-bottom:1rem; }
         .team-item{
-          display:flex; justify-content:space-between; align-items:center;
-          padding:.75rem 1rem; border-bottom:1px solid var(--ring);
+            display:flex; justify-content:space-between; align-items:center;
+            padding:.75rem 1rem; border-bottom:1px solid var(--ring);
         }
         .team-item:last-child{ border-bottom:none; }
         .team-item:hover{ background:#f8fafc; }
@@ -85,7 +85,7 @@
         .table-container{ overflow-x:auto; }
         table{ width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; }
         thead th{
-          background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:.75rem .5rem; text-align:center; font-size:.8rem;
+            background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:.75rem .5rem; text-align:center; font-size:.8rem;
         }
         tbody td{ padding:.6rem .5rem; border-bottom:1px solid var(--ring); text-align:center; font-size:.85rem; }
         tbody tr:hover{ background:#f8fafc; }
@@ -97,13 +97,13 @@
         .access-card{ border:2px solid var(--accent); text-align:center; }
         .access-controls{ display:flex; gap:.6rem; justify-content:center; align-items:center; flex-wrap:wrap; }
         .access-input{
-          padding:.7rem 1rem; border:2px solid var(--ring); border-radius:8px; min-width:240px;
+            padding:.7rem 1rem; border:2px solid var(--ring); border-radius:8px; min-width:240px;
         }
         .access-input:focus{ outline:none; border-color:var(--accent); }
         .access-status{ font-size:.85rem; color:var(--muted); margin-top:.4rem; }
         .btn{
-          padding:.7rem 1.2rem; border:none; border-radius:8px; font-weight:700; color:#fff; cursor:pointer;
-          background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow:0 2px 10px rgba(102,126,234,.35);
+            padding:.7rem 1.2rem; border:none; border-radius:8px; font-weight:700; color:#fff; cursor:pointer;
+            background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow:0 2px 10px rgba(102,126,234,.35);
         }
         .btn:hover{ opacity:.9; }
         .btn.success{ background:linear-gradient(135deg,#10b981,#059669); }
@@ -114,8 +114,8 @@
         .tools{ display:flex; gap:.5rem; flex-wrap:wrap; }
         .parser-section{ margin-top:1rem; }
         .parser-textarea{
-          width:100%; min-height:200px; padding:1rem; border:2px solid var(--ring); border-radius:8px;
-          font-family:monospace; font-size:.9rem; line-height:1.6; resize:vertical;
+            width:100%; min-height:200px; padding:1rem; border:2px solid var(--ring); border-radius:8px;
+            font-family:monospace; font-size:.9rem; line-height:1.6; resize:vertical;
         }
         .parser-textarea:focus{ outline:none; border-color:var(--accent); }
         .preview-section{ margin-top:1rem; padding:1rem; background:#f8fafc; border-radius:8px; border:1px solid var(--ring); }
@@ -135,7 +135,7 @@
         .admin-grid{ display:grid; grid-template-columns:minmax(180px, 260px) 1fr; gap:1rem; align-items:start; }
         .admin-grid label{ font-size:.8rem; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:.04em; }
         .admin-select, .admin-textarea{
-          width:100%; border:2px solid var(--ring); border-radius:8px; padding:.6rem .7rem; font-size:.9rem;
+            width:100%; border:2px solid var(--ring); border-radius:8px; padding:.6rem .7rem; font-size:.9rem;
         }
         .admin-textarea{ min-height:220px; font-family:monospace; resize:vertical; }
         .admin-meta{ font-size:.85rem; color:var(--muted); margin-top:.25rem; }
@@ -143,8 +143,8 @@
         .admin-actions .btn{ font-size:.85rem; }
         .history-breakdown-wrapper{ display:flex; flex-direction:column; gap:.4rem; }
         .history-toggle{
-          display:inline-flex; align-items:center; gap:.35rem; font-weight:700; color:#2563eb;
-          background:transparent; border:0; cursor:pointer; padding:0; font-size:.9rem;
+            display:inline-flex; align-items:center; gap:.35rem; font-weight:700; color:#2563eb;
+            background:transparent; border:0; cursor:pointer; padding:0; font-size:.9rem;
         }
         .history-toggle::before{ content:'▸'; transition:transform .2s ease; }
         .history-toggle[aria-expanded="true"]::before{ transform:rotate(90deg); }
@@ -155,36 +155,36 @@
         .tab-content.active{ display:block; }
         .team-badge{ display:inline-block; padding:.15rem .5rem; border-radius:4px; font-size:.7rem; font-weight:700; color:#fff; background:var(--bg1); margin-left:.5rem; }
         .btn-delete{
-          padding:.4rem .7rem; border:none; border-radius:6px; font-weight:600; color:#fff; cursor:pointer;
-          background:linear-gradient(135deg,#ef4444,#dc2626); font-size:.75rem;
-          box-shadow:0 2px 6px rgba(239,68,68,.3);
+            padding:.4rem .7rem; border:none; border-radius:6px; font-weight:600; color:#fff; cursor:pointer;
+            background:linear-gradient(135deg,#ef4444,#dc2626); font-size:.75rem;
+            box-shadow:0 2px 6px rgba(239,68,68,.3);
         }
         .btn-delete:hover{ opacity:.85; }
 
-        @media (max-width:900px){ 
-          .groups-container{ grid-template-columns:1fr; }
+        @media (max-width:900px){
+            .groups-container{ grid-template-columns:1fr; }
         }
         @media (max-width:768px){
-          .menu-btn { display: block; }
-          nav.nav { 
-            display: none; 
-            flex-direction: column;
-          }
-          nav.nav.open { display: flex; }
-          .container{ padding:0 .75rem; }
-          .form-actions .btn, .access-controls .btn{ width:100%; }
-          .card{ padding:1rem; }
-          .access-controls{ flex-direction:column; align-items:stretch; }
-          .access-input{ width:100%; min-width:0; }
-          .brand strong { font-size: 1.1rem; }
+            .menu-btn { display: block; }
+            nav.nav {
+                display: none;
+                flex-direction: column;
+            }
+            nav.nav.open { display: flex; }
+            .container{ padding:0 .75rem; }
+            .form-actions .btn, .access-controls .btn{ width:100%; }
+            .card{ padding:1rem; }
+            .access-controls{ flex-direction:column; align-items:stretch; }
+            .access-input{ width:100%; min-width:0; }
+            .brand strong { font-size: 1.1rem; }
         }
         @media (max-width:640px){
-          .responsive-table thead{ display:none; }
-          .responsive-table tbody{ display:block; }
-          .responsive-table tbody tr{ display:block; border:1px solid var(--ring); border-radius:12px; margin-bottom:1rem; background:#fff; }
-          .responsive-table tbody td{ display:flex; flex-direction:column; align-items:flex-start; gap:.35rem; padding:.75rem 1rem; border-bottom:1px solid var(--ring); }
-          .responsive-table tbody td:last-child{ border-bottom:none; }
-          .responsive-table tbody td::before{ content:attr(data-label); font-weight:700; font-size:.75rem; text-transform:uppercase; color:var(--muted); }
+            .responsive-table thead{ display:none; }
+            .responsive-table tbody{ display:block; }
+            .responsive-table tbody tr{ display:block; border:1px solid var(--ring); border-radius:12px; margin-bottom:1rem; background:#fff; }
+            .responsive-table tbody td{ display:flex; flex-direction:column; align-items:flex-start; gap:.35rem; padding:.75rem 1rem; border-bottom:1px solid var(--ring); }
+            .responsive-table tbody td:last-child{ border-bottom:none; }
+            .responsive-table tbody td::before{ content:attr(data-label); font-weight:700; font-size:.75rem; text-transform:uppercase; color:var(--muted); }
         }
     </style>
 </head>
@@ -336,52 +336,53 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
-      authDomain: "koc2-20fb8.firebaseapp.com",
-      databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
-      projectId: "koc2-20fb8",
-      storageBucket: "koc2-20fb8.firebasestorage.app",
-      messagingSenderId: "317734341461",
-      appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
+        apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
+        authDomain: "koc2-20fb8.firebaseapp.com",
+        databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
+        projectId: "koc2-20fb8",
+        storageBucket: "koc2-20fb8.firebasestorage.app",
+        messagingSenderId: "317734341461",
+        appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
     };
     const firebaseApp = firebase.initializeApp(firebaseConfig);
     const auth = firebaseApp.auth();
     const database = firebaseApp.database();
     const matchesRef = database.ref('TriAceDBNEW');
+    const playMatchesRef = database.ref('TriAceDBNEW_Play');
 
     let authReady = false;
     function ensureAuth(){
-      if(authReady) return Promise.resolve();
-      return auth.signInAnonymously().then(() => { authReady = true; });
+        if(authReady) return Promise.resolve();
+        return auth.signInAnonymously().then(() => { authReady = true; });
     }
     ensureAuth().catch(err => console.error('Auth failed', err));
 
     async function guardWriteAccess(){
-      try { await ensureAuth(); return true; }
-      catch(err){ alert('❌ Auth failed.'); return false; }
+        try { await ensureAuth(); return true; }
+        catch(err){ alert('❌ Auth failed.'); return false; }
     }
 
     const groupA = [
-      { name: 'Team A1', abbreviation: 'A1', players: ['Yogesh', 'Dinkar', 'Sudarshan'] },
-      { name: 'Team A2', abbreviation: 'A2', players: ['Prashant', 'Vinoth', 'Vamsi'] },
-      { name: 'Team A3', abbreviation: 'A3', players: ['Sudhakar', 'Dinesh', 'Uma'] },
-      { name: 'Team A4', abbreviation: 'A4', players: ['Sandeep G', 'Damu', 'Vidhya Sagar'] },
-      { name: 'Team A5', abbreviation: 'A5', players: ['Hari', 'Ram', 'Satish'] },
-      { name: 'Team A6', abbreviation: 'A6', players: ['Nagarjuna', 'Mohan', 'Ganesh'] },
-      { name: 'Team A7', abbreviation: 'A7', players: ['Sreekanth B', 'Uday P', 'Sashi R'] },
-      { name: 'Team A8', abbreviation: 'A8', players: ['Mayur Patel', 'Chandrakant', 'Pardeep K'] },
-      { name: 'Team A9', abbreviation: 'A9', players: ['Harsha S', 'Vijay V', 'Kartha V'] },
+        { name: 'Team A1', abbreviation: 'A1', players: ['Yogesh', 'Dinkar', 'Sudarshan'] },
+        { name: 'Team A2', abbreviation: 'A2', players: ['Prashant', 'Vinoth', 'Vamsi'] },
+        { name: 'Team A3', abbreviation: 'A3', players: ['Sudhakar', 'Dinesh', 'Uma'] },
+        { name: 'Team A4', abbreviation: 'A4', players: ['Sandeep G', 'Damu', 'Vidhya Sagar'] },
+        { name: 'Team A5', abbreviation: 'A5', players: ['Hari', 'Ram', 'Satish'] },
+        { name: 'Team A6', abbreviation: 'A6', players: ['Nagarjuna', 'Mohan', 'Ganesh'] },
+        { name: 'Team A7', abbreviation: 'A7', players: ['Sreekanth B', 'Uday P', 'Sashi R'] },
+        { name: 'Team A8', abbreviation: 'A8', players: ['Mayur Patel', 'Chandrakant', 'Pardeep K'] },
+        { name: 'Team A9', abbreviation: 'A9', players: ['Harsha S', 'Vijay V', 'Kartha V'] },
     ];
     const groupB = [
-      { name: 'Team B1', abbreviation: 'B1', players: ['Manish', 'Biju', 'Ritesh'] },
-      { name: 'Team B2', abbreviation: 'B2', players: ['Kalyan', 'Sandeep', 'Uday'] },
-      { name: 'Team B3', abbreviation: 'B3', players: ['Kails', 'Raja M', 'Vivek Reddy'] },
-      { name: 'Team B4', abbreviation: 'B4', players: ['Venky DH', 'Kalam', 'Vasu'] },
-      { name: 'Team B5', abbreviation: 'B5', players: ['Narayan P', 'Ratnesh', 'Jay S'] },
-      { name: 'Team B6', abbreviation: 'B6', players: ['Vinod A', 'Raj K', 'Krishna'] },
-      { name: 'Team B7', abbreviation: 'B7', players: ['Srikanth', 'Bharat', 'Sridhar'] },
-      { name: 'Team B8', abbreviation: 'B8', players: ['Mahi', 'Shivaji', 'Vikas'] },
-      { name: 'Team B9', abbreviation: 'B9', players: ['Chandu M', 'Dinesh K', 'Malla'] },
+        { name: 'Team B1', abbreviation: 'B1', players: ['Manish', 'Biju', 'Ritesh'] },
+        { name: 'Team B2', abbreviation: 'B2', players: ['Kalyan', 'Sandeep', 'Uday'] },
+        { name: 'Team B3', abbreviation: 'B3', players: ['Kails', 'Raja M', 'Vivek Reddy'] },
+        { name: 'Team B4', abbreviation: 'B4', players: ['Venky DH', 'Kalam', 'Vasu'] },
+        { name: 'Team B5', abbreviation: 'B5', players: ['Narayan P', 'Ratnesh', 'Jay S'] },
+        { name: 'Team B6', abbreviation: 'B6', players: ['Vinod A', 'Raj K', 'Krishna'] },
+        { name: 'Team B7', abbreviation: 'B7', players: ['Srikanth', 'Bharat', 'Sridhar'] },
+        { name: 'Team B8', abbreviation: 'B8', players: ['Mahi', 'Shivaji', 'Vikas'] },
+        { name: 'Team B9', abbreviation: 'B9', players: ['Chandu M', 'Dinesh K', 'Malla'] },
     ];
     const allTeams = [...groupA, ...groupB];
     const TEAM_PASSWORDS = {};
@@ -413,497 +414,536 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
     let adminSelectedMatchId = null;
 
     function parseScoreText(text) {
-      const results = [], errors = [];
-      const rawLines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
-      if (rawLines.length === 0) return { results: [], errors: [], team1: null, team2: null };
-      let team1 = null, team2 = null, startLine = 0;
-      const teamsMatch = rawLines[0].match(/^(\w+)\s+vs\.?\s+(\w+)$/i);
-      if (teamsMatch) {
-        team1 = ABBR_LOOKUP.get(teamsMatch[1].toUpperCase());
-        team2 = ABBR_LOOKUP.get(teamsMatch[2].toUpperCase());
-        if (!team1) errors.push(`Unknown team: ${teamsMatch[1]}`);
-        if (!team2) errors.push(`Unknown team: ${teamsMatch[2]}`);
-        if (team1 && team2 && team1.name === team2.name) errors.push('Teams must be different');
-        startLine = 1;
-      } else {
-        errors.push('First line should be: TEAM1 vs TEAM2 (e.g., A1 vs A2)');
-        return { results: [], errors, team1: null, team2: null };
-      }
-      if (!team1 || !team2) return { results: [], errors, team1: null, team2: null };
-      const team1Abbr = team1.abbreviation.toUpperCase();
-      const team2Abbr = team2.abbreviation.toUpperCase();
-      const mergedLines = [];
-      for (let i = startLine; i < rawLines.length; i++) {
-        const line = rawLines[i];
-        if (/^[\d\-\(\),\s]+\(won\)/i.test(line) && mergedLines.length > 0) {
-          mergedLines[mergedLines.length - 1] += ' ' + line;
-        } else if (/^(D\d?)[\s:]/i.test(line) || line.match(/vs/i)) {
-          mergedLines.push(line);
+        const results = [], errors = [];
+        const rawLines = text.trim().split('\n').map(l => l.trim()).filter(Boolean);
+        if (rawLines.length === 0) return { results: [], errors: [], team1: null, team2: null };
+        let team1 = null, team2 = null, startLine = 0;
+        const teamsMatch = rawLines[0].match(/^(\w+)\s+vs\.?\s+(\w+)$/i);
+        if (teamsMatch) {
+            team1 = ABBR_LOOKUP.get(teamsMatch[1].toUpperCase());
+            team2 = ABBR_LOOKUP.get(teamsMatch[2].toUpperCase());
+            if (!team1) errors.push(`Unknown team: ${teamsMatch[1]}`);
+            if (!team2) errors.push(`Unknown team: ${teamsMatch[2]}`);
+            if (team1 && team2 && team1.name === team2.name) errors.push('Teams must be different');
+            startLine = 1;
+        } else {
+            errors.push('First line should be: TEAM1 vs TEAM2 (e.g., A1 vs A2)');
+            return { results: [], errors, team1: null, team2: null };
         }
-      }
-      let doublesCount = 0;
-      for (let i = 0; i < mergedLines.length; i++) {
-        try {
-          const parsed = parseLine(mergedLines[i], team1, team2, team1Abbr, team2Abbr);
-          if (parsed) { doublesCount++; if (!parsed.labelNum) parsed.label = `Doubles ${doublesCount}`; results.push(parsed); }
-        } catch (err) { errors.push(`Line ${i + 1 + startLine}: ${err.message}`); }
-      }
-      return { results, errors, team1, team2 };
+        if (!team1 || !team2) return { results: [], errors, team1: null, team2: null };
+        const team1Abbr = team1.abbreviation.toUpperCase();
+        const team2Abbr = team2.abbreviation.toUpperCase();
+        const mergedLines = [];
+        for (let i = startLine; i < rawLines.length; i++) {
+            const line = rawLines[i];
+            if (/^[\d\-\(\),\s]+\(won\)/i.test(line) && mergedLines.length > 0) {
+                mergedLines[mergedLines.length - 1] += ' ' + line;
+            } else if (/^(D\d?)[\s:]/i.test(line) || line.match(/vs/i)) {
+                mergedLines.push(line);
+            }
+        }
+        let doublesCount = 0;
+        for (let i = 0; i < mergedLines.length; i++) {
+            try {
+                const parsed = parseLine(mergedLines[i], team1, team2, team1Abbr, team2Abbr);
+                if (parsed) { doublesCount++; if (!parsed.labelNum) parsed.label = `Doubles ${doublesCount}`; results.push(parsed); }
+            } catch (err) { errors.push(`Line ${i + 1 + startLine}: ${err.message}`); }
+        }
+        return { results, errors, team1, team2 };
     }
 
     function parseLine(line, team1, team2, team1Abbr, team2Abbr) {
-      const typeMatch = line.match(/^(D(?:oubles)?\s*(\d)?)[\s:]+/i);
-      let remainder = line, courtNum = null, labelNum = false;
-      if (typeMatch) {
-        const numMatch = typeMatch[1].toUpperCase().match(/\d/);
-        if (numMatch) { courtNum = numMatch[0]; labelNum = true; }
-        remainder = line.slice(typeMatch[0].length).trim();
-      }
-      const wonMatch = remainder.match(/\(won\)\s*(\w+)\s*\.?\s*$/i);
-      if (!wonMatch) throw new Error('Must include (won) followed by winner');
-      const winnerAbbr = wonMatch[1].toUpperCase();
-      remainder = remainder.slice(0, wonMatch.index).trim();
-      let winnerTeamNum = null;
-      if (winnerAbbr === team1Abbr) winnerTeamNum = 1;
-      else if (winnerAbbr === team2Abbr) winnerTeamNum = 2;
-      else throw new Error(`Winner "${winnerAbbr}" doesn't match ${team1Abbr} or ${team2Abbr}`);
-      const vsMatch = remainder.match(/\s+vs\.?\s+/i);
-      if (!vsMatch) throw new Error('Must include "vs" between players');
-      const leftSide = remainder.slice(0, vsMatch.index).trim();
-      const rightSide = remainder.slice(vsMatch.index + vsMatch[0].length).trim();
-      const leftPlayers = leftSide.split('/').map(p => p.trim()).filter(Boolean);
-      const scoreStartMatch = rightSide.match(/\s+(\d+-\d+)/);
-      if (!scoreStartMatch) throw new Error('Could not find scores');
-      const rightPlayersStr = rightSide.slice(0, scoreStartMatch.index).trim();
-      const scoresStr = rightSide.slice(scoreStartMatch.index).trim();
-      const rightPlayers = rightPlayersStr.split('/').map(p => p.trim()).filter(Boolean);
-      const sets = parseScores(scoresStr);
-      let g1 = 0, g2 = 0, sets1 = 0, sets2 = 0;
-      const setsData = [];
-      for (let i = 0; i < sets.length; i++) {
-        const set = sets[i];
-        g1 += set.left; g2 += set.right;
-        if (set.left > set.right) sets1++;
-        else if (set.right > set.left) sets2++;
-        else if (set.tiebreak) { if (set.tiebreak.left > set.tiebreak.right) { sets1++; g1++; } else { sets2++; g2++; } }
-        const setData = { set: i + 1, team1: set.left, team2: set.right };
-        if (set.tiebreak) setData.tieBreak = { team1: set.tiebreak.left, team2: set.tiebreak.right };
-        setsData.push(setData);
-      }
-      return { label: `Doubles ${courtNum || ''}`.trim(), labelNum, type: 'doubles', players: { team1: leftPlayers, team2: rightPlayers }, sets: setsData, g1, g2, sets1, sets2, winnerTeamNum };
+        const typeMatch = line.match(/^(D(?:oubles)?\s*(\d)?)[\s:]+/i);
+        let remainder = line, courtNum = null, labelNum = false;
+        if (typeMatch) {
+            const numMatch = typeMatch[1].toUpperCase().match(/\d/);
+            if (numMatch) { courtNum = numMatch[0]; labelNum = true; }
+            remainder = line.slice(typeMatch[0].length).trim();
+        }
+        const wonMatch = remainder.match(/\(won\)\s*(\w+)\s*\.?\s*$/i);
+        if (!wonMatch) throw new Error('Must include (won) followed by winner');
+        const winnerAbbr = wonMatch[1].toUpperCase();
+        remainder = remainder.slice(0, wonMatch.index).trim();
+        let winnerTeamNum = null;
+        if (winnerAbbr === team1Abbr) winnerTeamNum = 1;
+        else if (winnerAbbr === team2Abbr) winnerTeamNum = 2;
+        else throw new Error(`Winner "${winnerAbbr}" doesn't match ${team1Abbr} or ${team2Abbr}`);
+        const vsMatch = remainder.match(/\s+vs\.?\s+/i);
+        if (!vsMatch) throw new Error('Must include "vs" between players');
+        const leftSide = remainder.slice(0, vsMatch.index).trim();
+        const rightSide = remainder.slice(vsMatch.index + vsMatch[0].length).trim();
+        const leftPlayers = leftSide.split('/').map(p => p.trim()).filter(Boolean);
+        const scoreStartMatch = rightSide.match(/\s+(\d+-\d+)/);
+        if (!scoreStartMatch) throw new Error('Could not find scores');
+        const rightPlayersStr = rightSide.slice(0, scoreStartMatch.index).trim();
+        const scoresStr = rightSide.slice(scoreStartMatch.index).trim();
+        const rightPlayers = rightPlayersStr.split('/').map(p => p.trim()).filter(Boolean);
+        const sets = parseScores(scoresStr);
+        let g1 = 0, g2 = 0, sets1 = 0, sets2 = 0;
+        const setsData = [];
+        for (let i = 0; i < sets.length; i++) {
+            const set = sets[i];
+            g1 += set.left; g2 += set.right;
+            if (set.left > set.right) sets1++;
+            else if (set.right > set.left) sets2++;
+            else if (set.tiebreak) { if (set.tiebreak.left > set.tiebreak.right) { sets1++; g1++; } else { sets2++; g2++; } }
+            const setData = { set: i + 1, team1: set.left, team2: set.right };
+            if (set.tiebreak) setData.tieBreak = { team1: set.tiebreak.left, team2: set.tiebreak.right };
+            setsData.push(setData);
+        }
+        return { label: `Doubles ${courtNum || ''}`.trim(), labelNum, type: 'doubles', players: { team1: leftPlayers, team2: rightPlayers }, sets: setsData, g1, g2, sets1, sets2, winnerTeamNum };
     }
 
     function parseScores(scoresStr) {
-      const sets = [], scorePattern = /(\d+)-(\d+)(?:\((\d+)-(\d+)\))?/g;
-      let match;
-      while ((match = scorePattern.exec(scoresStr)) !== null) {
-        const set = { left: parseInt(match[1]), right: parseInt(match[2]) };
-        if (match[3] && match[4]) set.tiebreak = { left: parseInt(match[3]), right: parseInt(match[4]) };
-        sets.push(set);
-      }
-      return sets;
+        const sets = [], scorePattern = /(\d+)-(\d+)(?:\((\d+)-(\d+)\))?/g;
+        let match;
+        while ((match = scorePattern.exec(scoresStr)) !== null) {
+            const set = { left: parseInt(match[1]), right: parseInt(match[2]) };
+            if (match[3] && match[4]) set.tiebreak = { left: parseInt(match[3]), right: parseInt(match[4]) };
+            sets.push(set);
+        }
+        return sets;
     }
 
     function updatePreview() {
-      const text = scoreInput.value;
-      if (!text.trim()) { previewContent.innerHTML = '<div class="preview-empty">Enter scores above to see preview</div>'; return; }
-      const { results, errors, team1, team2 } = parseScoreText(text);
-      let html = '';
-      if (errors.length > 0) html += errors.map(err => `<div class="preview-item error">❌ ${escapeHTML(err)}</div>`).join('');
-      if (team1 && team2 && results.length > 0) {
-        let totalG1 = 0, totalG2 = 0, courtsWon1 = 0, courtsWon2 = 0;
-        results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
-        const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : 'TIE');
-        html += `<div class="preview-item total">📊 ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation} | Courts: ${courtsWon1}-${courtsWon2} | Winner: ${winner}</div>`;
-        results.forEach(r => {
-          const winnerName = r.winnerTeamNum === 1 ? team1.abbreviation : team2.abbreviation;
-          const setsDisplay = r.sets.map(s => { let str = `${s.team1}-${s.team2}`; if (s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
-          html += `<div class="preview-item valid">✅ ${r.label}: ${r.players.team1.join('/')} vs ${r.players.team2.join('/')} → ${setsDisplay} (won ${winnerName})</div>`;
-        });
-      }
-      previewContent.innerHTML = html || '<div class="preview-empty">No valid data</div>';
+        const text = scoreInput.value;
+        if (!text.trim()) { previewContent.innerHTML = '<div class="preview-empty">Enter scores above to see preview</div>'; return; }
+        const { results, errors, team1, team2 } = parseScoreText(text);
+        let html = '';
+        if (errors.length > 0) html += errors.map(err => `<div class="preview-item error">❌ ${escapeHTML(err)}</div>`).join('');
+        if (team1 && team2 && results.length > 0) {
+            let totalG1 = 0, totalG2 = 0, courtsWon1 = 0, courtsWon2 = 0;
+            results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
+            const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : 'TIE');
+            html += `<div class="preview-item total">📊 ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation} | Courts: ${courtsWon1}-${courtsWon2} | Winner: ${winner}</div>`;
+            results.forEach(r => {
+                const winnerName = r.winnerTeamNum === 1 ? team1.abbreviation : team2.abbreviation;
+                const setsDisplay = r.sets.map(s => { let str = `${s.team1}-${s.team2}`; if (s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
+                html += `<div class="preview-item valid">✅ ${r.label}: ${r.players.team1.join('/')} vs ${r.players.team2.join('/')} → ${setsDisplay} (won ${winnerName})</div>`;
+            });
+        }
+        previewContent.innerHTML = html || '<div class="preview-empty">No valid data</div>';
     }
     scoreInput.addEventListener('input', updatePreview);
 
     function upgradeMatch(m){
-      if(!m || !m.t1 || !m.t2) return null;
-      const g1 = Number(m.g1), g2 = Number(m.g2);
-      if(!Number.isFinite(g1) || !Number.isFinite(g2)) return null;
-      const upgraded = { t1:m.t1, t2:m.t2, g1, g2, win:m.win, ts:Number(m.ts)||Date.now(), s1:Number(m.s1)||0, s2:Number(m.s2)||0 };
-      if(Array.isArray(m.lines)) upgraded.lines = m.lines;
-      return upgraded;
+        if(!m || !m.t1 || !m.t2) return null;
+        const g1 = Number(m.g1), g2 = Number(m.g2);
+        if(!Number.isFinite(g1) || !Number.isFinite(g2)) return null;
+        const upgraded = { t1:m.t1, t2:m.t2, g1, g2, win:m.win, ts:Number(m.ts)||Date.now(), s1:Number(m.s1)||0, s2:Number(m.s2)||0 };
+        if(Array.isArray(m.lines)) upgraded.lines = m.lines;
+        return upgraded;
     }
 
-    function handleSnapshot(snapshot){
-      const data = snapshot.val(), list = [];
-      if(data){ for(const [id, entry] of Object.entries(data)){ const u = upgradeMatch(entry); if(u){ u.id = id; list.push(u); } } }
-      matches = list.sort((a,b)=>b.ts - a.ts);
-      matchesLoaded = true;
-      renderAll();
+    function handleSnapshot(snap1, snap2){
+        const list = [];
+
+        // Load from TriAceDBNEW (Regular Season)
+        if(snap1 && snap1.val()){
+            Object.entries(snap1.val()).forEach(([id, entry]) => {
+                const u = upgradeMatch(entry);
+                if(u){ u.id = id; u.source = 'regular'; list.push(u); }
+            });
+        }
+
+        // Load from TriAceDBNEW_Play (Playoff/Super Six)
+        if(snap2 && snap2.val()){
+            Object.entries(snap2.val()).forEach(([id, entry]) => {
+                const u = upgradeMatch(entry);
+                if(u){ u.id = id; u.source = 'playoff'; list.push(u); }
+            });
+        }
+
+        matches = list.sort((a,b)=>b.ts - a.ts);
+        matchesLoaded = true;
+        renderAll();
     }
-    matchesRef.on('value', handleSnapshot, err => { console.error('Firebase error', err); matches = []; matchesLoaded = true; renderAll(); });
+
+    // Load from both databases
+    Promise.all([
+        matchesRef.once('value'),
+        playMatchesRef.once('value')
+    ]).then(([snap1, snap2]) => {
+        handleSnapshot(snap1, snap2);
+        // Set up live listeners for both
+        matchesRef.on('value', (snap1) => {
+            playMatchesRef.once('value', (snap2) => {
+                handleSnapshot(snap1, snap2);
+            });
+        });
+        playMatchesRef.on('value', (snap2) => {
+            matchesRef.once('value', (snap1) => {
+                handleSnapshot(snap1, snap2);
+            });
+        });
+    }).catch(err => {
+        console.error('Firebase error:', err);
+        matches = [];
+        matchesLoaded = true;
+        renderAll();
+    });
 
     document.getElementById('unlockBtn').addEventListener('click', () => {
-      const code = document.getElementById('accessCode').value.trim().toUpperCase();
-      const team = TEAM_PASSWORDS[code];
-      if(team){
-        currentTeam = team;
-        isAdmin = (team.abbreviation === 'ADMIN');
-        scoringForm.classList.remove('hidden');
-        loggedTeamBadge.textContent = team.abbreviation;
-        document.getElementById('accessCode').value = '';
-        alert(`✅ Unlocked for ${team.name}`);
-        if(isAdmin) updateAdminAccessUI(true);
-        renderAll(); // Re-render to show/hide delete buttons
-      }
-      else { alert('❌ Invalid password'); }
+        const code = document.getElementById('accessCode').value.trim().toUpperCase();
+        const team = TEAM_PASSWORDS[code];
+        if(team){
+            currentTeam = team;
+            isAdmin = (team.abbreviation === 'ADMIN');
+            scoringForm.classList.remove('hidden');
+            loggedTeamBadge.textContent = team.abbreviation;
+            document.getElementById('accessCode').value = '';
+            alert(`✅ Unlocked for ${team.name}`);
+            if(isAdmin) updateAdminAccessUI(true);
+            renderAll(); // Re-render to show/hide delete buttons
+        }
+        else { alert('❌ Invalid password'); }
     });
     document.getElementById('lockBtn').addEventListener('click', () => {
-      scoringForm.classList.add('hidden');
-      currentTeam = null;
-      isAdmin = false;
-      loggedTeamBadge.textContent = '';
-      updateAdminAccessUI(false);
-      renderAll(); // Re-render to hide delete buttons
+        scoringForm.classList.add('hidden');
+        currentTeam = null;
+        isAdmin = false;
+        loggedTeamBadge.textContent = '';
+        updateAdminAccessUI(false);
+        renderAll(); // Re-render to hide delete buttons
     });
 
     function updateAdminAccessUI(active){
-      if(!adminAccessStatus) return;
-      adminAccessStatus.textContent = active ? 'Admin tools unlocked.' : 'Admin tools are locked.';
-      adminUnlockBtn?.classList.toggle('hidden', active);
-      adminLockBtn?.classList.toggle('hidden', !active);
-      if(!active && adminJson) adminJson.value = '';
+        if(!adminAccessStatus) return;
+        adminAccessStatus.textContent = active ? 'Admin tools unlocked.' : 'Admin tools are locked.';
+        adminUnlockBtn?.classList.toggle('hidden', active);
+        adminLockBtn?.classList.toggle('hidden', !active);
+        if(!active && adminJson) adminJson.value = '';
     }
 
     adminUnlockBtn?.addEventListener('click', () => {
-      const code = adminAccessCode?.value.trim().toUpperCase();
-      if(code !== 'ADMIN#2026'){
-        alert('❌ Invalid admin password.');
-        return;
-      }
-      isAdmin = true;
-      adminAccessCode.value = '';
-      updateAdminAccessUI(true);
-      renderAll();
+        const code = adminAccessCode?.value.trim().toUpperCase();
+        if(code !== 'ADMIN#2026'){
+            alert('❌ Invalid admin password.');
+            return;
+        }
+        isAdmin = true;
+        adminAccessCode.value = '';
+        updateAdminAccessUI(true);
+        renderAll();
     });
 
     adminLockBtn?.addEventListener('click', () => {
-      isAdmin = false;
-      updateAdminAccessUI(false);
-      renderAll();
+        isAdmin = false;
+        updateAdminAccessUI(false);
+        renderAll();
     });
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
-      if(!matchesLoaded) return alert('Please wait for data to load.');
-      if(!currentTeam) return alert('Please unlock scoring first.');
-      const { results, errors, team1, team2 } = parseScoreText(scoreInput.value);
-      if(errors.length > 0) return alert('⚠️ Fix errors:\n' + errors.join('\n'));
-      if(!team1 || !team2) return alert('⚠️ Could not detect teams.');
-      if(results.length === 0) return alert('⚠️ No valid scores found.');
-      if(currentTeam.abbreviation !== 'ADMIN' && currentTeam.name !== team1.name && currentTeam.name !== team2.name) return alert(`⚠️ You can only submit scores for ${currentTeam.name}.`);
-      let totalG1 = 0, totalG2 = 0, totalSets1 = 0, totalSets2 = 0, courtsWon1 = 0, courtsWon2 = 0;
-      results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; totalSets1 += r.sets1; totalSets2 += r.sets2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
-      const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : null);
-      if(!winner) return alert('⚠️ Match is tied.');
-      const lines = results.map(r => ({ label: r.label, type: r.type, g1: r.g1, g2: r.g2, sets: r.sets, setWins: { team1: r.sets1, team2: r.sets2 }, players: { team1: r.players.team1.map(p => p.toUpperCase()), team2: r.players.team2.map(p => p.toUpperCase()) } }));
-      const record = { t1: team1.name, t2: team2.name, g1: totalG1, g2: totalG2, s1: totalSets1, s2: totalSets2, win: winner, ts: Date.now(), lines, submittedBy: currentTeam.abbreviation };
-      if(!(await guardWriteAccess())) return;
-      try { await matchesRef.push(record); scoreInput.value = ''; updatePreview(); alert(`✅ Saved: ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation}\nWinner: ${winner}`); }
-      catch(err){ alert('❌ Save failed: ' + err.message); }
+        if(!matchesLoaded) return alert('Please wait for data to load.');
+        if(!currentTeam) return alert('Please unlock scoring first.');
+        const { results, errors, team1, team2 } = parseScoreText(scoreInput.value);
+        if(errors.length > 0) return alert('⚠️ Fix errors:\n' + errors.join('\n'));
+        if(!team1 || !team2) return alert('⚠️ Could not detect teams.');
+        if(results.length === 0) return alert('⚠️ No valid scores found.');
+        if(currentTeam.abbreviation !== 'ADMIN' && currentTeam.name !== team1.name && currentTeam.name !== team2.name) return alert(`⚠️ You can only submit scores for ${currentTeam.name}.`);
+        let totalG1 = 0, totalG2 = 0, totalSets1 = 0, totalSets2 = 0, courtsWon1 = 0, courtsWon2 = 0;
+        results.forEach(r => { totalG1 += r.g1; totalG2 += r.g2; totalSets1 += r.sets1; totalSets2 += r.sets2; if (r.winnerTeamNum === 1) courtsWon1++; else courtsWon2++; });
+        const winner = courtsWon1 > courtsWon2 ? team1.name : (courtsWon2 > courtsWon1 ? team2.name : null);
+        if(!winner) return alert('⚠️ Match is tied.');
+        const lines = results.map(r => ({ label: r.label, type: r.type, g1: r.g1, g2: r.g2, sets: r.sets, setWins: { team1: r.sets1, team2: r.sets2 }, players: { team1: r.players.team1.map(p => p.toUpperCase()), team2: r.players.team2.map(p => p.toUpperCase()) } }));
+        const record = { t1: team1.name, t2: team2.name, g1: totalG1, g2: totalG2, s1: totalSets1, s2: totalSets2, win: winner, ts: Date.now(), lines, submittedBy: currentTeam.abbreviation };
+        if(!(await guardWriteAccess())) return;
+        try { await matchesRef.push(record); scoreInput.value = ''; updatePreview(); alert(`✅ Saved: ${team1.abbreviation} ${totalG1}-${totalG2} ${team2.abbreviation}\nWinner: ${winner}`); }
+        catch(err){ alert('❌ Save failed: ' + err.message); }
     });
     document.getElementById('clearInputBtn').addEventListener('click', () => { scoreInput.value = ''; updatePreview(); });
 
     document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
     });
 
     function computeStandings(teamNames){
-      const teamSet = new Set(teamNames);
-      const stats = {};
-      teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0, gameDiff:0, singlesGameDiff:0 });
+        const teamSet = new Set(teamNames);
+        const stats = {};
+        teamNames.forEach(n => stats[n] = { team:n, matches:0, wins:0, losses:0, gamesFor:0, gamesAgainst:0, points:0, gameDiff:0, singlesGameDiff:0 });
 
-      function getCourtWins(m){
-        let courts1 = 0, courts2 = 0;
-        if(Array.isArray(m.lines) && m.lines.length){
-          m.lines.forEach(line => {
-            if(line.winnerTeamNum === 1) courts1++;
-            else if(line.winnerTeamNum === 2) courts2++;
-          });
-        } else if(m.win === m.t1){ courts1 = 2; courts2 = 1; }
-        else if(m.win === m.t2){ courts1 = 1; courts2 = 2; }
-        return { courts1, courts2 };
-      }
-
-      function getMatchPointDelta(m){
-        const { courts1, courts2 } = getCourtWins(m);
-        const margin = Math.abs(courts1 - courts2);
-        if(!margin) return { p1:0, p2:0 };
-        return courts1 > courts2 ? { p1: margin, p2: -margin } : { p1: -margin, p2: margin };
-      }
-
-      function getDoublesBonus(m){
-        let b1 = 0, b2 = 0;
-        if(!Array.isArray(m.lines)) return { b1, b2 };
-        m.lines.forEach(line => {
-          if(line.type !== 'doubles') return;
-          if(Array.isArray(line.sets) && line.sets.length === 2){
-            if(line.winnerTeamNum === 1){ b1 += 5; b2 -= 5; }
-            else if(line.winnerTeamNum === 2){ b1 -= 5; b2 += 5; }
-          }
-        });
-        return { b1, b2 };
-      }
-
-      for(const m of matches){
-        if(!stats[m.t1] || !stats[m.t2]) continue;
-        stats[m.t1].matches++; stats[m.t2].matches++;
-        stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
-        stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
-
-        const mp = getMatchPointDelta(m);
-        stats[m.t1].points += mp.p1;
-        stats[m.t2].points += mp.p2;
-        if(mp.p1 > mp.p2){ stats[m.t1].wins++; stats[m.t2].losses++; }
-        else if(mp.p2 > mp.p1){ stats[m.t2].wins++; stats[m.t1].losses++; }
-
-        const baseGameDiff = (m.g1 || 0) - (m.g2 || 0);
-        const bonus = getDoublesBonus(m);
-        stats[m.t1].gameDiff += baseGameDiff + bonus.b1;
-        stats[m.t2].gameDiff -= baseGameDiff - bonus.b2;
-
-        if(Array.isArray(m.lines)){
-          m.lines.forEach(line => {
-            if(line.type !== 'singles') return;
-            stats[m.t1].singlesGameDiff += (line.g1 || 0) - (line.g2 || 0);
-            stats[m.t2].singlesGameDiff += (line.g2 || 0) - (line.g1 || 0);
-          });
+        function getCourtWins(m){
+            let courts1 = 0, courts2 = 0;
+            if(Array.isArray(m.lines) && m.lines.length){
+                m.lines.forEach(line => {
+                    if(line.winnerTeamNum === 1) courts1++;
+                    else if(line.winnerTeamNum === 2) courts2++;
+                });
+            } else if(m.win === m.t1){ courts1 = 2; courts2 = 1; }
+            else if(m.win === m.t2){ courts1 = 1; courts2 = 2; }
+            return { courts1, courts2 };
         }
-      }
 
-      function headToHeadDelta(teamA, teamB){
-        let delta = 0;
+        function getMatchPointDelta(m){
+            const { courts1, courts2 } = getCourtWins(m);
+            const margin = Math.abs(courts1 - courts2);
+            if(!margin) return { p1:0, p2:0 };
+            return courts1 > courts2 ? { p1: margin, p2: -margin } : { p1: -margin, p2: margin };
+        }
+
+        function getDoublesBonus(m){
+            let b1 = 0, b2 = 0;
+            if(!Array.isArray(m.lines)) return { b1, b2 };
+            m.lines.forEach(line => {
+                if(line.type !== 'doubles') return;
+                if(Array.isArray(line.sets) && line.sets.length === 2){
+                    if(line.winnerTeamNum === 1){ b1 += 5; b2 -= 5; }
+                    else if(line.winnerTeamNum === 2){ b1 -= 5; b2 += 5; }
+                }
+            });
+            return { b1, b2 };
+        }
+
         for(const m of matches){
-          if(!teamSet.has(m.t1) || !teamSet.has(m.t2)) continue;
-          const isPair = (m.t1 === teamA && m.t2 === teamB) || (m.t1 === teamB && m.t2 === teamA);
-          if(!isPair) continue;
-          const mp = getMatchPointDelta(m);
-          delta += m.t1 === teamA ? (mp.p1 - mp.p2) : (mp.p2 - mp.p1);
-        }
-        return delta;
-      }
+            if(!stats[m.t1] || !stats[m.t2]) continue;
+            stats[m.t1].matches++; stats[m.t2].matches++;
+            stats[m.t1].gamesFor += m.g1; stats[m.t1].gamesAgainst += m.g2;
+            stats[m.t2].gamesFor += m.g2; stats[m.t2].gamesAgainst += m.g1;
 
-      return Object.values(stats).sort((a,b)=> {
-        if(b.points !== a.points) return b.points - a.points;
-        if(b.gameDiff !== a.gameDiff) return b.gameDiff - a.gameDiff;
-        if(b.singlesGameDiff !== a.singlesGameDiff) return b.singlesGameDiff - a.singlesGameDiff;
-        const h2h = headToHeadDelta(a.team, b.team);
-        if(h2h !== 0) return h2h > 0 ? -1 : 1;
-        if(b.gamesFor !== a.gamesFor) return b.gamesFor - a.gamesFor;
-        return a.team.localeCompare(b.team);
-      });
+            const mp = getMatchPointDelta(m);
+            stats[m.t1].points += mp.p1;
+            stats[m.t2].points += mp.p2;
+            if(mp.p1 > mp.p2){ stats[m.t1].wins++; stats[m.t2].losses++; }
+            else if(mp.p2 > mp.p1){ stats[m.t2].wins++; stats[m.t1].losses++; }
+
+            const baseGameDiff = (m.g1 || 0) - (m.g2 || 0);
+            const bonus = getDoublesBonus(m);
+            stats[m.t1].gameDiff += baseGameDiff + bonus.b1;
+            stats[m.t2].gameDiff -= baseGameDiff - bonus.b2;
+
+            if(Array.isArray(m.lines)){
+                m.lines.forEach(line => {
+                    if(line.type !== 'singles') return;
+                    stats[m.t1].singlesGameDiff += (line.g1 || 0) - (line.g2 || 0);
+                    stats[m.t2].singlesGameDiff += (line.g2 || 0) - (line.g1 || 0);
+                });
+            }
+        }
+
+        function headToHeadDelta(teamA, teamB){
+            let delta = 0;
+            for(const m of matches){
+                if(!teamSet.has(m.t1) || !teamSet.has(m.t2)) continue;
+                const isPair = (m.t1 === teamA && m.t2 === teamB) || (m.t1 === teamB && m.t2 === teamA);
+                if(!isPair) continue;
+                const mp = getMatchPointDelta(m);
+                delta += m.t1 === teamA ? (mp.p1 - mp.p2) : (mp.p2 - mp.p1);
+            }
+            return delta;
+        }
+
+        return Object.values(stats).sort((a,b)=> {
+            if(b.points !== a.points) return b.points - a.points;
+            if(b.gameDiff !== a.gameDiff) return b.gameDiff - a.gameDiff;
+            if(b.singlesGameDiff !== a.singlesGameDiff) return b.singlesGameDiff - a.singlesGameDiff;
+            const h2h = headToHeadDelta(a.team, b.team);
+            if(h2h !== 0) return h2h > 0 ? -1 : 1;
+            if(b.gamesFor !== a.gamesFor) return b.gamesFor - a.gamesFor;
+            return a.team.localeCompare(b.team);
+        });
     }
 
     function renderStandings(){
-      if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>'; return; }
-      [['A', TEAMS_A, standingsBodyA], ['B', TEAMS_B, standingsBodyB]].forEach(([g, teams, tbody]) => {
-        const rows = computeStandings(teams);
-        tbody.innerHTML = rows.map((r,i)=>{
-          const team = TEAM_LOOKUP.get(r.team);
-          const players = team ? team.players.join('/') : '';
-          return `<tr class="${i<3?'qualified':''}">
+        if(!matchesLoaded){ standingsBodyA.innerHTML = standingsBodyB.innerHTML = '<tr><td colspan="9" style="text-align:center;">Loading...</td></tr>'; return; }
+        [['A', TEAMS_A, standingsBodyA], ['B', TEAMS_B, standingsBodyB]].forEach(([g, teams, tbody]) => {
+            const rows = computeStandings(teams);
+            tbody.innerHTML = rows.map((r,i)=>{
+                const team = TEAM_LOOKUP.get(r.team);
+                const players = team ? team.players.join('/') : '';
+                return `<tr class="${i<3?'qualified':''}">
             <td class="rank-cell" data-label="#">${i+1}</td>
             <td class="team-cell" data-label="Team">${team?.abbreviation||r.team}<br><small style="font-weight:400;color:var(--muted);font-size:.7rem;">${players}</small></td>
             <td data-label="M">${r.matches}</td><td data-label="W">${r.wins}</td><td data-label="L">${r.losses}</td>
             <td data-label="GF">${r.gamesFor}</td><td data-label="GA">${r.gamesAgainst}</td>
             <td data-label="+/-">${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</td>
             <td class="points-cell" data-label="Pts">${r.points}</td></tr>`;
-        }).join('');
-      });
+            }).join('');
+        });
     }
 
     function renderHistory(){
-      const colSpan = isAdmin ? 7 : 6;
-      const historyTableHead = document.getElementById('historyTableHead');
+        const colSpan = isAdmin ? 7 : 6;
+        const historyTableHead = document.getElementById('historyTableHead');
 
-      // Update table header based on admin status
-      if(isAdmin){
-        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th><th>Actions</th></tr>';
-      } else {
-        historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr>';
-      }
-
-      if(!matchesLoaded){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;">Loading...</td></tr>`; return; }
-      if(matches.length === 0){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>`; return; }
-      historyBody.innerHTML = matches.map((m,idx)=>{
-        const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
-        let breakdown = '—';
-        if(Array.isArray(m.lines) && m.lines.length){
-          const parts = m.lines.map(l => {
-            const scores = (l.sets||[]).map(s => { let str = `${s.team1}-${s.team2}`; if(s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
-            const players = l.players ? `<div style="font-size:.7rem;color:#64748b;">${(l.players.team1||[]).join('/')} vs ${(l.players.team2||[]).join('/')}</div>` : '';
-            return `<div class="history-line"><strong>${l.label}:</strong> ${l.g1}-${l.g2} (${scores})${players}</div>`;
-          }).join('');
-          breakdown = `<div class="history-breakdown-wrapper"><button type="button" class="history-toggle" aria-expanded="false">Details</button><div class="history-breakdown">${parts}</div></div>`;
+        // Update table header based on admin status
+        if(isAdmin){
+            historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th><th>Actions</th></tr>';
+        } else {
+            historyTableHead.innerHTML = '<tr><th>#</th><th>Teams</th><th>Score</th><th>Winner</th><th>Details</th><th>Date</th></tr>';
         }
-        const deleteBtn = isAdmin ? `<td data-label="Actions"><button class="btn-delete" data-match-id="${m.id}" onclick="deleteMatch('${m.id}', '${escapeHTML(t1?.abbreviation||m.t1)} vs ${escapeHTML(t2?.abbreviation||m.t2)}')">Delete</button></td>` : '';
-        return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td>${deleteBtn}</tr>`;
-      }).join('');
+
+        if(!matchesLoaded){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;">Loading...</td></tr>`; return; }
+        if(matches.length === 0){ historyBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center;color:var(--muted);">No matches yet.</td></tr>`; return; }
+        historyBody.innerHTML = matches.map((m,idx)=>{
+            const t1 = TEAM_LOOKUP.get(m.t1), t2 = TEAM_LOOKUP.get(m.t2), winTeam = TEAM_LOOKUP.get(m.win);
+            let breakdown = '—';
+            if(Array.isArray(m.lines) && m.lines.length){
+                const parts = m.lines.map(l => {
+                    const scores = (l.sets||[]).map(s => { let str = `${s.team1}-${s.team2}`; if(s.tieBreak) str += `(${s.tieBreak.team1}-${s.tieBreak.team2})`; return str; }).join(', ');
+                    const players = l.players ? `<div style="font-size:.7rem;color:#64748b;">${(l.players.team1||[]).join('/')} vs ${(l.players.team2||[]).join('/')}</div>` : '';
+                    return `<div class="history-line"><strong>${l.label}:</strong> ${l.g1}-${l.g2} (${scores})${players}</div>`;
+                }).join('');
+                breakdown = `<div class="history-breakdown-wrapper"><button type="button" class="history-toggle" aria-expanded="false">Details</button><div class="history-breakdown">${parts}</div></div>`;
+            }
+            const deleteBtn = isAdmin ? `<td data-label="Actions"><button class="btn-delete" data-match-id="${m.id}" onclick="deleteMatch('${m.id}', '${escapeHTML(t1?.abbreviation||m.t1)} vs ${escapeHTML(t2?.abbreviation||m.t2)}')">Delete</button></td>` : '';
+            return `<tr><td class="rank-cell" data-label="#">${matches.length-idx}</td><td data-label="Teams">${t1?.abbreviation||m.t1} vs ${t2?.abbreviation||m.t2}</td><td data-label="Score">${m.g1}-${m.g2}</td><td class="points-cell" data-label="Winner">${winTeam?.abbreviation||m.win}</td><td data-label="Details">${breakdown}</td><td data-label="Date">${new Date(m.ts).toLocaleString()}</td>${deleteBtn}</tr>`;
+        }).join('');
     }
     historyBody.addEventListener('click', e => {
-      const toggle = e.target.closest('.history-toggle');
-      if(!toggle) return;
-      const panel = toggle.nextElementSibling;
-      if(!panel) return; // Prevent error if panel doesn't exist
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      toggle.textContent = expanded ? 'Details' : 'Hide';
-      panel.classList.toggle('open', !expanded);
+        const toggle = e.target.closest('.history-toggle');
+        if(!toggle) return;
+        const panel = toggle.nextElementSibling;
+        if(!panel) return; // Prevent error if panel doesn't exist
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        toggle.textContent = expanded ? 'Details' : 'Hide';
+        panel.classList.toggle('open', !expanded);
     });
 
     function renderTeamLists(){
-      document.getElementById('teamListA').innerHTML = groupA.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
-      document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
+        document.getElementById('teamListA').innerHTML = groupA.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
+        document.getElementById('teamListB').innerHTML = groupB.map((t, i) => `<div class="team-item"><div><div class="team-name">${i+1}. ${t.abbreviation}</div><div class="team-members">${t.players.join(' / ')}</div></div></div>`).join('');
     }
 
     async function deleteMatch(matchId, matchDesc){
-      if(!isAdmin){
-        alert('❌ Only admins can delete matches.');
-        return;
-      }
-      const confirmed = confirm(`Are you sure you want to delete this match?\n\n${matchDesc}\n\nThis action cannot be undone.`);
-      if(!confirmed) return;
+        if(!isAdmin){
+            alert('❌ Only admins can delete matches.');
+            return;
+        }
+        const confirmed = confirm(`Are you sure you want to delete this match?\n\n${matchDesc}\n\nThis action cannot be undone.`);
+        if(!confirmed) return;
 
-      try {
-        await database.ref('TriAceDBNEW/' + matchId).remove();
-        alert('✅ Match deleted successfully.');
-      } catch(err){
-        console.error('Delete error:', err);
-        alert('❌ Failed to delete match: ' + err.message);
-      }
+        try {
+            await database.ref('TriAceDBNEW/' + matchId).remove();
+            alert('✅ Match deleted successfully.');
+        } catch(err){
+            console.error('Delete error:', err);
+            alert('❌ Failed to delete match: ' + err.message);
+        }
     }
     window.deleteMatch = deleteMatch; // Make it globally accessible for onclick handlers
 
     function getMatchById(matchId){
-      return matches.find(m => m.id === matchId);
+        return matches.find(m => m.id === matchId);
     }
 
     function toEditableRecord(match){
-      if(!match) return '';
-      const { t1, t2, g1, g2, win, ts, s1, s2, lines, submittedBy } = match;
-      const record = { t1, t2, g1, g2, win, ts, s1, s2 };
-      if(Array.isArray(lines)) record.lines = lines;
-      if(submittedBy) record.submittedBy = submittedBy;
-      return JSON.stringify(record, null, 2);
+        if(!match) return '';
+        const { t1, t2, g1, g2, win, ts, s1, s2, lines, submittedBy } = match;
+        const record = { t1, t2, g1, g2, win, ts, s1, s2 };
+        if(Array.isArray(lines)) record.lines = lines;
+        if(submittedBy) record.submittedBy = submittedBy;
+        return JSON.stringify(record, null, 2);
     }
 
     function sanitizeMatchRecord(raw){
-      if(!raw || typeof raw !== 'object') throw new Error('JSON must be an object.');
-      const record = {
-        t1: String(raw.t1 || '').trim(),
-        t2: String(raw.t2 || '').trim(),
-        g1: Number(raw.g1),
-        g2: Number(raw.g2),
-        win: String(raw.win || '').trim(),
-        ts: Number(raw.ts) || Date.now(),
-        s1: Number(raw.s1) || 0,
-        s2: Number(raw.s2) || 0
-      };
-      if(!record.t1 || !record.t2 || !record.win) throw new Error('t1, t2, and win are required.');
-      if(!Number.isFinite(record.g1) || !Number.isFinite(record.g2)) throw new Error('g1 and g2 must be numbers.');
-      if(Array.isArray(raw.lines)) record.lines = raw.lines;
-      if(raw.submittedBy) record.submittedBy = String(raw.submittedBy);
-      return record;
+        if(!raw || typeof raw !== 'object') throw new Error('JSON must be an object.');
+        const record = {
+            t1: String(raw.t1 || '').trim(),
+            t2: String(raw.t2 || '').trim(),
+            g1: Number(raw.g1),
+            g2: Number(raw.g2),
+            win: String(raw.win || '').trim(),
+            ts: Number(raw.ts) || Date.now(),
+            s1: Number(raw.s1) || 0,
+            s2: Number(raw.s2) || 0
+        };
+        if(!record.t1 || !record.t2 || !record.win) throw new Error('t1, t2, and win are required.');
+        if(!Number.isFinite(record.g1) || !Number.isFinite(record.g2)) throw new Error('g1 and g2 must be numbers.');
+        if(Array.isArray(raw.lines)) record.lines = raw.lines;
+        if(raw.submittedBy) record.submittedBy = String(raw.submittedBy);
+        return record;
     }
 
     function renderAdminPanel(){
-      if(!adminPanel) return;
-      adminPanel.classList.toggle('hidden', !isAdmin);
-      if(!isAdmin) return;
-      if(!matchesLoaded){
-        adminMatchSelect.innerHTML = '<option value="">Loading...</option>';
-        adminMatchMeta.textContent = 'Loading match records...';
-        return;
-      }
-      if(matches.length === 0){
-        adminMatchSelect.innerHTML = '<option value="">No matches available</option>';
-        adminMatchMeta.textContent = 'No match records in the database.';
-        adminJson.value = '';
-        return;
-      }
-      adminMatchSelect.innerHTML = matches.map(m => {
-        const t1 = TEAM_LOOKUP.get(m.t1)?.abbreviation || m.t1;
-        const t2 = TEAM_LOOKUP.get(m.t2)?.abbreviation || m.t2;
-        const label = `${t1} vs ${t2} • ${new Date(m.ts).toLocaleString()}`;
-        return `<option value="${m.id}">${escapeHTML(label)}</option>`;
-      }).join('');
-      if(adminSelectedMatchId && matches.some(m => m.id === adminSelectedMatchId)){
-        adminMatchSelect.value = adminSelectedMatchId;
-      } else {
-        adminSelectedMatchId = adminMatchSelect.value;
-      }
-      const selectedMatch = getMatchById(adminSelectedMatchId);
-      adminMatchMeta.textContent = selectedMatch
-        ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
-        : 'Select a record to view details.';
+        if(!adminPanel) return;
+        adminPanel.classList.toggle('hidden', !isAdmin);
+        if(!isAdmin) return;
+        if(!matchesLoaded){
+            adminMatchSelect.innerHTML = '<option value="">Loading...</option>';
+            adminMatchMeta.textContent = 'Loading match records...';
+            return;
+        }
+        if(matches.length === 0){
+            adminMatchSelect.innerHTML = '<option value="">No matches available</option>';
+            adminMatchMeta.textContent = 'No match records in the database.';
+            adminJson.value = '';
+            return;
+        }
+        adminMatchSelect.innerHTML = matches.map(m => {
+            const t1 = TEAM_LOOKUP.get(m.t1)?.abbreviation || m.t1;
+            const t2 = TEAM_LOOKUP.get(m.t2)?.abbreviation || m.t2;
+            const label = `${t1} vs ${t2} • ${new Date(m.ts).toLocaleString()}`;
+            return `<option value="${m.id}">${escapeHTML(label)}</option>`;
+        }).join('');
+        if(adminSelectedMatchId && matches.some(m => m.id === adminSelectedMatchId)){
+            adminMatchSelect.value = adminSelectedMatchId;
+        } else {
+            adminSelectedMatchId = adminMatchSelect.value;
+        }
+        const selectedMatch = getMatchById(adminSelectedMatchId);
+        adminMatchMeta.textContent = selectedMatch
+            ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
+            : 'Select a record to view details.';
     }
 
     adminMatchSelect?.addEventListener('change', () => {
-      adminSelectedMatchId = adminMatchSelect.value;
-      const selectedMatch = getMatchById(adminSelectedMatchId);
-      adminMatchMeta.textContent = selectedMatch
-        ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
-        : 'Select a record to view details.';
+        adminSelectedMatchId = adminMatchSelect.value;
+        const selectedMatch = getMatchById(adminSelectedMatchId);
+        adminMatchMeta.textContent = selectedMatch
+            ? `Record ID: ${selectedMatch.id} • Games ${selectedMatch.g1}-${selectedMatch.g2}`
+            : 'Select a record to view details.';
     });
 
     document.getElementById('adminLoadBtn')?.addEventListener('click', () => {
-      if(!isAdmin) return alert('❌ Only admins can load records.');
-      const selectedMatch = getMatchById(adminMatchSelect.value);
-      if(!selectedMatch) return alert('Please select a match record.');
-      adminJson.value = toEditableRecord(selectedMatch);
+        if(!isAdmin) return alert('❌ Only admins can load records.');
+        const selectedMatch = getMatchById(adminMatchSelect.value);
+        if(!selectedMatch) return alert('Please select a match record.');
+        adminJson.value = toEditableRecord(selectedMatch);
     });
 
     document.getElementById('adminCopyBtn')?.addEventListener('click', async () => {
-      if(!adminJson.value.trim()) return alert('Nothing to copy.');
-      try {
-        await navigator.clipboard.writeText(adminJson.value);
-        alert('✅ JSON copied to clipboard.');
-      } catch(err) {
-        adminJson.select();
-        document.execCommand('copy');
-        alert('✅ JSON copied.');
-      }
+        if(!adminJson.value.trim()) return alert('Nothing to copy.');
+        try {
+            await navigator.clipboard.writeText(adminJson.value);
+            alert('✅ JSON copied to clipboard.');
+        } catch(err) {
+            adminJson.select();
+            document.execCommand('copy');
+            alert('✅ JSON copied.');
+        }
     });
 
     document.getElementById('adminSaveBtn')?.addEventListener('click', async () => {
-      if(!isAdmin) return alert('❌ Only admins can save records.');
-      const matchId = adminMatchSelect.value;
-      if(!matchId) return alert('Please select a match record.');
-      let parsed;
-      try { parsed = JSON.parse(adminJson.value); }
-      catch(err){ return alert('⚠️ Invalid JSON format.'); }
-      let record;
-      try { record = sanitizeMatchRecord(parsed); }
-      catch(err){ return alert(`⚠️ ${err.message}`); }
-      if(!(await guardWriteAccess())) return;
-      try {
-        await database.ref('TriAceDBNEW/' + matchId).set(record);
-        alert('✅ Match record updated.');
-      } catch(err){
-        console.error('Update error:', err);
-        alert('❌ Failed to update match: ' + err.message);
-      }
+        if(!isAdmin) return alert('❌ Only admins can save records.');
+        const matchId = adminMatchSelect.value;
+        if(!matchId) return alert('Please select a match record.');
+        let parsed;
+        try { parsed = JSON.parse(adminJson.value); }
+        catch(err){ return alert('⚠️ Invalid JSON format.'); }
+        let record;
+        try { record = sanitizeMatchRecord(parsed); }
+        catch(err){ return alert(`⚠️ ${err.message}`); }
+        if(!(await guardWriteAccess())) return;
+        try {
+            await database.ref('TriAceDBNEW/' + matchId).set(record);
+            alert('✅ Match record updated.');
+        } catch(err){
+            console.error('Update error:', err);
+            alert('❌ Failed to update match: ' + err.message);
+        }
     });
 
     document.getElementById('adminDeleteBtn')?.addEventListener('click', () => {
-      const matchId = adminMatchSelect.value;
-      const selectedMatch = getMatchById(matchId);
-      if(!selectedMatch) return alert('Please select a match record.');
-      deleteMatch(matchId, `${selectedMatch.t1} vs ${selectedMatch.t2}`);
+        const matchId = adminMatchSelect.value;
+        const selectedMatch = getMatchById(matchId);
+        if(!selectedMatch) return alert('Please select a match record.');
+        deleteMatch(matchId, `${selectedMatch.t1} vs ${selectedMatch.t2}`);
     });
 
     function renderAll(){ renderStandings(); renderHistory(); renderTeamLists(); renderAdminPanel(); }
@@ -911,7 +951,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
 
     // Mobile menu toggle
     document.getElementById('menuBtn').addEventListener('click',()=>{
-      document.getElementById('siteNav').classList.toggle('open');
+        document.getElementById('siteNav').classList.toggle('open');
     });
 </script>
 </body>
