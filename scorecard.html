@@ -880,7 +880,7 @@ D1: Ratnesh/Narayan vs Biju/Manish 3-4, 4-3, 4-0 (won) B1"></textarea>
             submittedBy: admin ? 'Admin' : team
         };
 
-        const ref = db.ref('TriAceDBNEW').push();
+        const ref = db.ref('TriAceDBNEW_Play').push();
         ref.set(data).then(() => {
             lastKey = ref.key;
             localStorage.setItem('lastKey', lastKey);
