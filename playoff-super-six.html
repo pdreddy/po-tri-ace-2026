@@ -117,10 +117,107 @@
         }
 
         .standings-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-        .standings-table th, .standings-table td { border-bottom: 1px solid #e2e8f0; padding: .45rem; text-align: center; }
+        .standings-table th, .standings-table td { border-bottom: 1px solid #e2e8f0; padding: .55rem; text-align: center; }
         .standings-table th:nth-child(2), .standings-table td:nth-child(2) { text-align: left; }
         .standings-table .points-cell { font-weight: 900; color: #667eea; }
-        .standings-hint { margin-top: .5rem; color: #64748b; font-size: .8rem; }
+        .standings-table .game-diff-cell { font-size: 0.85rem; color: #475569; font-weight: 500; }
+        .standings-table .total-pts-cell { font-weight: 900; color: #667eea; font-size: 1rem; }
+        .standings-table th { background: #f8fafc; font-weight: 700; color: #1a202c; }
+        .standings-table tbody tr:hover { background: #f1f5f9; }
+
+        .scoring-info {
+            background: #e0f2fe;
+            border-left: 3px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: .875rem;
+            color: #0c4a6e;
+        }
+
+        .scoring-info strong {
+            display: block;
+            margin-bottom: .5rem;
+        }
+
+        .scoring-formula {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .formula-section {
+            margin-bottom: 1rem;
+        }
+
+        .formula-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .formula-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .formula-number {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-label {
+            font-weight: 700;
+            color: #1a202c;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .formula-detail {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .formula-detail div {
+            margin: 0.4rem 0;
+        }
+
+        .formula-detail strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .formula-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .formula-box {
+                text-align: center;
+            }
+
+            .formula-detail {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -162,23 +259,89 @@
         <a class="sub-tab active" href="playoff-super-six.html">Playoff: Super Six Schedule</a>
     </div>
 
+    <section class="scoring-formula">
+        <div class="formula-section">
+            <div class="formula-title">📊 Scoring System & Ranking</div>
+
+            <div class="formula-grid">
+                <!-- Match Points -->
+                <div class="formula-box">
+                    <div class="formula-number">1️⃣</div>
+                    <div class="formula-label">Match Result Points</div>
+                    <div class="formula-detail">
+                        <div>3–0 win: <strong>+3 pts</strong></div>
+                        <div>3–1 win: <strong>+2 pts</strong></div>
+                        <div>3–2 win: <strong>+1 pt</strong></div>
+                        <div style="font-size:0.8rem;color:#64748b;margin-top:0.5rem">Bigger win = more points</div>
+                    </div>
+                </div>
+
+                <!-- Game Difference -->
+                <div class="formula-box">
+                    <div class="formula-number">2️⃣</div>
+                    <div class="formula-label">Game Difference</div>
+                    <div class="formula-detail">
+                        <div>Base: Game margin (8–1 = +7)</div>
+                        <div>Bonus: D1/D2 straight (2–0) = +5</div>
+                        <div style="font-size:0.8rem;color:#64748b;margin-top:0.5rem">D3: No bonus (excluded)</div>
+                    </div>
+                </div>
+
+                <!-- Singles Difference -->
+                <div class="formula-box">
+                    <div class="formula-number">3️⃣</div>
+                    <div class="formula-label">Singles Game Diff</div>
+                    <div class="formula-detail">
+                        <div>Count S1 + S2 games</div>
+                        <div>Used only if tied</div>
+                        <div style="font-size:0.8rem;color:#64748b;margin-top:0.5rem">3rd tiebreaker</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="standings-grid">
         <article class="standings-card">
             <h2>🐐 GOAT TIER — Super Six Standings</h2>
             <table class="standings-table">
-                <thead><tr><th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th><th>Game +/-</th><th>Singles +/-</th><th>Pts</th></tr></thead>
-                <tbody id="goatStandingsBody"><tr><td colspan="8" style="color:#64748b;">Loading...</td></tr></tbody>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>M</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>Match Pts</th>
+                    <th>Game Diff<br><span style="font-size:0.75rem;font-weight:400">(base + bonus)</span></th>
+                    <th>Singles +/-</th>
+                    <th>Total Pts</th>
+                </tr>
+                </thead>
+                <tbody id="goatStandingsBody"><tr><td colspan="9" style="color:#64748b;padding:1rem">Loading...</td></tr></tbody>
             </table>
-            <p class="standings-hint">Ranking order: Match Points, Game Difference (+5 doubles bonus for 2-0), Singles Game Difference, Head-to-Head.</p>
+            <p class="standings-hint" style="margin-top:1rem;padding:0.75rem;background:#e0f2fe;border-left:3px solid #0ea5e9;border-radius:6px"><strong>Ranking Priority:</strong> Team is ranked by: 1️⃣ Match Points → 2️⃣ Game Difference (incl. bonus) → 3️⃣ Singles Game Difference → 4️⃣ Head-to-Head</p>
         </article>
 
         <article class="standings-card">
             <h2>🔥 RISING ACES — Super Six Standings</h2>
             <table class="standings-table">
-                <thead><tr><th>#</th><th>Team</th><th>M</th><th>W</th><th>L</th><th>Game +/-</th><th>Singles +/-</th><th>Pts</th></tr></thead>
-                <tbody id="risingStandingsBody"><tr><td colspan="8" style="color:#64748b;">Loading...</td></tr></tbody>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>M</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>Match Pts</th>
+                    <th>Game Diff<br><span style="font-size:0.75rem;font-weight:400">(base + bonus)</span></th>
+                    <th>Singles +/-</th>
+                    <th>Total Pts</th>
+                </tr>
+                </thead>
+                <tbody id="risingStandingsBody"><tr><td colspan="9" style="color:#64748b;padding:1rem">Loading...</td></tr></tbody>
             </table>
-            <p class="standings-hint">Scoring: 3-0 (+3/-3), 3-1 (+2/-2), 3-2 (+1/-1).</p>
+            <p class="standings-hint" style="margin-top:1rem;padding:0.75rem;background:#e0f2fe;border-left:3px solid #0ea5e9;border-radius:6px"><strong>Ranking Priority:</strong> Team is ranked by: 1️⃣ Match Points → 2️⃣ Game Difference (incl. bonus) → 3️⃣ Singles Game Difference → 4️⃣ Head-to-Head</p>
         </article>
     </section>
 
@@ -247,13 +410,13 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
-      authDomain: "koc2-20fb8.firebaseapp.com",
-      databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
-      projectId: "koc2-20fb8",
-      storageBucket: "koc2-20fb8.firebasestorage.app",
-      messagingSenderId: "317734341461",
-      appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
+        apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
+        authDomain: "koc2-20fb8.firebaseapp.com",
+        databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
+        projectId: "koc2-20fb8",
+        storageBucket: "koc2-20fb8.firebasestorage.app",
+        messagingSenderId: "317734341461",
+        appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
     };
     const firebaseApp = firebase.initializeApp(firebaseConfig);
     const auth = firebaseApp.auth();
@@ -266,114 +429,189 @@
     const goatStandingsBody = document.getElementById('goatStandingsBody');
     const risingStandingsBody = document.getElementById('risingStandingsBody');
 
+    /**
+     * CORRECTED SCORING SYSTEM
+     * Priority 1: Match Points (3-0/+3, 3-1/+2, 3-2/+1)
+     * Priority 2: Game Difference = Base Games + Doubles Bonus
+     *   - Base: Sum of all games
+     *   - Bonus: +5 for D1 straight sets (2-0), +5 for D2 straight sets (2-0)
+     *   - NO bonus for D3
+     * Priority 3: Singles Game Difference (tiebreaker)
+     */
+
     function getCourtWins(match){
-      let courts1 = 0, courts2 = 0;
-      if(Array.isArray(match.lines) && match.lines.length){
-        match.lines.forEach(line => {
-          if(line.winnerTeamNum === 1) courts1++;
-          else if(line.winnerTeamNum === 2) courts2++;
-        });
-      } else if(match.win === match.t1){ courts1 = 2; courts2 = 1; }
-      else if(match.win === match.t2){ courts1 = 1; courts2 = 2; }
-      return { courts1, courts2 };
+        let courts1 = 0, courts2 = 0;
+        if(Array.isArray(match.lines) && match.lines.length){
+            match.lines.forEach(line => {
+                if(line.winnerTeamNum === 1) courts1++;
+                else if(line.winnerTeamNum === 2) courts2++;
+            });
+        } else if(match.win === match.t1){ courts1 = 2; courts2 = 1; }
+        else if(match.win === match.t2){ courts1 = 1; courts2 = 2; }
+        return { courts1, courts2 };
     }
 
     function getMatchPointDelta(match){
-      const { courts1, courts2 } = getCourtWins(match);
-      const margin = Math.abs(courts1 - courts2);
-      if(!margin) return { p1:0, p2:0 };
-      return courts1 > courts2 ? { p1: margin, p2: -margin } : { p1: -margin, p2: margin };
+        const { courts1, courts2 } = getCourtWins(match);
+        const margin = Math.abs(courts1 - courts2);
+
+        if(!margin) return { p1: 0, p2: 0 };
+
+        let points = 0;
+        if(courts1 > courts2) {
+            if(margin === 3) points = 3;      // 3-0
+            else if(margin === 2) points = 2; // 3-1
+            else if(margin === 1) points = 1; // 3-2
+            return { p1: points, p2: -points };
+        } else {
+            if(margin === 3) points = 3;
+            else if(margin === 2) points = 2;
+            else if(margin === 1) points = 1;
+            return { p1: -points, p2: points };
+        }
     }
 
     function getDoublesBonus(match){
-      let b1 = 0, b2 = 0;
-      if(!Array.isArray(match.lines)) return { b1, b2 };
-      match.lines.forEach(line => {
-        if(line.type !== 'doubles') return;
-        if(Array.isArray(line.sets) && line.sets.length === 2){
-          if(line.winnerTeamNum === 1){ b1 += 5; b2 -= 5; }
-          else if(line.winnerTeamNum === 2){ b1 -= 5; b2 += 5; }
-        }
-      });
-      return { b1, b2 };
+        let b1 = 0, b2 = 0;
+        if(!Array.isArray(match.lines)) return { b1, b2 };
+
+        match.lines.forEach(line => {
+            if(line.type !== 'doubles') return;
+
+            // Only D1 and D2 get bonus, NOT D3
+            const doubleNum = parseInt(line.label.substring(1));
+            if(doubleNum > 2) return;
+
+            // Straight sets = 2-0 (only 2 sets played)
+            if(Array.isArray(line.sets) && line.sets.length === 2){
+                if(line.winnerTeamNum === 1){ b1 += 5; b2 -= 5; }
+                else if(line.winnerTeamNum === 2){ b1 -= 5; b2 += 5; }
+            }
+        });
+        return { b1, b2 };
     }
 
     function computeStandings(matches, teamNames){
-      const teamSet = new Set(teamNames);
-      const stats = {};
-      teamNames.forEach(name => stats[name] = { team:name, matches:0, wins:0, losses:0, points:0, gameDiff:0, singlesGameDiff:0 });
-
-      matches.forEach(m => {
-        if(!stats[m.t1] || !stats[m.t2]) return;
-        stats[m.t1].matches++; stats[m.t2].matches++;
-        const mp = getMatchPointDelta(m);
-        stats[m.t1].points += mp.p1;
-        stats[m.t2].points += mp.p2;
-        if(mp.p1 > mp.p2){ stats[m.t1].wins++; stats[m.t2].losses++; }
-        else if(mp.p2 > mp.p1){ stats[m.t2].wins++; stats[m.t1].losses++; }
-
-        const baseGameDiff = (m.g1 || 0) - (m.g2 || 0);
-        const bonus = getDoublesBonus(m);
-        stats[m.t1].gameDiff += baseGameDiff + bonus.b1;
-        stats[m.t2].gameDiff -= baseGameDiff - bonus.b2;
-
-        if(Array.isArray(m.lines)){
-          m.lines.forEach(line => {
-            if(line.type !== 'singles') return;
-            stats[m.t1].singlesGameDiff += (line.g1 || 0) - (line.g2 || 0);
-            stats[m.t2].singlesGameDiff += (line.g2 || 0) - (line.g1 || 0);
-          });
-        }
-      });
-
-      function headToHeadDelta(teamA, teamB){
-        let delta = 0;
-        matches.forEach(m => {
-          if(!teamSet.has(m.t1) || !teamSet.has(m.t2)) return;
-          const isPair = (m.t1 === teamA && m.t2 === teamB) || (m.t1 === teamB && m.t2 === teamA);
-          if(!isPair) return;
-          const mp = getMatchPointDelta(m);
-          delta += m.t1 === teamA ? (mp.p1 - mp.p2) : (mp.p2 - mp.p1);
+        const teamSet = new Set(teamNames);
+        const stats = {};
+        teamNames.forEach(name => stats[name] = {
+            team: name,
+            matches: 0,
+            wins: 0,
+            losses: 0,
+            points: 0,
+            baseGameDiff: 0,    // Base games only
+            bonusGames: 0,      // Bonus from doubles
+            gameDiff: 0,        // TOTAL: base + bonus
+            singlesGameDiff: 0
         });
-        return delta;
-      }
 
-      return Object.values(stats).sort((a,b) => {
-        if(b.points !== a.points) return b.points - a.points;
-        if(b.gameDiff !== a.gameDiff) return b.gameDiff - a.gameDiff;
-        if(b.singlesGameDiff !== a.singlesGameDiff) return b.singlesGameDiff - a.singlesGameDiff;
-        const h2h = headToHeadDelta(a.team, b.team);
-        if(h2h !== 0) return h2h > 0 ? -1 : 1;
-        return a.team.localeCompare(b.team);
-      });
+        matches.forEach(m => {
+            if(!stats[m.t1] || !stats[m.t2]) return;
+            stats[m.t1].matches++;
+            stats[m.t2].matches++;
+
+            // Priority 1: Match Points
+            const mp = getMatchPointDelta(m);
+            stats[m.t1].points += mp.p1;
+            stats[m.t2].points += mp.p2;
+
+            if(mp.p1 > mp.p2){ stats[m.t1].wins++; stats[m.t2].losses++; }
+            else if(mp.p2 > mp.p1){ stats[m.t2].wins++; stats[m.t1].losses++; }
+
+            // Priority 2: Game Difference
+            const baseGameDiff = (m.g1 || 0) - (m.g2 || 0);
+            const bonus = getDoublesBonus(m);
+
+            // Track base and bonus separately
+            stats[m.t1].baseGameDiff += baseGameDiff;
+            stats[m.t2].baseGameDiff -= baseGameDiff;
+
+            stats[m.t1].bonusGames += bonus.b1;
+            stats[m.t2].bonusGames += bonus.b2;
+
+            // TOTAL game diff = base + bonus (this is what displays and sorts)
+            stats[m.t1].gameDiff = stats[m.t1].baseGameDiff + stats[m.t1].bonusGames;
+            stats[m.t2].gameDiff = stats[m.t2].baseGameDiff + stats[m.t2].bonusGames;
+
+            // Priority 3: Singles Game Difference
+            if(Array.isArray(m.lines)){
+                m.lines.forEach(line => {
+                    if(line.type !== 'singles') return;
+                    stats[m.t1].singlesGameDiff += (line.g1 || 0) - (line.g2 || 0);
+                    stats[m.t2].singlesGameDiff += (line.g2 || 0) - (line.g1 || 0);
+                });
+            }
+        });
+
+        function headToHeadDelta(teamA, teamB){
+            let delta = 0;
+            matches.forEach(m => {
+                if(!teamSet.has(m.t1) || !teamSet.has(m.t2)) return;
+                const isPair = (m.t1 === teamA && m.t2 === teamB) || (m.t1 === teamB && m.t2 === teamA);
+                if(!isPair) return;
+                const mp = getMatchPointDelta(m);
+                delta += m.t1 === teamA ? (mp.p1 - mp.p2) : (mp.p2 - mp.p1);
+            });
+            return delta;
+        }
+
+        // Sort by: Points → Game Diff → Singles Game Diff → Head-to-Head
+        return Object.values(stats).sort((a,b) => {
+            if(b.points !== a.points) return b.points - a.points;
+            if(b.gameDiff !== a.gameDiff) return b.gameDiff - a.gameDiff;  // TOTAL (base + bonus)
+            if(b.singlesGameDiff !== a.singlesGameDiff) return b.singlesGameDiff - a.singlesGameDiff;
+            const h2h = headToHeadDelta(a.team, b.team);
+            if(h2h !== 0) return h2h > 0 ? -1 : 1;
+            return a.team.localeCompare(b.team);
+        });
     }
 
     function renderStandings(tbody, rows){
-      tbody.innerHTML = rows.map((r, i) => `<tr>
-        <td>${i + 1}</td><td>${r.team.replace('Team ', '')}</td><td>${r.matches}</td>
-        <td>${r.wins}</td><td>${r.losses}</td>
-        <td>${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</td>
-        <td>${r.singlesGameDiff > 0 ? '+' : ''}${r.singlesGameDiff}</td>
-        <td class="points-cell">${r.points}</td>
-      </tr>`).join('');
+        tbody.innerHTML = rows.map((r, i) => {
+            // Calculate what was actually earned vs total
+            const totalPoints = r.points;
+            const totalGameDiff = r.gameDiff;
+
+            return `<tr>
+          <td>${i + 1}</td>
+          <td style="font-weight:600;color:#1a202c">${r.team.replace('Team ', '')}</td>
+          <td>${r.matches}</td>
+          <td>${r.wins}</td>
+          <td>${r.losses}</td>
+          <td class="points-cell"><strong>${r.points > 0 ? '+' : ''}${r.points}</strong></td>
+          <td class="game-diff-cell"><strong>${r.gameDiff > 0 ? '+' : ''}${r.gameDiff}</strong></td>
+          <td>${r.singlesGameDiff > 0 ? '+' : ''}${r.singlesGameDiff}</td>
+          <td class="total-pts-cell"><strong>${totalPoints + totalGameDiff > 0 ? '+' : ''}${totalPoints + totalGameDiff}</strong></td>
+        </tr>`;
+        }).join('');
     }
 
     auth.signInAnonymously()
-      .then(() => matchesRef.on('value', snap => {
-        const raw = snap.val() || {};
-        const allMatches = Object.entries(raw)
-          .map(([id, m]) => ({ id, ...m }))
-          .filter(m => (m.ts || 0) >= SUPER_SIX_START_TS);
-        const goatMatches = allMatches.filter(m => GOAT_TEAMS.includes(m.t1) && GOAT_TEAMS.includes(m.t2));
-        const risingMatches = allMatches.filter(m => RISING_TEAMS.includes(m.t1) && RISING_TEAMS.includes(m.t2));
-        renderStandings(goatStandingsBody, computeStandings(goatMatches, GOAT_TEAMS));
-        renderStandings(risingStandingsBody, computeStandings(risingMatches, RISING_TEAMS));
-      }, err => {
-        goatStandingsBody.innerHTML = risingStandingsBody.innerHTML = `<tr><td colspan="8">Failed to load standings: ${err.message}</td></tr>`;
-      }))
-      .catch(err => {
-        goatStandingsBody.innerHTML = risingStandingsBody.innerHTML = `<tr><td colspan="8">Auth failed: ${err.message}</td></tr>`;
-      });
+        .then(() => matchesRef.on('value', snap => {
+            const raw = snap.val() || {};
+            const allMatches = Object.entries(raw)
+                .map(([id, m]) => ({ id, ...m }))
+                .filter(m => (m.ts || 0) >= SUPER_SIX_START_TS);
+
+            // Filter by tier from database
+            const goatMatches = allMatches.filter(m =>
+                (m.t1Tier === 'GOAT' && m.t2Tier === 'GOAT') ||
+                (m.isPlayoff && m.t1Tier === 'GOAT' && m.t2Tier === 'GOAT')
+            );
+            const risingMatches = allMatches.filter(m =>
+                (m.t1Tier === 'RISING' && m.t2Tier === 'RISING') ||
+                (m.isPlayoff && m.t1Tier === 'RISING' && m.t2Tier === 'RISING')
+            );
+
+            renderStandings(goatStandingsBody, computeStandings(goatMatches, GOAT_TEAMS));
+            renderStandings(risingStandingsBody, computeStandings(risingMatches, RISING_TEAMS));
+        }, err => {
+            goatStandingsBody.innerHTML = risingStandingsBody.innerHTML = `<tr><td colspan="8">Failed to load standings: ${err.message}</td></tr>`;
+        }))
+        .catch(err => {
+            goatStandingsBody.innerHTML = risingStandingsBody.innerHTML = `<tr><td colspan="8">Auth failed: ${err.message}</td></tr>`;
+        });
 </script>
 </body>
 </html>

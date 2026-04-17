@@ -10,397 +10,441 @@
             background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-        
+
         .score-container {
             max-width: 900px;
             margin: 0 auto;
             padding: 1rem;
         }
-        
+
         /* Access Card */
         .access-box {
             background: #fff;
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,.15);
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
+            border: 1px solid #e2e8f0;
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
-        
+
         .access-title {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: .75rem;
-            font-size: 1.75rem;
-            font-weight: 900;
+            gap: .5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #1a202c;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
-        
+
         .access-form {
             display: flex;
-            gap: 1rem;
+            gap: .75rem;
             justify-content: center;
             align-items: center;
-            margin: 2rem 0 1.5rem;
+            margin: 1.5rem 0 1rem;
             flex-wrap: wrap;
         }
-        
+
         .password-input {
-            padding: .875rem 1.5rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            padding: .75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
             font-size: 1rem;
             width: 100%;
-            max-width: 320px;
+            max-width: 280px;
             text-align: center;
-            transition: all .2s;
         }
-        
+
         .password-input:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
-        
+
         .unlock-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #667eea;
             color: #fff;
             border: none;
-            padding: .875rem 2rem;
-            border-radius: 12px;
+            padding: .75rem 1.5rem;
+            border-radius: 6px;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all .2s;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
-        
+
         .unlock-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            background: #5568d3;
         }
-        
+
         .access-hint {
             color: #64748b;
-            font-size: .9rem;
-            line-height: 1.6;
-            margin-top: 1rem;
+            font-size: .875rem;
+            line-height: 1.5;
+            margin-top: .75rem;
         }
-        
+
         .access-hint strong {
             color: #475569;
         }
-        
+
         /* Entry Section */
         .entry-section {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
-        
+
         .entry-header {
             background: #fff;
-            border-radius: 16px;
-            padding: 1.5rem 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            border: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
-        
+
         .entry-title {
             display: flex;
             align-items: center;
-            gap: .75rem;
+            gap: .5rem;
             flex: 1;
         }
-        
+
         .entry-title h2 {
-            font-size: 1.5rem;
-            font-weight: 900;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: #1a202c;
             margin: 0;
         }
-        
+
         .team-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #667eea;
             color: #fff;
-            padding: .35rem .75rem;
-            border-radius: 8px;
-            font-size: .85rem;
-            font-weight: 700;
+            padding: .25rem .5rem;
+            border-radius: 4px;
+            font-size: .8rem;
+            font-weight: 600;
         }
-        
+
         .lock-btn {
             background: #64748b;
             color: #fff;
             border: none;
-            padding: .75rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 700;
+            padding: .5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all .2s;
+            font-size: .9rem;
         }
-        
+
         .lock-btn:hover {
             background: #475569;
         }
-        
+
         /* Undo Card */
         .undo-card {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #f59e0b;
-            border-radius: 16px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
         }
-        
+
         .undo-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
-        
+
         .undo-text {
             flex: 1;
+            min-width: 200px;
         }
-        
+
         .undo-label {
-            font-weight: 900;
+            font-weight: 700;
             color: #92400e;
-            font-size: .95rem;
+            font-size: .875rem;
             margin-bottom: .25rem;
         }
-        
+
         .undo-info {
             color: #78350f;
-            font-size: .875rem;
-            font-weight: 600;
+            font-size: .8rem;
+            font-weight: 500;
         }
-        
+
         .undo-btn {
             background: #fff;
             color: #92400e;
-            border: 2px solid #f59e0b;
-            padding: .75rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 700;
+            border: 1px solid #f59e0b;
+            padding: .5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            transition: all .2s;
+            font-size: .875rem;
         }
-        
+
         .undo-btn:hover {
             background: #f59e0b;
             color: #fff;
         }
-        
+
         /* Form Card */
         .form-card {
             background: #fff;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
         }
-        
+
         .score-textarea {
             width: 100%;
-            min-height: 220px;
-            padding: 1.25rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            min-height: 250px;
+            padding: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
             font-family: 'Courier New', monospace;
             font-size: .95rem;
             line-height: 1.6;
             resize: vertical;
-            transition: all .2s;
+            background: #fff;
         }
-        
+
         .score-textarea:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
-        
+
         .section-box {
             background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin: 1.25rem 0;
         }
-        
+
         .section-title {
             display: flex;
             align-items: center;
             gap: .5rem;
-            font-size: 1.1rem;
-            font-weight: 900;
+            font-size: 1rem;
+            font-weight: 700;
             color: #1a202c;
-            margin-bottom: 1rem;
+            margin-bottom: .75rem;
         }
-        
+
         .preview-content {
             color: #64748b;
             font-style: italic;
             text-align: center;
-            padding: 2rem 1rem;
-        }
-        
-        .format-guide {
-            background: linear-gradient(135deg, #e0f2fe, #dbeafe);
-            border-left: 4px solid #3b82f6;
-        }
-        
-        .format-guide pre {
-            background: #fff;
             padding: 1rem;
-            border-radius: 8px;
-            font-size: .85rem;
-            line-height: 1.7;
-            overflow-x: auto;
-            color: #1a202c;
-            margin: 0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+
+
         .action-btns {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: .75rem;
+            margin-top: 1.25rem;
         }
-        
+
         .btn-save {
             flex: 1;
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: #10b981;
             color: #fff;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
+            padding: .875rem 1.5rem;
+            border-radius: 6px;
             font-size: 1rem;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all .2s;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
-        
+
         .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            background: #059669;
         }
-        
+
         .btn-clear {
             background: #e2e8f0;
             color: #475569;
             border: none;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 700;
+            padding: .875rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all .2s;
         }
-        
+
         .btn-clear:hover {
             background: #cbd5e1;
         }
-        
+
         .error-box {
             background: #fee2e2;
-            border-left: 4px solid #ef4444;
+            border-left: 3px solid #ef4444;
             color: #991b1b;
             padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: .75rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
         }
-        
+
         .match-item {
             background: #fff;
-            padding: .875rem;
+            padding: .875rem 1rem;
             margin: .5rem 0;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
             font-size: .9rem;
         }
-        
+
         .winner-tag {
             display: inline-block;
             background: #10b981;
             color: #fff;
-            padding: .25rem .6rem;
-            border-radius: 6px;
-            font-size: .75rem;
-            font-weight: 700;
+            padding: .2rem .5rem;
+            border-radius: 4px;
+            font-size: .7rem;
+            font-weight: 600;
             margin-left: .5rem;
         }
-        
+
+        .scoring-box {
+            background: #e0f2fe;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: .875rem;
+            color: #0c4a6e;
+        }
+
         /* Mobile */
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+            .score-container {
+                padding: .75rem;
+            }
+
             .access-box {
-                padding: 2rem 1.5rem;
-                margin-top: 2rem;
+                padding: 1.5rem 1rem;
+                margin-top: 1rem;
             }
-            
+
             .access-title {
-                font-size: 1.4rem;
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
             }
-            
+
             .access-form {
                 flex-direction: column;
                 width: 100%;
+                gap: .5rem;
             }
-            
+
             .password-input {
                 max-width: 100%;
+                padding: .75rem;
             }
-            
+
             .unlock-btn {
                 width: 100%;
+                padding: .75rem;
             }
-            
+
             .entry-header {
                 flex-direction: column;
-                gap: 1rem;
+                gap: .75rem;
                 align-items: flex-start;
+                padding: 1rem;
             }
-            
+
             .entry-title h2 {
-                font-size: 1.25rem;
+                font-size: 1.1rem;
             }
-            
+
             .lock-btn {
                 width: 100%;
             }
-            
+
             .undo-content {
                 flex-direction: column;
-                text-align: center;
+                text-align: left;
+                gap: .75rem;
             }
-            
+
+            .undo-text {
+                min-width: auto;
+            }
+
             .undo-btn {
                 width: 100%;
             }
-            
+
             .form-card {
-                padding: 1.5rem;
+                padding: 1rem;
             }
-            
+
             .score-textarea {
                 font-size: .875rem;
                 min-height: 200px;
+                padding: .875rem;
+                line-height: 1.5;
             }
-            
+
+            .section-box {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+
+            .section-title {
+                font-size: .95rem;
+            }
+
             .action-btns {
                 flex-direction: column;
+                gap: .5rem;
             }
-            
+
             .btn-save, .btn-clear {
                 width: 100%;
+                padding: .875rem;
             }
-            
-            .format-guide pre {
+
+            .match-item {
+                padding: .75rem;
+                font-size: .85rem;
+            }
+
+            .preview-content {
+                padding: .75rem;
+                font-size: .85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .access-title {
+                font-size: 1.1rem;
+            }
+
+            .entry-title h2 {
+                font-size: 1rem;
+            }
+
+            .score-textarea {
                 font-size: .8rem;
+                min-height: 180px;
+            }
+
+            .section-box {
+                padding: .875rem;
             }
         }
     </style>
@@ -444,12 +488,12 @@
                 <span>🔒</span>
                 <span>Score Entry Access</span>
             </div>
-            
+
             <div class="access-form">
                 <input type="password" id="passwordInput" class="password-input" placeholder="Enter team password" />
                 <button class="unlock-btn" id="unlockBtn">Unlock Scoring</button>
             </div>
-            
+
             <div class="access-hint">
                 <strong>Team captains:</strong> enter your team's unique password.
             </div>
@@ -458,7 +502,7 @@
 
     <!-- UNLOCKED: Score Entry Form -->
     <div id="entrySection" class="hidden entry-section">
-        
+
         <!-- Header -->
         <div class="entry-header">
             <div class="entry-title">
@@ -469,6 +513,14 @@
                 </div>
             </div>
             <button class="lock-btn" id="lockBtn">🔒 Lock</button>
+        </div>
+
+        <!-- Scoring Rules Info -->
+        <div class="scoring-box">
+            <strong>📊 TriAce Scoring System:</strong><br>
+            • 3-0 win: +3 pts | 3-1 win: +2 pts | 3-2 win: +1 pt<br>
+            • Game Difference (2nd tiebreaker) + 5 bonus games for D1/D2 straight sets (2-0)<br>
+            • Singles Game Difference (3rd tiebreaker)
         </div>
 
         <!-- Admin-Only Delete Last Result -->
@@ -484,53 +536,25 @@
 
         <!-- Form -->
         <div class="form-card">
-            <textarea id="scoreText" class="score-textarea" placeholder="Paste match results here...
-
-Example (6 lines total):
-A1 vs A2
-S1: A1_P1 vs A2_P1 1-0(8-5) (won) A1
-S2: A1_P2 vs A2_P2 0-1(5-8) (won) A2
-D1: A1_P1/A1_P2 vs A2_P1/A2_P2 4-3, 1-4, 0-4 (won) A2
-D2: A1_P3/A1_P4 vs A2_P3/A2_P4 4-1, 2-4, 4-2 (won) A1
-D3: A1_P5/A1_P6 vs A2_P5/A2_P6 8-6 (won) A1"></textarea>
-
-            <!-- Preview -->
-            <div class="section-box">
-                <div class="section-title">
-                    <span>📋</span>
-                    <span>Preview</span>
-                </div>
-                <div id="preview" class="preview-content">Enter scores above to see preview</div>
+            <div style="margin-bottom: 1rem;">
+                <label for="scoreText" style="display: block; font-weight: 700; color: #1a202c; margin-bottom: 0.5rem; font-size: 1rem;">
+                    📝 Enter Match Results
+                </label>
+                <textarea id="scoreText" class="score-textarea" placeholder="A3 vs B3
+S1: Vivek vs Sudhakara 1-0(8-2) (won) B3
+S2: Dinesh vs Raja 0-1(5-8) (won) A3
+D1: Vivek/Kailas vs Uma/Dinesh 4-0,4-2 (won) B3
+D2: Uma/Sudhakara vs Kailas/Raja 2-4,4-3,1-0 (won) A3
+D3: Vivek/Raja vs Sudhakara/Dinesh 1-0 (won) B3"></textarea>
             </div>
 
-            <!-- Format Guide -->
-            <div class="section-box format-guide">
-                <div class="section-title" style="color:#1e40af;">
-                    <span>📖</span>
-                    <span>Format Guide</span>
+            <!-- Preview -->
+            <div class="section-box" style="margin-top: 1.5rem;">
+                <div class="section-title">
+                    <span>👁️</span>
+                    <span>Live Preview</span>
                 </div>
-                <pre>Teams: TEAM1 vs TEAM2 (A1 vs A2)
-
-Use exactly 5 match lines after teams:
-  Line 1: S1
-  Line 2: S2
-  Line 3: D1
-  Line 4: D2
-  Line 5: D3 (only 1 set)
-
-Singles (S1, S2):
-S1: A1_Player vs A2_Player 1-0(8-5) (won) A1
-  • 1-0 or 0-1 (winner gets 1 set)
-  • Game diff in parentheses
-
-Doubles (D1, D2):
-D1: P1/P2 vs P3/P4 4-3, 1-4, 0-4 (won) A2
-  • 3 sets
-  • Winner from most sets won
-
-Doubles (D3):
-D3: P1/P2 vs P3/P4 8-6 (won) A1
-  • 1 set only</pre>
+                <div id="preview" class="preview-content">Enter scores above to see preview</div>
             </div>
 
             <!-- Actions -->
@@ -546,19 +570,19 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
 
 <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
-      authDomain: "koc2-20fb8.firebaseapp.com",
-      databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
-      projectId: "koc2-20fb8",
-      storageBucket: "koc2-20fb8.firebasestorage.app",
-      messagingSenderId: "317734341461",
-      appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
+        apiKey: "AIzaSyDbO0eP52i4t3V94bEiDcl7WoKbSrrM9VA",
+        authDomain: "koc2-20fb8.firebaseapp.com",
+        databaseURL: "https://koc2-20fb8-default-rtdb.firebaseio.com",
+        projectId: "koc2-20fb8",
+        storageBucket: "koc2-20fb8.firebasestorage.app",
+        messagingSenderId: "317734341461",
+        appId: "1:317734341461:web:1bcad5a1792fac0e46bddc"
     };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const auth = firebase.auth();
-    
+
     let team = null;
     let admin = false;
     let lastKey = null;
@@ -572,45 +596,55 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
     };
 
     const groupA = [
-      { name: 'Team A1', abbreviation: 'A1', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A2', abbreviation: 'A2', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A3', abbreviation: 'A3', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A4', abbreviation: 'A4', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A5', abbreviation: 'A5', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A6', abbreviation: 'A6', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A7', abbreviation: 'A7', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A8', abbreviation: 'A8', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team A9', abbreviation: 'A9', players: ['P1', 'P2', 'P3'] }
+        { name: 'Team A1', abbreviation: 'A1', tier: 'GOAT', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A2', abbreviation: 'A2', tier: 'GOAT', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A3', abbreviation: 'A3', tier: 'GOAT', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A4', abbreviation: 'A4', tier: 'RISING', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A5', abbreviation: 'A5', tier: 'RISING', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A6', abbreviation: 'A6', tier: 'GROUP_A', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A7', abbreviation: 'A7', tier: 'RISING', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A8', abbreviation: 'A8', tier: 'GROUP_A', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team A9', abbreviation: 'A9', tier: 'GROUP_A', players: ['P1', 'P2', 'P3'] }
     ];
 
     const groupB = [
-      { name: 'Team B1', abbreviation: 'B1', players: ['Manish', 'Biju', 'Ritesh'] },
-      { name: 'Team B2', abbreviation: 'B2', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team B3', abbreviation: 'B3', players: ['Kails', 'Raja M', 'Vivek Reddy'] },
-      { name: 'Team B4', abbreviation: 'B4', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team B5', abbreviation: 'B5', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team B6', abbreviation: 'B6', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team B7', abbreviation: 'B7', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team B8', abbreviation: 'B8', players: ['P1', 'P2', 'P3'] },
-      { name: 'Team B9', abbreviation: 'B9', players: ['P1', 'P2', 'P3'] }
+        { name: 'Team B1', abbreviation: 'B1', tier: 'GOAT', players: ['Manish', 'Biju', 'Ritesh'] },
+        { name: 'Team B2', abbreviation: 'B2', tier: 'GROUP_B', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team B3', abbreviation: 'B3', tier: 'GOAT', players: ['Kails', 'Raja M', 'Vivek Reddy'] },
+        { name: 'Team B4', abbreviation: 'B4', tier: 'GROUP_B', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team B5', abbreviation: 'B5', tier: 'RISING', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team B6', abbreviation: 'B6', tier: 'RISING', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team B7', abbreviation: 'B7', tier: 'RISING', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team B8', abbreviation: 'B8', tier: 'GROUP_B', players: ['P1', 'P2', 'P3'] },
+        { name: 'Team B9', abbreviation: 'B9', tier: 'GROUP_B', players: ['P1', 'P2', 'P3'] }
     ];
 
     const TEAMS = new Map([...groupA, ...groupB].map(t => [t.abbreviation.toUpperCase(), t]));
+
+    // Helper function to get team tier
+    function getTeamTier(teamName) {
+        for (const team of TEAMS.values()) {
+            if (team.name === teamName) {
+                return team.tier;
+            }
+        }
+        return 'UNKNOWN';
+    }
 
     auth.signInAnonymously();
 
     document.getElementById('unlockBtn').addEventListener('click', () => {
         const pwd = document.getElementById('passwordInput').value.trim().toUpperCase();
         const t = PASSWORDS[pwd];
-        
+
         if (t) {
             team = t === 'ADMIN' ? null : t;
             admin = t === 'ADMIN';
-            
+
             document.getElementById('accessSection').classList.add('hidden');
             document.getElementById('entrySection').classList.remove('hidden');
             document.getElementById('teamBadge').textContent = admin ? 'ADMIN' : t;
-            
+
             loadLast();
         } else {
             alert('❌ Invalid password');
@@ -630,85 +664,89 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
 
     function parse(txt) {
         const res = [], errs = [];
-        const lines = txt.trim().split('\n').map(l => l.trim()).filter(Boolean);
-        
-        if (!lines.length) return { res: [], errs: ['Empty'], t1: null, t2: null };
-        
-        const tm = lines[0].match(/^(\w+)\s+vs\.?\s+(\w+)$/i);
+        const rawLines = txt.trim().split('\n').map(l => l.trim()).filter(Boolean);
+
+        if (!rawLines.length) return { res: [], errs: ['Empty'], t1: null, t2: null };
+
+        const tm = rawLines[0].match(/^(\w+)\s+vs\.?\s+(\w+)$/i);
         if (!tm) {
             errs.push('First line: TEAM1 vs TEAM2');
             return { res: [], errs, t1: null, t2: null };
         }
-        
+
         const t1 = TEAMS.get(tm[1].toUpperCase());
         const t2 = TEAMS.get(tm[2].toUpperCase());
-        
+
         if (!t1) errs.push(`Unknown: ${tm[1]}`);
         if (!t2) errs.push(`Unknown: ${tm[2]}`);
         if (errs.length) return { res: [], errs, t1: null, t2: null };
 
-        const expectedOrder = ['S1', 'S2', 'D1', 'D2', 'D3'];
-        const matchLines = lines.slice(1);
-        if (matchLines.length !== expectedOrder.length) {
-            errs.push('Need exactly 5 match lines: S1, S2, D1, D2, D3');
-            return { res: [], errs, t1, t2 };
-        }
-        
-        for (let i = 0; i < matchLines.length; i++) {
-            try {
-                const expectedLabel = expectedOrder[i];
-                const p = parseLine(matchLines[i], t1, t2, expectedLabel);
-                if (p) res.push(p);
-            } catch (e) {
-                errs.push(`Line ${i + 2}: ${e.message}`);
+        // Merge lines where "(won) TEAM" is on the next line
+        const mergedLines = [];
+        for (let i = 1; i < rawLines.length; i++) {
+            const currentLine = rawLines[i];
+            const nextLine = i + 1 < rawLines.length ? rawLines[i + 1] : null;
+
+            // Check if current line starts with S/D and next line is just "(won) TEAM"
+            if (currentLine.match(/^(S|D)(\d+):/i) && nextLine && nextLine.match(/^\(won\)\s*(\w+)/i)) {
+                mergedLines.push(currentLine + ' ' + nextLine);
+                i++; // Skip the next line since we merged it
+            } else {
+                mergedLines.push(currentLine);
             }
         }
-        
+
+        for (let i = 0; i < mergedLines.length; i++) {
+            try {
+                const p = parseLine(mergedLines[i], t1, t2);
+                if (p) res.push(p);
+            } catch (e) {
+                errs.push(`Line ${i + 2}: ${e.message}`); // +2 because line 1 is the team vs team line
+            }
+        }
+
         return { res, errs, t1, t2 };
     }
 
-    function parseLine(line, t1, t2, expectedLabel = null) {
+    function parseLine(line, t1, t2) {
         const typ = line.match(/^(S|D)(\d+):\s*/i);
-        if (!typ) throw new Error('Start with S1:, S2:, D1:, D2:, or D3:');
-        
+        if (!typ) throw new Error('Start with S1:, S2:, or D1:');
+
         const mt = typ[1].toUpperCase();
         const num = typ[2];
-        const label = `${mt}${num}`;
-        if (expectedLabel && label !== expectedLabel) {
-            throw new Error(`Expected ${expectedLabel}:`);
-        }
         let rem = line.slice(typ[0].length).trim();
-        
-        const won = rem.match(/\(won\)\s*(\w+)\s*\.?\s*$/i);
+
+        // Look for "(won) TEAM" anywhere in the line (not just at the end)
+        const won = rem.match(/\(won\)\s*(\w+)/i);
         if (!won) throw new Error('Need (won) TEAM');
-        
+
         const win = won[1].toUpperCase();
         rem = rem.slice(0, won.index).trim();
-        
+
         let wn = null;
         if (win === t1.abbreviation.toUpperCase()) wn = 1;
         else if (win === t2.abbreviation.toUpperCase()) wn = 2;
         else throw new Error(`Winner: ${t1.abbreviation} or ${t2.abbreviation}`);
-        
+
         const vs = rem.match(/\s+vs\.?\s+/i);
         if (!vs) throw new Error('Need "vs"');
-        
+
         const left = rem.slice(0, vs.index).trim().split('/').map(p => p.trim()).filter(Boolean);
         const right = rem.slice(vs.index + vs[0].length).trim();
-        
+
         const sc = right.match(/\s+(\d+-\d+)/);
         if (!sc) throw new Error('No scores');
-        
+
         const rp = right.slice(0, sc.index).trim().split('/').map(p => p.trim()).filter(Boolean);
         const scores = right.slice(sc.index).trim();
-        
+
         if (mt === 'S') {
             const sm = scores.match(/^(\d+)-(\d+)\((\d+)-(\d+)\)$/);
             if (!sm) throw new Error('Format: 1-0(8-5)');
-            
+
             const s1 = +sm[1], s2 = +sm[2], g1 = +sm[3], g2 = +sm[4];
             if (s1 + s2 !== 1) throw new Error('Singles: 1-0 or 0-1');
-            
+
             return {
                 label: `S${num}`,
                 type: 'singles',
@@ -723,12 +761,11 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
             while ((m = sp.exec(scores))) {
                 sets.push({ team1: +m[1], team2: +m[2] });
             }
-            const requiredSets = num === '3' ? 1 : 3;
-            if (sets.length !== requiredSets) throw new Error(`Doubles ${label}: ${requiredSets} set${requiredSets > 1 ? 's' : ''}`);
-            
+            if (sets.length !== 3) throw new Error('Doubles: 3 sets');
+
             let g1 = 0, g2 = 0, s1 = 0, s2 = 0;
             const sd = [];
-            for (let i = 0; i < sets.length; i++) {
+            for (let i = 0; i < 3; i++) {
                 const s = sets[i];
                 g1 += s.team1;
                 g2 += s.team2;
@@ -736,7 +773,7 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
                 else if (s.team2 > s.team1) s2++;
                 sd.push({ set: i + 1, team1: s.team1, team2: s.team2 });
             }
-            
+
             return {
                 label: `D${num}`,
                 type: 'doubles',
@@ -749,65 +786,98 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
 
     const scoreText = document.getElementById('scoreText');
     const preview = document.getElementById('preview');
-    
+
     scoreText.addEventListener('input', updatePreview);
-    
+
     function updatePreview() {
         const txt = scoreText.value;
         if (!txt.trim()) {
             preview.innerHTML = '<div class="preview-content">Enter scores above to see preview</div>';
             return;
         }
-        
+
         const { res, errs, t1, t2 } = parse(txt);
         let h = '';
-        
+
         if (t1 && t2) {
-            h += `<div style="font-weight:900;font-size:1.05rem;color:#1a202c;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:2px solid #e2e8f0;">${t1.abbreviation} vs ${t2.abbreviation}</div>`;
+            h += `<div style="font-weight:700;font-size:1.1rem;color:#1a202c;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #e2e8f0;">
+                ${t1.abbreviation} vs ${t2.abbreviation}
+            </div>`;
         }
-        
+
         if (errs.length) {
-            h += '<div class="error-box"><strong>⚠️ Errors:</strong><ul style="margin:.5rem 0 0 1.25rem;">';
+            h += '<div class="error-box"><strong>⚠️ Errors:</strong><ul style="margin:.5rem 0 0 1.25rem;font-size:.875rem;">';
             errs.forEach(e => h += `<li style="margin:.25rem 0;">${e}</li>`);
             h += '</ul></div>';
         }
-        
+
+        if (res.length > 0 && t1 && t2) {
+            // Calculate summary
+            let s1 = 0, s2 = 0, g1 = 0, g2 = 0, courtsWon1 = 0, courtsWon2 = 0;
+
+            res.forEach(r => {
+                s1 += r.sets1;
+                s2 += r.sets2;
+                g1 += r.g1;
+                g2 += r.g2;
+                if (r.winnerTeamNum === 1) courtsWon1++;
+                else courtsWon2++;
+            });
+
+            const winner = courtsWon1 > courtsWon2 ? t1.abbreviation : (courtsWon2 > courtsWon1 ? t2.abbreviation : 'TIE');
+
+            h += `<div style="background:#e0f2fe;border-radius:6px;padding:.875rem;margin-bottom:.75rem;border-left:3px solid #3b82f6;font-size:.875rem;">
+                <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;">
+                    <div><strong>Points:</strong> ${t1.abbreviation} ${courtsWon1} - ${courtsWon2} ${t2.abbreviation}</div>
+                    <div><strong>Sets:</strong> ${s1}-${s2} | <strong>Games:</strong> ${g1}-${g2}</div>
+                    <div style="grid-column:1/-1;margin-top:.5rem;padding-top:.5rem;border-top:1px solid #bae6fd;"><strong>Winner:</strong> <span style="color:#059669;font-weight:700;">${winner}</span></div>
+                </div>
+            </div>`;
+        }
+
         res.forEach(r => {
             const w = r.winnerTeamNum === 1 ? t1.abbreviation : t2.abbreviation;
             const ss = r.sets.map(s => `${s.team1}-${s.team2}`).join(', ');
-            
+            const typeIcon = r.type === 'singles' ? '🎾' : '👥';
+
             h += `<div class="match-item">
-                <strong>${r.label}:</strong> ${r.players.team1.join('/')} vs ${r.players.team2.join('/')}<br>
-                <span style="margin-left:1.5rem;color:#64748b;">Score: ${ss}</span>
-                <span class="winner-tag">Won: ${w}</span>
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;">
+                    <span>${typeIcon}</span>
+                    <strong style="color:#667eea;">${r.label}</strong>
+                    <span class="winner-tag">${w}</span>
+                </div>
+                <div style="color:#64748b;font-size:.85rem;">
+                    ${r.players.team1.join('/')} vs ${r.players.team2.join('/')}<br>
+                    <strong>${ss}</strong>
+                </div>
             </div>`;
         });
-        
+
         if (!res.length && !errs.length) {
             h = '<div class="preview-content">No matches parsed</div>';
         }
-        
+
         preview.innerHTML = h;
     }
 
     document.getElementById('saveBtn').addEventListener('click', () => {
         const { res, errs, t1, t2 } = parse(scoreText.value);
-        
+
         if (errs.length) {
             alert('❌ Errors:\n\n' + errs.join('\n'));
             return;
         }
-        
+
         if (!res.length) {
             alert('❌ No matches');
             return;
         }
-        
+
         if (!admin && team !== t1.abbreviation && team !== t2.abbreviation) {
             alert(`❌ Only for your team (${team})`);
             return;
         }
-        
+
         let s1 = 0, s2 = 0, g1 = 0, g2 = 0, courtsWon1 = 0, courtsWon2 = 0;
         res.forEach(r => {
             s1 += r.sets1;
@@ -825,11 +895,21 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
             return;
         }
 
+        // Get tier information
+        const t1Tier = getTeamTier(t1.name);
+        const t2Tier = getTeamTier(t2.name);
+
+        // Determine if this is a playoff match (both teams in GOAT or RISING tier)
+        const isPlayoff = (t1Tier === 'GOAT' && t2Tier === 'GOAT') ||
+            (t1Tier === 'RISING' && t2Tier === 'RISING');
+
         // Format data to match what standings.html and history.html expect
-        // Points are awarded per individual match (1 point per S1/S2/D1 won), not overall match
         const data = {
             t1: t1.name,  // Full team name (e.g., 'Team A1')
             t2: t2.name,  // Full team name
+            t1Tier: t1Tier,  // Tier for team 1
+            t2Tier: t2Tier,  // Tier for team 2
+            isPlayoff: isPlayoff,  // Whether this is a playoff match
             win: winner,  // Overall match winner (for display/history purposes)
             s1: s1,  // Sets won by team 1
             s2: s2,  // Sets won by team 2
@@ -854,7 +934,7 @@ D3: P1/P2 vs P3/P4 8-6 (won) A1
             if (admin) {
                 document.getElementById('deleteCard').style.display = 'block';
                 document.getElementById('deleteInfo').textContent =
-                    `${data.t1} vs ${data.t2} - Winner: ${data.win} (${data.s1}-${data.s2})`;
+                    `${data.t1} (${t1Tier}) vs ${data.t2} (${t2Tier}) - Winner: ${data.win}`;
             }
         }).catch(e => {
             alert('❌ Failed: ' + e.message);
