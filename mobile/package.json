@@ -1,0 +1,23 @@
+{
+  "name": "@prosper/mobile",
+  "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "build": "expo export --platform all",
+    "start": "expo start --no-dev --minify",
+    "lint": "eslint \"**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "expo": "~54.0.10",
+    "expo-router": "~6.0.7",
+    "firebase": "^12.2.1",
+    "react": "19.1.0",
+    "react-native": "0.81.4"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.10",
+    "@types/react-native": "^0.73.0"
+  }
+}

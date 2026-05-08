@@ -1,0 +1,10 @@
+node_modules
+.env
+.env.*
+!.env.example
+backend/dist
+shared/dist
+.expo
+mobile/.expo
+mobile/.expo-shared
+mobile/web-build
