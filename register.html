@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="Register your TriAce 2026 team of three players." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <title>TriAce 2026 – Register a Team</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-bar">
+        <div class="brand">
+            <img src="triace-logo.png" alt="TriAce Tennis" style="height:120px;">
+            <div>
+                <strong>TRIACE 2026</strong>
+                <div class="tagline">18 Teams · 2 Groups · Infinite Drama</div>
+            </div>
+        </div>
+        <button id="menuBtn" class="menu-btn" aria-label="Open menu">☰</button>
+    </div>
+
+    <nav id="siteNav" class="nav">
+        <a href="index.html">🏠 Home</a>
+        <a href="rules.html">📋 Rules</a>
+        <a href="schedule.html">📅 Schedule A</a>
+        <a href="schedule-b.html">📅 Schedule B</a>
+        <a href="playoff-super-six.html">🏆 Super Six</a>
+        <a href="standings.html">📊 Standings</a>
+        <a href="scoring.html">📝 Score Entry</a>
+        <a href="history.html">📜 History</a>
+        <a href="teams.html">👥 Teams</a>
+        <a href="seasons.html">🗂️ Seasons</a>
+        <a href="register.html" aria-current="page">✍️ Register</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="page-header">
+        <h1>✍️ REGISTER YOUR TEAM</h1>
+        <p>Season 2 · TriAce 2026 · Teams of three players</p>
+    </section>
+
+    <section class="card form-intro">
+        <p>
+            Fill in the details for all three players. The first player is the <strong>team captain</strong>
+            and the contact for scheduling and fees. Every player must have a different name.
+        </p>
+        <div class="form-steps">
+            <div class="form-step"><span>1</span> Team details</div>
+            <div class="form-step"><span>2</span> Three players</div>
+            <div class="form-step"><span>3</span> Confirm &amp; submit</div>
+        </div>
+    </section>
+
+    <form
+        class="reg-form"
+        name="triace-registration"
+        method="POST"
+        action="register-success.html"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        novalidate
+    >
+        <input type="hidden" name="form-name" value="triace-registration" />
+        <p class="hp" aria-hidden="true">
+            <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+
+        <section class="card reg-section">
+            <h2 class="reg-title">1 · Team details</h2>
+            <div class="field-grid">
+                <label class="field">
+                    <span class="field-label">Team name <em>(optional)</em></span>
+                    <input type="text" name="team_name" maxlength="40" placeholder="e.g. Net Ninjas" autocomplete="off" />
+                    <small class="field-hint">Organisers may still assign the official A/B code.</small>
+                </label>
+                <label class="field">
+                    <span class="field-label">Captain email <span class="req">*</span></span>
+                    <input type="email" name="captain_email" required maxlength="120" autocomplete="email" placeholder="you@example.com" />
+                    <small class="field-error" data-error-for="captain_email"></small>
+                </label>
+            </div>
+        </section>
+
+        <section class="reg-section">
+            <div class="player-grid">
+                <fieldset class="card player-card" data-player="1">
+                    <legend class="player-badge">🎾 Player 1 · Captain</legend>
+                    <label class="field">
+                        <span class="field-label">Full name <span class="req">*</span></span>
+                        <input type="text" name="player1_name" required maxlength="60" autocomplete="name" placeholder="First Last" />
+                        <small class="field-error" data-error-for="player1_name"></small>
+                    </label>
+                    <label class="field">
+                        <span class="field-label">Mobile <span class="req">*</span></span>
+                        <input type="tel" name="player1_phone" required maxlength="20" autocomplete="tel" placeholder="+91 98765 43210" />
+                        <small class="field-error" data-error-for="player1_phone"></small>
+                    </label>
+                </fieldset>
+
+                <fieldset class="card player-card" data-player="2">
+                    <legend class="player-badge">🎾 Player 2</legend>
+                    <label class="field">
+                        <span class="field-label">Full name <span class="req">*</span></span>
+                        <input type="text" name="player2_name" required maxlength="60" placeholder="First Last" />
+                        <small class="field-error" data-error-for="player2_name"></small>
+                    </label>
+                    <label class="field">
+                        <span class="field-label">Mobile <span class="req">*</span></span>
+                        <input type="tel" name="player2_phone" required maxlength="20" placeholder="+91 98765 43210" />
+                        <small class="field-error" data-error-for="player2_phone"></small>
+                    </label>
+                </fieldset>
+
+                <fieldset class="card player-card" data-player="3">
+                    <legend class="player-badge">🎾 Player 3</legend>
+                    <label class="field">
+                        <span class="field-label">Full name <span class="req">*</span></span>
+                        <input type="text" name="player3_name" required maxlength="60" placeholder="First Last" />
+                        <small class="field-error" data-error-for="player3_name"></small>
+                    </label>
+                    <label class="field">
+                        <span class="field-label">Mobile <span class="req">*</span></span>
+                        <input type="tel" name="player3_phone" required maxlength="20" placeholder="+91 98765 43210" />
+                        <small class="field-error" data-error-for="player3_phone"></small>
+                    </label>
+                </fieldset>
+            </div>
+        </section>
+
+        <section class="card reg-section">
+            <h2 class="reg-title">3 · Confirm &amp; submit</h2>
+            <label class="field">
+                <span class="field-label">Notes for organisers <em>(optional)</em></span>
+                <textarea name="notes" rows="3" maxlength="500" placeholder="Availability, questions, anything we should know…"></textarea>
+            </label>
+            <label class="check">
+                <input type="checkbox" name="agree_rules" required />
+                <span>I have read the <a href="rules.html">tournament rules</a> and agree to follow them as a team.</span>
+            </label>
+            <small class="field-error" data-error-for="agree_rules"></small>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Register team</button>
+                <p class="form-note">Registrations are received by the organisers. You'll be contacted on the captain email.</p>
+            </div>
+        </section>
+    </form>
+
+    <footer class="footer">
+        🎾 TRIACE 2026 — Presented by Prosper Open
+    </footer>
+
+</main>
+
+<script src="script.js"></script>
+<script src="register.js"></script>
+<script src="pwa.js"></script>
+
+</body>
+</html>

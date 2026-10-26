@@ -375,3 +375,188 @@ nav.nav{
   .tagline { font-size: .75rem; }
   .header-bar { padding: 1rem; }
 }
+
+/* =========================================================
+   SEASON 2 REFRESH
+   ========================================================= */
+
+/* Softer page background with a light sheen */
+body{
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.25), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(255,255,255,.18), transparent 55%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;
+}
+
+/* Glassier sticky header */
+.header-bar{
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.6);
+}
+nav.nav{
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border:1px solid rgba(255,255,255,.7);
+}
+.nav a{font-size:.95rem;}
+.nav a:hover{transform:translateY(-1px);}
+
+/* Cards get a subtle entrance */
+@keyframes riseIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:none;}
+}
+.card, .season-card, .player-card{animation:riseIn .45s ease both;}
+.grid > :nth-child(2){animation-delay:.05s;}
+.grid > :nth-child(3){animation-delay:.1s;}
+.grid > :nth-child(4){animation-delay:.15s;}
+
+/* Hero: a little more presence */
+.page-header{
+  background:rgba(255,255,255,.96);
+  position:relative;overflow:hidden;
+  padding:1.6rem 1.5rem;
+}
+.page-header::after{
+  content:"";position:absolute;inset:auto -40px -60px auto;width:180px;height:180px;
+  border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 70%);
+  pointer-events:none;
+}
+
+/* Stat boxes: lift on hover */
+.stat-box{transition:transform .25s ease, box-shadow .25s ease;}
+.stat-box:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(102,126,234,.25);}
+
+/* Buttons */
+.btn-primary, .btn-ghost{
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  padding:.7rem 1.2rem;border-radius:10px;font-weight:800;font-size:.95rem;
+  text-decoration:none;cursor:pointer;border:2px solid transparent;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-primary{
+  color:#fff;background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  box-shadow:0 6px 16px rgba(102,126,234,.35);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(102,126,234,.45);}
+.btn-ghost{
+  color:var(--bg2);background:#fff;border-color:var(--ring);
+}
+.btn-ghost:hover{border-color:var(--bg1);transform:translateY(-2px);}
+.btn-primary:focus-visible, .btn-ghost:focus-visible, .nav a:focus-visible, .menu-btn:focus-visible{
+  outline:3px solid var(--accent);outline-offset:2px;
+}
+
+/* Install app button (shown by pwa.js when the browser allows it) */
+.install-btn{
+  margin:.75rem auto 0;
+}
+.install-btn[hidden]{display:none;}
+
+/* Season timeline */
+.season-timeline{
+  display:grid;gap:1.25rem;margin-top:1rem;
+  position:relative;padding-left:0;
+}
+.season-card{
+  display:grid;grid-template-columns:150px 1fr;gap:1.25rem;align-items:start;
+  background:#fff;border-radius:14px;padding:1.5rem;
+  border:2px solid var(--ring);box-shadow:0 4px 14px rgba(0,0,0,.08);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.season-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(0,0,0,.12);border-color:var(--bg1);}
+.season-live{border-color:var(--accent);box-shadow:0 8px 24px rgba(34,211,238,.25);}
+.season-future{border-style:dashed;background:linear-gradient(135deg,#ffffff,#f5f3ff);}
+.season-past{opacity:.92;}
+.season-year{font-size:.8rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);}
+.season-card h2{font-size:1.5rem;font-weight:900;color:var(--ink);margin:.25rem 0 .5rem;}
+.season-card p{color:var(--ink);line-height:1.65;}
+.season-links{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem;}
+
+.status-pill{
+  display:inline-block;padding:.35rem .75rem;border-radius:999px;
+  font-size:.8rem;font-weight:800;white-space:nowrap;
+}
+.status-past{background:#e2e8f0;color:#4a5568;}
+.status-live{background:#ecfeff;color:#0e7490;border:1px solid var(--accent);}
+.status-soon{background:#ede9fe;color:#5b21b6;}
+.status-live::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef4444;margin-right:.4rem;vertical-align:middle;animation:pulse 1.6s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+/* Registration form */
+.form-intro p{color:var(--ink);line-height:1.6;}
+.form-steps{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem;}
+.form-step{
+  display:flex;align-items:center;gap:.5rem;font-weight:700;color:var(--ink);
+  background:#f8fafc;border:1px solid var(--ring);border-radius:999px;padding:.4rem .9rem .4rem .4rem;
+}
+.form-step span{
+  display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#fff;font-size:.85rem;font-weight:900;
+}
+.reg-form{display:grid;gap:1rem;}
+.reg-section{margin-bottom:0;}
+.reg-title{font-size:1.15rem;font-weight:900;color:var(--ink);margin-bottom:1rem;}
+.field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
+.player-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.player-card{
+  border:2px solid var(--ring);margin:0;padding:1.25rem 1.25rem 1.5rem;
+  display:grid;gap:1rem;
+}
+.player-card:first-child{border-color:var(--accent);}
+.player-badge{
+  font-weight:900;font-size:1rem;color:var(--bg2);background:#fff;padding:0 .5rem;margin-left:-.25rem;
+}
+.field{display:grid;gap:.35rem;}
+.field-label{font-weight:800;color:var(--ink);font-size:.92rem;}
+.field-label em, .field-hint{font-style:normal;font-weight:600;color:var(--muted);font-size:.8rem;}
+.req{color:#dc2626;}
+.field input, .field textarea, .reg-form select{
+  width:100%;font:inherit;font-size:1rem;color:var(--ink);
+  padding:.7rem .85rem;border:2px solid var(--ring);border-radius:10px;background:#fff;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.field textarea{resize:vertical;min-height:90px;}
+.field input:focus, .field textarea:focus{
+  outline:none;border-color:var(--bg1);box-shadow:0 0 0 4px rgba(102,126,234,.2);
+}
+.field input[aria-invalid="true"]{border-color:#ef4444;}
+.field-hint{margin-top:-.1rem;}
+.field-error{color:#b91c1c;font-weight:700;font-size:.82rem;min-height:1em;}
+.check{display:flex;gap:.6rem;align-items:flex-start;margin-top:1rem;color:var(--ink);line-height:1.5;font-weight:600;}
+.check input{margin-top:.3rem;width:18px;height:18px;accent-color:var(--bg1);flex-shrink:0;}
+.check a{color:var(--bg2);font-weight:800;}
+.form-actions{margin-top:1.25rem;display:grid;gap:.75rem;justify-items:start;}
+.form-actions .btn-primary{font-size:1.05rem;padding:.85rem 1.8rem;border:0;}
+.form-note{color:var(--muted);font-size:.9rem;}
+.hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;}
+
+.success-card{text-align:center;}
+.success-card h2{font-size:1.4rem;font-weight:900;margin:.5rem 0;color:var(--ink);}
+.success-card p{color:var(--ink);line-height:1.65;max-width:620px;margin:0 auto;}
+.success-icon{font-size:3rem;}
+.success-card .hero-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem;}
+
+/* Home hero call-to-action row */
+.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:1.25rem;}
+
+/* Reduced motion: keep it still for people who ask */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation:none !important;transition:none !important;}
+}
+
+/* Phone */
+@media (max-width: 768px){
+  body{background-attachment:scroll;}
+  .season-card{grid-template-columns:1fr;gap:.75rem;padding:1.25rem;}
+  .season-card h2{font-size:1.3rem;}
+  .btn-primary, .btn-ghost{width:100%;}
+  .season-links .btn-primary, .season-links .btn-ghost{width:auto;flex:1 1 140px;}
+  .form-actions .btn-primary{width:100%;}
+  .field-grid{grid-template-columns:1fr;}
+  .page-header{padding:1.25rem 1rem;}
+}

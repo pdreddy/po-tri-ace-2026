@@ -187,6 +187,9 @@
             .responsive-table tbody td::before{ content:attr(data-label); font-weight:700; font-size:.75rem; text-transform:uppercase; color:var(--muted); }
         }
     </style>
+    <meta name="theme-color" content="#667eea" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
 </head>
 <body>
 <header class="header">
@@ -204,6 +207,8 @@
         <a href="scoring.html">📝 Score Entry</a>
         <a href="history.html" aria-current="page">📜 History</a>
         <a href="teams.html">👥 Teams</a>
+        <a href="seasons.html">🗂️ Seasons</a>
+        <a href="register.html">✍️ Register</a>
     </nav>
 </header>
 
@@ -954,5 +959,7 @@ D2: Player5/Player6 vs Player7/Player8 4-3(10-8), 4-2, 4-1 (won) WINNER
         document.getElementById('siteNav').classList.toggle('open');
     });
 </script>
+<script src="pwa.js"></script>
+
 </body>
 </html>

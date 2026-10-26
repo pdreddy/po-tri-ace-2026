@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="description" content="TriAce 2026, Season 2 of the TriAce tennis tournament: 18 teams, two groups, playoffs and drama." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
     <title>TriAce 2026 – Home</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -30,6 +34,8 @@
         <a href="scoring.html">📝 Score Entry</a>
         <a href="history.html">📜 History</a>
         <a href="teams.html">👥 Teams</a>
+        <a href="seasons.html">🗂️ Seasons</a>
+        <a href="register.html">✍️ Register</a>
     </nav>
 </header>
 
@@ -39,6 +45,12 @@
     <section class="page-header">
         <h1>🎾 TRIACE 2026</h1>
         <p>18 Teams · 2 Groups · Round Robin · Playoffs</p>
+        <span class="status-pill status-live">Season 2 · Live now</span>
+        <div class="hero-cta">
+            <a href="register.html" class="btn-primary">✍️ Register a team</a>
+            <a href="seasons.html" class="btn-ghost">🗂️ Seasons</a>
+            <button id="installBtn" class="btn-ghost install-btn" type="button" hidden>📲 Install app</button>
+        </div>
     </section>
 
     <section class="card" style="text-align:center;">
@@ -98,6 +110,22 @@
                 </div>
                 <div class="val">Live standings, scores, and match history</div>
             </a>
+
+            <a href="seasons.html" class="card link-card">
+                <div class="card-head">
+                    <span class="card-emoji">🗂️</span>
+                    <div class="card-title">Seasons</div>
+                </div>
+                <div class="val">Season 1 history, Season 2 today, and Season 3 on the way</div>
+            </a>
+
+            <a href="register.html" class="card link-card">
+                <div class="card-head">
+                    <span class="card-emoji">✍️</span>
+                    <div class="card-title">Register a Team</div>
+                </div>
+                <div class="val">Sign up your team of three players for the next round</div>
+            </a>
         </div>
     </section>
 
@@ -140,6 +168,8 @@
 </main>
 
 <script src="script.js"></script>
+
+<script src="pwa.js"></script>
 
 </body>
 </html>

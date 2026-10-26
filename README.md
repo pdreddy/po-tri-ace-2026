@@ -111,6 +111,10 @@ The site uses **Firebase Realtime Database** for live scoring and data sync.
 ```
 triace-2025/
 ├── index.html          # Home page
+├── seasons.html        # Season 1 history, Season 2 live, Season 3 coming soon
+├── register.html       # 3-player team registration (Netlify Forms)
+├── register-success.html # Thank-you page after registering
+├── register.js         # Registration form validation
 ├── rules.html          # Tournament rules & format
 ├── schedule.html       # Match schedule (placeholder)
 ├── standings.html      # Live Group A & B standings
@@ -119,6 +123,10 @@ triace-2025/
 ├── teams.html          # Team rosters (admin edit mode)
 ├── styles.css          # Global stylesheet
 ├── script.js           # Mobile menu JavaScript
+├── pwa.js              # Service worker registration + install button
+├── sw.js               # Service worker (offline shell + caching)
+├── manifest.webmanifest# PWA manifest (install to home screen)
+├── icons/              # PWA icons
 ├── triace-logo.png     # Tournament logo (120px)
 ├── netlify.toml        # Netlify configuration
 └── README.md           # This file
@@ -148,6 +156,18 @@ triace-2025/
 ✅ **Auto-Deploy** - Push to GitHub → auto-updates site  
 
 ---
+
+## 📲 Progressive Web App
+
+- Installable on phones and desktops (Chrome/Edge/Android: **Install app**; iOS: Share → Add to Home Screen).
+- Pages open offline after the first visit. Live scores still come from Firebase when online.
+- Bump `CACHE_VERSION` in `sw.js` whenever the shell (CSS, JS, HTML) changes so clients pick up the new files.
+
+## ✍️ Team Registration
+
+- `register.html` collects a team of three players (captain + two players) and submits through **Netlify Forms**.
+- Submissions appear in Netlify → **Forms** → `triace-registration` (no backend or database needed).
+- Turn on Netlify form notifications (Site settings → Forms) to get an email for each new team.
 
 ## 🔄 Git Workflow (for Auto-Deploy)
 
