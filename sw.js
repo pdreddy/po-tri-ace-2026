@@ -5,7 +5,7 @@
 //  - Cross-origin requests (Firebase, Google fonts/SDKs) are never intercepted, so live scores always go to the network.
 // Bump CACHE_VERSION whenever the shell changes to force clients onto the new files.
 
-const CACHE_VERSION = 'triace-v2026.3';
+const CACHE_VERSION = 'triace-v2026.4';
 const CACHE_NAME = CACHE_VERSION;
 
 const PRECACHE_URLS = [

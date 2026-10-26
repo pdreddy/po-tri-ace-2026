@@ -166,20 +166,49 @@ triace-2025/
 
 ## ✍️ Team Registration
 
-The registration form is independent of the hosting platform. It validates the form in the browser and sends the data as JSON to an endpoint you configure in `site-config.js`:
+Registrations are saved to the **same Firebase Realtime Database** as the scoring and standings pages (`koc2-20fb8`), under the `registrations` node. Delivery is set in `site-config.js`:
 
 ```js
 registration: {
-    endpoint: 'https://your-backend.example.com/registrations',
+    firebasePath: 'registrations',   // used when set (default)
+    endpoint: '',                    // optional HTTP backend (POST JSON), used if firebasePath is empty
     headers: {},
     successUrl: 'register-success.html'
 }
 ```
 
-- **Empty `endpoint`:** the registration downloads as `triace-registration-<timestamp>.json`, so nothing is lost before a backend exists.
-- **Set `endpoint`:** the form sends a `POST` with `Content-Type: application/json`. Any `2xx` response counts as success.
+Delivery order: Firebase → `endpoint` → downloaded `.json` file. Each registration is also validated in the browser before it is sent.
+
+### Firebase rules (required before going live)
+
+Firebase rules cascade: a `.read: true` at the root exposes every child node, including `registrations`, which contains players' phone numbers. The rules below keep the existing pages working, keep registrations private, and let anyone submit a new registration without reading anyone else's:
+
+```json
+{
+  "rules": {
+    "Schedule":         { ".read": true, ".write": "auth != null" },
+    "ScheduleB":        { ".read": true, ".write": "auth != null" },
+    "TeamData":         { ".read": true, ".write": "auth != null" },
+    "TriAceDBNEW":      { ".read": true, ".write": "auth != null" },
+    "TriAceDBNEW_Play": { ".read": true, ".write": "auth != null" },
+    "registrations": {
+      ".read": "auth != null",
+      "$registrationId": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['schemaVersion', 'team', 'players', 'submittedAt', 'agreedToRules'])"
+      }
+    }
+  }
+}
+```
+
+Test these in Firebase Console → Realtime Database → Rules → **Rules Playground** before publishing. Any path not listed is denied by default. If you add a new public node later, add it here explicitly.
+
+Until these rules are published, submissions show "registrations are not open right now".
 
 ### Payload contract (`schemaVersion: 1`)
+
+The same JSON is stored under `registrations/<pushId>` in Firebase, and sent as the body for a custom `endpoint`.
 
 ```json
 {

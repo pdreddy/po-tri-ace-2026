@@ -93,9 +93,30 @@
         statusEl.classList.toggle('is-error', !!isError);
     }
 
-    // Default delivery: POST JSON to the configured endpoint.
-    // With no endpoint yet, the registration is downloaded as a file so the organisers still get it.
+    // Firebase Realtime Database: push the registration under the configured path.
+    function saveToFirebase(payload) {
+        if (typeof firebase === 'undefined') {
+            return Promise.reject(new Error('the database could not be reached'));
+        }
+        var app = firebase.apps.length ? firebase.app() : firebase.initializeApp(window.TRIACE_CONFIG.firebase);
+        return app.database().ref(config.firebasePath).push(payload).then(function () {});
+    }
+
+    function friendlyError(err) {
+        var message = (err && err.message) || '';
+        if (/permission_denied/i.test(message)) {
+            return 'registrations are not open right now';
+        }
+        return message || 'unknown error';
+    }
+
+    // Delivery: Firebase if configured, otherwise an HTTP endpoint, otherwise a JSON file download
+    // so the organisers still get the registration before a backend exists.
     function deliver(payload) {
+        if (config.firebasePath && window.TRIACE_CONFIG.firebase) {
+            return saveToFirebase(payload);
+        }
+
         if (!config.endpoint) {
             var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
             var url = URL.createObjectURL(blob);
@@ -143,7 +164,7 @@
             })
             .catch(function (err) {
                 setBusy(false);
-                showStatus('Sorry, we could not send your registration (' + err.message + '). Please try again.', true);
+                showStatus('Sorry, we could not send your registration (' + friendlyError(err) + '). Please try again.', true);
             });
     });
 
