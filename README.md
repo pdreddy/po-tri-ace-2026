@@ -112,9 +112,10 @@ The site uses **Firebase Realtime Database** for live scoring and data sync.
 triace-2025/
 ├── index.html          # Home page
 ├── seasons.html        # Season 1 history, Season 2 live, Season 3 coming soon
-├── register.html       # 3-player team registration (Netlify Forms)
+├── register.html       # 3-player team registration (JSON to any endpoint)
 ├── register-success.html # Thank-you page after registering
-├── register.js         # Registration form validation
+├── registration.js     # Registration validation + JSON submit
+├── site-config.js      # Season + registration endpoint settings
 ├── rules.html          # Tournament rules & format
 ├── schedule.html       # Match schedule (placeholder)
 ├── standings.html      # Live Group A & B standings
@@ -165,9 +166,38 @@ triace-2025/
 
 ## ✍️ Team Registration
 
-- `register.html` collects a team of three players (captain + two players) and submits through **Netlify Forms**.
-- Submissions appear in Netlify → **Forms** → `triace-registration` (no backend or database needed).
-- Turn on Netlify form notifications (Site settings → Forms) to get an email for each new team.
+The registration form is independent of the hosting platform. It validates the form in the browser and sends the data as JSON to an endpoint you configure in `site-config.js`:
+
+```js
+registration: {
+    endpoint: 'https://your-backend.example.com/registrations',
+    headers: {},
+    successUrl: 'register-success.html'
+}
+```
+
+- **Empty `endpoint`:** the registration downloads as `triace-registration-<timestamp>.json`, so nothing is lost before a backend exists.
+- **Set `endpoint`:** the form sends a `POST` with `Content-Type: application/json`. Any `2xx` response counts as success.
+
+### Payload contract (`schemaVersion: 1`)
+
+```json
+{
+  "schemaVersion": 1,
+  "season": 2,
+  "seasonName": "TriAce 2026",
+  "submittedAt": "2026-10-26T10:00:00.000Z",
+  "team": { "name": "Net Ninjas or null", "captainEmail": "captain@example.com", "notes": null },
+  "players": [
+    { "role": "captain", "name": "Player One", "phone": "+91 98765 43210" },
+    { "role": "player", "name": "Player Two", "phone": "9876543210" },
+    { "role": "player", "name": "Player Three", "phone": "9123456789" }
+  ],
+  "agreedToRules": true
+}
+```
+
+Keep this contract stable. A future app or backend only needs to accept this JSON.
 
 ## 🔄 Git Workflow (for Auto-Deploy)
 

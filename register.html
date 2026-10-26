@@ -59,17 +59,12 @@
     </section>
 
     <form
+        id="registrationForm"
         class="reg-form"
-        name="triace-registration"
-        method="POST"
-        action="register-success.html"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         novalidate
     >
-        <input type="hidden" name="form-name" value="triace-registration" />
         <p class="hp" aria-hidden="true">
-            <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            <label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label>
         </p>
 
         <section class="card reg-section">
@@ -148,6 +143,7 @@
 
             <div class="form-actions">
                 <button type="submit" class="btn-primary">Register team</button>
+                <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
                 <p class="form-note">Registrations are received by the organisers. You'll be contacted on the captain email.</p>
             </div>
         </section>
@@ -160,7 +156,8 @@
 </main>
 
 <script src="script.js"></script>
-<script src="register.js"></script>
+<script src="site-config.js"></script>
+<script src="registration.js"></script>
 <script src="pwa.js"></script>
 
 </body>

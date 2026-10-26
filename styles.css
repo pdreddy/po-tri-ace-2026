@@ -560,3 +560,8 @@ nav.nav{
   .field-grid{grid-template-columns:1fr;}
   .page-header{padding:1.25rem 1rem;}
 }
+
+/* Registration submit status */
+.form-status{font-weight:700;color:var(--ink);min-height:1.2em;}
+.form-status.is-error{color:#b91c1c;}
+.reg-form button[disabled]{opacity:.6;cursor:wait;transform:none;}
